@@ -2,7 +2,7 @@
 
 
 ## Assigned roles for Sprint 1
-Scrum Master: Ayesha Zafar
+Scrum Master: Ayesha Zafar <br/>
 Product Owner: Ishmal Khalid
 
 
@@ -13,12 +13,12 @@ Therefore, this project is built to be an extensive and dynamic marketplace with
 
 
 ## Core Team Members 
-Ayesha Zafar [GitHub Account: AyeshaZfr](https://github.com/AyeshaZfr) 
-David Iosilevich [GitHub Account: DavidLevich](https://github.com/DavidLevich)
-Ishmal Khalid [GitHub Account: ishmalkhalid](https://github.com/ishmalkhalid)
-Jingjing Liu [GitHub Account: heyitsjj](https://github.com/heyitsjj)
-Yusra Khan [GitHub Account: yusra-khan](https://github.com/yusra-khan)
-Zunair Viqar [GitHub Account: Zunairviqar](https://github.com/Zunairviqar)
+Ayesha Zafar [GitHub Account: AyeshaZfr](https://github.com/AyeshaZfr) <br/>
+David Iosilevich [GitHub Account: DavidLevich](https://github.com/DavidLevich) <br/>
+Ishmal Khalid [GitHub Account: ishmalkhalid](https://github.com/ishmalkhalid) <br/>
+Jingjing Liu [GitHub Account: heyitsjj](https://github.com/heyitsjj) <br/>
+Yusra Khan [GitHub Account: yusra-khan](https://github.com/yusra-khan) <br/>
+Zunair Viqar [GitHub Account: Zunairviqar](https://github.com/Zunairviqar) 
 
 
 ## History of the Project & How to Contribute 
