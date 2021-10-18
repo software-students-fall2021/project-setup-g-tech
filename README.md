@@ -40,10 +40,13 @@ If you are interested in our project and would like to contributt, please see th
 
 
 ## Other Relevant Markdown documents or Web Pages 
-
+(No relevant documents or web pages for now. To be updated)
 
 ## Any Other Notes 
+(No notes for now. To be updated)
 
+
+#### Initial Instructions
 This repository will be used for team projects.
 
 Several sets of instructions are included in this repository. They should each be treated as separate assignments with their own due dates and sets of requirements.
