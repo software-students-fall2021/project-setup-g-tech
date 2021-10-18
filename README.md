@@ -1,4 +1,4 @@
-# Project Repository
+# Project: Saverie by G-Tech
 
 
 ## Assigned roles for Sprint 1
@@ -46,7 +46,7 @@ If you are interested in our project and would like to contributt, please see th
 (No notes for now. To be updated)
 
 
-#### Initial Instructions
+## Initial Instructions from Prof
 This repository will be used for team projects.
 
 Several sets of instructions are included in this repository. They should each be treated as separate assignments with their own due dates and sets of requirements.
