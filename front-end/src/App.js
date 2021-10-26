@@ -1,3 +1,5 @@
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
+
 import logo from './logo.svg';
 import './App.css';
 import LogoSection from './components/LogoSection/LogoSection';
@@ -6,17 +8,28 @@ import AboutSection from './components/AboutSection/AboutSection';
 import Partners from './components/Partners/Partners';
 import Footer from './components/Footer/Footer'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Checkout from './components/checkout-page/Checkout';
 
 function App() {
   return (
-    <div>
-      <LogoSection/>
-      <MainCarousel/>
-      <AboutSection/>
-      <Partners/>
-      <Footer/>
-    </div>
+    <BrowserRouter>
+      <Switch>
+
+        <Route path="/checkout">
+          <Checkout/>
+        </Route>
+
+        
+        <Route path="/">
+          <LogoSection/>
+          <MainCarousel/>
+          <AboutSection/>
+          <Partners/>
+          <Footer/>
+        </Route>
+        
+      </Switch>
+    </BrowserRouter>
   );
 }
 
