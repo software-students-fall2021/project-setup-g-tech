@@ -1,0 +1,44 @@
+.header {
+    display: flex;
+}
+
+.searchbar {
+    width: 75%;
+    margin: auto;
+}
+
+#searchtext {
+    border-right: hidden;
+}
+
+#searchicon {
+    background-color: white;
+    cursor: pointer;
+}
+
+.user {
+    width: 60px;
+    margin: auto;
+    cursor: pointer;
+}
+
+.news-title {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-bottom: -10px;
+}
+
+.sort {
+    display: flex;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#sorttitle {
+    margin-right: 10px;
+}
+
+#sorticon {
+    margin-top: 6px;
+}
