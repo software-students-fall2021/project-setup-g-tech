@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import Restaurants from "../Restaurants/Restaurants";
 import axios from "axios";
 import "./SavedDistributors.css";
@@ -21,8 +21,8 @@ function SavedDistributors() {
   return (
     <div className="savedListContainer">
       <div className="listHeading">
-        <Link to='/usermenu'>
-          <p className="backToMainPage"> &lt; </p>
+        <Link to="/usermenu">
+          <button className="backToMainPage"> &lt; </button>
         </Link>
         <h1 className="pageTitle"> Saved Distributors </h1>
       </div>

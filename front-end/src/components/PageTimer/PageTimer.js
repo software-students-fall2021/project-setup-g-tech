@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import Timer from "../Timer/Timer";
 import "./PageTimer.css";
 
@@ -7,8 +7,8 @@ function PageTimer() {
   return (
     <div className="pageTimerContainer">
       <div className="timerHeading">
-        <Link to='/usermenu'> 
-          <p className="goBack"> &lt; </p>
+        <Link to="/usermenu">
+          <button className="goBack"> &lt; </button>
         </Link>
         <h1 className="timerTitle"> Order Confirmed </h1>
       </div>
@@ -27,7 +27,7 @@ function PageTimer() {
           please cancel the order.
         </p>
       </div>
-      <Link to='/usermenu'>
+      <Link to="/usermenu">
         <button className="cancelOrderBtn"> Cancel </button>
       </Link>
     </div>

@@ -13,6 +13,7 @@
   font-size: 20px;
   flex-grow: 4;
   margin: auto;
+  margin-top: 10px;
   text-align: center;
 
   position: absolute;
@@ -28,6 +29,8 @@
   text-align: left;
   margin: auto;
   color: #696969;
+  background-color: white;
+  border: none;
 
   font-weight: bolder;
 }
