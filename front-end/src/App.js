@@ -13,7 +13,6 @@ import LandingPage from './components/LandingPage/LandingPage';
 import Register from './components/register-page/Register';
 import Signin from './components/Sign-in/Signin';
 import MenuPage from './components/menu-page/menu-page';
-import UserMenu from './components/UserMenu/UserMenu';
 import PageTimer from './components/PageTimer/PageTimer'; 
 import SavedDistributors from './components/SavedDistributors/SavedDistributors'; 
 
@@ -31,10 +30,6 @@ const App = () => {
 
           <Route path="/register">
             <Register/>
-          </Route>
-
-          <Route path="/usermenu">
-            <UserMenu />
           </Route>
           
         <Route path="/signin">
