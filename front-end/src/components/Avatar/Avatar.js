@@ -21,9 +21,11 @@ const Avatar = (props) => {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Restaurants
-                    </Button>
+                    <Link to='/saveddistributors'>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Restaurants
+                        </Button>
+                    </Link>
                     <Link to='/'>
                         <Button variant="secondary" onClick={handleClose}>
                             Log Out

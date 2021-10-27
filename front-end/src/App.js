@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Checkout from './components/checkout-page/Checkout';
 import Register from './components/register-page/Register';
 import MenuPage from './components/menu-page/menu-page';
+import UserMenu from './components/UserMenu/UserMenu';
 import PageTimer from './components/PageTimer/PageTimer'; 
 import SavedDistributors from './components/SavedDistributors/SavedDistributors'; 
 
@@ -17,29 +18,29 @@ const App = () => {
   return (
       <BrowserRouter>
         <Switch>
-
           <Route path="/checkout">
             <Checkout/>
           </Route>
-          {/* <Route path="/menu">
+
+          <Route path="/menu">
             <MenuPage/>
-          </Route> */}
+          </Route>
 
           <Route path="/register">
             <Register/>
           </Route>
 
-        <Route path="/register">
-          <Register/>
-        </Route>
+          <Route path="/usermenu">
+            <UserMenu />
+          </Route>
 
-        <Route path="/saveddistributors"> 
-          <SavedDistributors /> 
-        </Route>
+          <Route path="/saveddistributors"> 
+            <SavedDistributors /> 
+          </Route>
 
-        <Route path="/pagetimer"> 
-          <PageTimer /> 
-        </Route>
+          <Route path="/pagetimer"> 
+            <PageTimer /> 
+          </Route>
           
           <Route path="/">
               <LogoSection/>
