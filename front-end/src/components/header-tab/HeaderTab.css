@@ -16,14 +16,14 @@ section {
     font-size: large;
 }
 
-.text-center{
+.custom-text-center{
     text-align: center;
 }
 
-.row{
+.custom-row{
     display: flex;
 }
 
-.justify-content-center{
+.custom-justify-content-center{
     justify-content: center;
 }
