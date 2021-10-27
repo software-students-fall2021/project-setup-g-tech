@@ -5,8 +5,10 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 const HeaderTab = (props) => {
     return (
         <div className='HeaderTab'>
-            <FontAwesomeIcon icon={faChevronLeft} />
-            <h1>{props.pageTitle}</h1>
+            <section className="row justify-content-center">
+                <p className='page-title text-center'>{props.pageTitle}</p>
+            </section>
+            <FontAwesomeIcon icon={faChevronLeft} className='back-icon' />
         </div>
     );
 }

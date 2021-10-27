@@ -1,0 +1,10 @@
+.AboutHeading h3{
+    font-size: 20px;
+    text-align: center;
+    padding-top: 30px;
+}
+.AboutContent h5{
+    font-size: 15px;
+    text-align: center;
+    padding: 10px;
+}
