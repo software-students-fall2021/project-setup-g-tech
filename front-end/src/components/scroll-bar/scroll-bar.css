@@ -2,6 +2,8 @@ div.scrollmenu {
     background-color: #333;
     overflow: auto;
     white-space: nowrap;
+    padding: 0px 15px;
+    margin: 10px 0px;
 
   }
   a.menuItem{
