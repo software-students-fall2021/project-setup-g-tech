@@ -1,0 +1,7 @@
+div.top{
+    max-height: 100px !important;
+
+}
+html{
+    height: 0 !important;
+}
