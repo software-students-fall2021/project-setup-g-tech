@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 const ButtonUI = styled(Button)((props) => ({
     color: '#000000',
     padding: '6px 16px',
-    minWidth: '100px',
+    minWidth: props.width,
     textTransform: 'none',
     borderColor: '#000000',
     backgroundColor: '#89dc9f',
