@@ -17,9 +17,9 @@ const Billitem = (props) => {
                     <p className='table-item price'>${props.price}</p>
                 </div>
             </div>
-            <div className='pretotal'>
+            {/* <div className='pretotal'>
                 <p>{toString(pretotal)}</p>
-            </div>
+            </div> */}
         </>
     );
 }
