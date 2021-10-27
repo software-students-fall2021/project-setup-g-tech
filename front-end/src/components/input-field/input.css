@@ -1,0 +1,9 @@
+.form-control {
+    background-color: rgb(238, 237, 237);
+}
+
+.form {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 6px;
+}
