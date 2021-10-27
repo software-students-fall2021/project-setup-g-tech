@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; 
 import Restaurants from "../Restaurants/Restaurants";
 import axios from "axios";
 import "./SavedDistributors.css";
@@ -20,7 +21,9 @@ function SavedDistributors() {
   return (
     <div className="savedListContainer">
       <div className="listHeading">
-        <a className="backToMainPage" href="localhost:3000/usermenu">&lt;</a>
+        <Link to='/usermenu'>
+          <p className="backToMainPage"> &lt; </p>
+        </Link>
         <h1 className="pageTitle"> Saved Distributors </h1>
       </div>
       <hr />
