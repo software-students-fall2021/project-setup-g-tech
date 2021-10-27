@@ -9,6 +9,7 @@ import Partners from './components/Partners/Partners';
 import Footer from './components/Footer/Footer'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Checkout from './components/checkout-page/Checkout';
+import LandingPage from './components/LandingPage/LandingPage';
 
 function App() {
   return (
@@ -21,11 +22,7 @@ function App() {
 
           
           <Route path="/">
-              <LogoSection/>
-              <MainCarousel/>
-              <AboutSection/>
-              <Partners/>
-              <Footer/>
+              <LandingPage/>
           </Route>
           
         </Switch>

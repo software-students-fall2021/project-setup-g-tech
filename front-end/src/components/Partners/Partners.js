@@ -21,6 +21,11 @@ function Partners(){
                     <Col><img src = 'https://picsum.photos/50/50'></img></Col>
                     <Col><img src = 'https://picsum.photos/50/50'></img></Col>
                 </Row>
+                <Row className = "imageRow2">
+                    <Col><img src = 'https://picsum.photos/50/50'></img></Col>
+                    <Col><img src = 'https://picsum.photos/50/50'></img></Col>
+                    <Col><img src = 'https://picsum.photos/50/50'></img></Col>
+                </Row>
             </Container>
         </div>
 
