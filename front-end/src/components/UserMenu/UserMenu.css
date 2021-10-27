@@ -16,10 +16,8 @@
     cursor: pointer;
 }
 
-.user {
-    width: 60px;
-    margin: auto;
-    cursor: pointer;
+.picks-title {
+    margin-left: 10px;
 }
 
 .news-title {
@@ -29,14 +27,9 @@
     margin-bottom: -10px;
 }
 
-.sort {
-    display: flex;
+.toggle {
     margin-right: 10px;
     cursor: pointer;
-}
-
-#sorttitle {
-    margin-right: 10px;
 }
 
 #sorticon {

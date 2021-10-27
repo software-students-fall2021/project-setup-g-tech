@@ -1,8 +1,9 @@
 import Item from '../Item/Item'
-import { InputGroup, FormControl } from 'react-bootstrap'
+import Pick from '../Pick/Pick'
+import Avatar from '../Avatar/Avatar'
+import { InputGroup, FormControl, Dropdown } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faSort } from '@fortawesome/free-solid-svg-icons'
-import userIcon from '../../images/user-icon.png'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import './UserMenu.css'
 
 
@@ -12,10 +13,11 @@ const UserMenu = () => {
       nums.push(i + 1)
    }
 
+   let picks = nums.slice(0, 6).map((n) => <Pick key={n} num={n} />)
    let items = nums.map((n) => <Item key={n} num={n} />)
 
    return (
-      <div>
+      <div className='contianer'>
          <div className='header'>
             <div className='searchbar'>
                <div className='mt-3'>
@@ -31,18 +33,24 @@ const UserMenu = () => {
                   </InputGroup>
                </div>
             </div>
-            <img 
-               src={userIcon} 
-               alt='User Icon' 
-               className='user border rounded-circle mt-3' 
-            />
+            <Avatar />
          </div>
-         <div className='news-title mt-5'>
-            <h4>Newsfeed</h4>
-            <div className='sort'>
-               <h5 id='sorttitle'>Sort</h5>
-               <FontAwesomeIcon id='sorticon' icon={faSort} />
-            </div>
+         <h4 className='picks-title mt-3'>Top Picks for You</h4>
+         <div className='d-flex flex=row flex-nowrap overflow-auto'>
+            {picks}
+         </div>
+         <div className='news-title mt-3'>
+            <h4>Newsfeed</h4>  
+               <Dropdown>
+                  <Dropdown.Toggle className='toggle' variant='secondary' align='end'>
+                     Sort
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                     <Dropdown.Item href="#/action-1">Most Recent</Dropdown.Item>
+                     <Dropdown.Item href="#/action-2">Most Popular</Dropdown.Item>
+                  </Dropdown.Menu>
+               </Dropdown>
+               
          </div>
          {items}
       </div>
