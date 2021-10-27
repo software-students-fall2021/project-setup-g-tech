@@ -1,0 +1,22 @@
+.item {
+    display: flex;
+    margin: 18px;
+    margin-bottom: -13px;
+    cursor: pointer;
+}
+
+.logo {
+    width: 4em;
+    height: 3.5em;
+    border: solid 1px;
+    background-color: grey;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.desc {
+    margin-top: -15px;
+}

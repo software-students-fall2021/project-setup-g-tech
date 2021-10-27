@@ -1,0 +1,19 @@
+.restaurant {
+  display: flex;
+}
+
+.restaurant img {
+  width: 50px;
+  height: 50px;
+}
+
+.restaurant h2 {
+  font-family: sans-serif;
+  font-weight: 550;
+  font-size: 18px;
+  padding-left: 10px;
+}
+
+hr {
+  overflow-x: hidden;
+}

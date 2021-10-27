@@ -1,5 +1,6 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
+// import logo from './logo.svg';
 import './App.css';
 import LogoSection from './components/LogoSection/LogoSection';
 import MainCarousel from './components/Carousel/MainCarousel';
@@ -11,8 +12,10 @@ import Checkout from './components/checkout-page/Checkout';
 import Register from './components/register-page/Register';
 import Signin from './components/Sign-in/Signin';
 import MenuPage from './components/menu-page/menu-page';
+import PageTimer from './components/PageTimer/PageTimer'; 
+import SavedDistributors from './components/SavedDistributors/SavedDistributors'; 
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <Switch>
@@ -24,23 +27,37 @@ function App() {
         <Route path="/menu">
           <MenuPage/>
         </Route>
+          <Route path="/checkout">
+            <Checkout/>
+          </Route>
+          {/* <Route path="/menu">
+            <MenuPage/>
+          </Route> */}
 
-        <Route path="/register">
-          <Register/>
-        </Route>
+          <Route path="/register">
+            <Register/>
+          </Route>
 
         <Route path="/signin">
           <Signin/>
         </Route>
-          
-        <Route path="/">
-            <LogoSection/>
-            <MainCarousel/>
-            <AboutSection/>
-            <Partners/>
-            <Footer/>
+        
+
+        <Route path="/saveddistributors"> 
+          <SavedDistributors /> 
         </Route>
 
+        <Route path="/pagetimer"> 
+          <PageTimer /> 
+        </Route>
+          
+          <Route path="/">
+              <LogoSection/>
+              <MainCarousel/>
+              <AboutSection/>
+              <Partners/>
+              <Footer/>
+          </Route>
         </Switch>
       </BrowserRouter>
   );
