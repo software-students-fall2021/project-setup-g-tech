@@ -9,6 +9,7 @@ import Partners from './components/Partners/Partners';
 import Footer from './components/Footer/Footer'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Checkout from './components/checkout-page/Checkout';
+import LandingPage from './components/LandingPage/LandingPage';
 import Register from './components/register-page/Register';
 import Signin from './components/Sign-in/Signin';
 import MenuPage from './components/menu-page/menu-page';
@@ -52,11 +53,7 @@ const App = () => {
         </Route>
           
           <Route path="/">
-              <LogoSection/>
-              <MainCarousel/>
-              <AboutSection/>
-              <Partners/>
-              <Footer/>
+              <LandingPage/>
           </Route>
         </Switch>
       </BrowserRouter>
