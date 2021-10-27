@@ -1,7 +1,5 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-
-
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import LogoSection from './components/LogoSection/LogoSection';
 import MainCarousel from './components/Carousel/MainCarousel';
@@ -11,9 +9,10 @@ import Footer from './components/Footer/Footer'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Checkout from './components/checkout-page/Checkout';
 import Register from './components/register-page/Register';
-import MenuPage from './components/menu-page/menu-page';
+// import MenuPage from './components/menu-page/menu-page';
+import UserMenu from './components/UserMenu/UserMenu'
 
-function App() {
+const App = () => {
   return (
       <BrowserRouter>
         <Switch>
@@ -21,13 +20,17 @@ function App() {
           <Route path="/checkout">
             <Checkout/>
           </Route>
-          <Route path="/menu">
+          {/* <Route path="/menu">
             <MenuPage/>
+          </Route> */}
+
+          <Route path="/register">
+            <Register/>
           </Route>
 
-        <Route path="/register">
-          <Register/>
-        </Route>
+          <Route path='/usermenu'>
+            <UserMenu />
+          </Route>
           
           <Route path="/">
               <LogoSection/>
@@ -36,7 +39,7 @@ function App() {
               <Partners/>
               <Footer/>
           </Route>
-          </Switch>
+        </Switch>
       </BrowserRouter>
   );
 }
