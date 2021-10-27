@@ -20,10 +20,7 @@ function SavedDistributors() {
   return (
     <div className="savedListContainer">
       <div className="listHeading">
-        {/* To go back to the Main Page 
-                <a href={}> ARROW </a> 
-                ?? how to go back */}
-        <p className="backToMainPage">&lt;</p>
+        <a className="backToMainPage" href="localhost:3000/usermenu">&lt;</a>
         <h1 className="pageTitle"> Saved Distributors </h1>
       </div>
       <hr />

@@ -6,12 +6,9 @@ function PageTimer() {
   return (
     <div className="pageTimerContainer">
       <div className="timerHeading">
-        {/* ?? how to go back */}
-        <p className="goBack" href="./PageTimer">
+        <a className="goBack" href="localhost:3000/usermenu">
           &lt;
-        </p>
-        {/* make a global.css 
-                    ?? */}
+        </a>
         <h1 className="timerTitle"> Order Confirmed </h1>
       </div>
 
@@ -22,7 +19,6 @@ function PageTimer() {
         </p>
 
         <Timer pickUpTime="10" />
-        {/* ?? where to go after time is up */}
 
         <p className="msgAboutCancel">
           If you are unable to collect your order within the given time, it will
@@ -30,7 +26,7 @@ function PageTimer() {
           please cancel the order.
         </p>
       </div>
-      {/* ?? Which page should the used be directed to when they cancel the order */}
+
       <button className="cancelOrderBtn"> Cancel </button>
     </div>
   );

@@ -1,0 +1,14 @@
+.LogoHeading h1{
+    font-size: 30px;
+    color: #89dc9f;
+    text-align: center;
+    padding-top: 40px;
+    font-weight: 900;
+}
+
+.CatchPhrase h2{
+    font-size: 15px;
+    color:black;
+    text-align: center;
+    padding-top: 5px;
+}
