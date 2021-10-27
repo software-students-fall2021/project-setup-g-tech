@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Restaurants from "../components/Restaurants";
+import Restaurants from "../Restaurants/Restaurants";
 import axios from "axios";
-import "./SavedRestaurantList.css";
+import "./SavedDistributors.css";
 
-function SavedRestaurantList() {
+function SavedDistributors() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -44,4 +44,4 @@ function SavedRestaurantList() {
   );
 }
 
-export default SavedRestaurantList;
+export default SavedDistributors;

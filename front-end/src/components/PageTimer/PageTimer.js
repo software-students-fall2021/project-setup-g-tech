@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Timer from "../components/Timer";
+import Timer from "../Timer/Timer";
 import "./PageTimer.css";
 
 function PageTimer() {
