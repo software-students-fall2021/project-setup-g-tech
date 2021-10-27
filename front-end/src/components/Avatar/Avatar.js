@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Modal } from 'react-bootstrap'
 import userIcon from '../../images/user-icon.png'
 import './Avatar.css'
@@ -23,9 +24,11 @@ const Avatar = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Restaurants
                     </Button>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Log Out
-                    </Button>
+                    <Link to='/'>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Log Out
+                        </Button>
+                    </Link>
                 </Modal.Footer>
             </Modal>
         </div>

@@ -1,6 +1,7 @@
 import Item from '../Item/Item'
 import Pick from '../Pick/Pick'
 import Avatar from '../Avatar/Avatar'
+import { Link } from 'react-router-dom'
 import { InputGroup, FormControl, Dropdown } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
