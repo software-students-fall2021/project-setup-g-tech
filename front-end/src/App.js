@@ -1,4 +1,5 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+
 // import logo from './logo.svg';
 import './App.css';
 import LogoSection from './components/LogoSection/LogoSection';
@@ -9,15 +10,23 @@ import Footer from './components/Footer/Footer'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Checkout from './components/checkout-page/Checkout';
 import Register from './components/register-page/Register';
+import Signin from './components/Sign-in/Signin';
 import MenuPage from './components/menu-page/menu-page';
 import PageTimer from './components/PageTimer/PageTimer'; 
 import SavedDistributors from './components/SavedDistributors/SavedDistributors'; 
 
 const App = () => {
   return (
-      <BrowserRouter>
-        <Switch>
+    <BrowserRouter>
+      <Switch>
 
+        <Route path="/checkout">
+          <Checkout/>
+        </Route>
+
+        <Route path="/menu">
+          <MenuPage/>
+        </Route>
           <Route path="/checkout">
             <Checkout/>
           </Route>
@@ -29,9 +38,10 @@ const App = () => {
             <Register/>
           </Route>
 
-        <Route path="/register">
-          <Register/>
+        <Route path="/signin">
+          <Signin/>
         </Route>
+        
 
         <Route path="/saveddistributors"> 
           <SavedDistributors /> 
