@@ -13,6 +13,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 import Register from './components/register-page/Register';
 import Signin from './components/Sign-in/Signin';
 import MenuPage from './components/menu-page/menu-page';
+import UserMenu from './components/UserMenu/UserMenu';
 import PageTimer from './components/PageTimer/PageTimer'; 
 import SavedDistributors from './components/SavedDistributors/SavedDistributors'; 
 
@@ -20,37 +21,33 @@ const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-
-        <Route path="/checkout">
-          <Checkout/>
-        </Route>
-
-        <Route path="/menu">
-          <MenuPage/>
-        </Route>
           <Route path="/checkout">
             <Checkout/>
           </Route>
-          {/* <Route path="/menu">
+
+          <Route path="/menu">
             <MenuPage/>
-          </Route> */}
+          </Route>
 
           <Route path="/register">
             <Register/>
           </Route>
 
+          <Route path="/usermenu">
+            <UserMenu />
+          </Route>
+          
         <Route path="/signin">
           <Signin/>
         </Route>
         
+          <Route path="/saveddistributors"> 
+            <SavedDistributors /> 
+          </Route>
 
-        <Route path="/saveddistributors"> 
-          <SavedDistributors /> 
-        </Route>
-
-        <Route path="/pagetimer"> 
-          <PageTimer /> 
-        </Route>
+          <Route path="/pagetimer"> 
+            <PageTimer /> 
+          </Route>
           
           <Route path="/">
               <LandingPage/>

@@ -27,8 +27,9 @@ function PageTimer() {
           please cancel the order.
         </p>
       </div>
-
-      <button className="cancelOrderBtn"> Cancel </button>
+      <Link to='/usermenu'>
+        <button className="cancelOrderBtn"> Cancel </button>
+      </Link>
     </div>
   );
 }
