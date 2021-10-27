@@ -1,6 +1,5 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import LogoSection from './components/LogoSection/LogoSection';
 import MainCarousel from './components/Carousel/MainCarousel';
@@ -14,7 +13,7 @@ import MenuPage from './components/menu-page/menu-page';
 import PageTimer from './components/PageTimer/PageTimer'; 
 import SavedDistributors from './components/SavedDistributors/SavedDistributors'; 
 
-function App() {
+const App = () => {
   return (
       <BrowserRouter>
         <Switch>
@@ -22,8 +21,12 @@ function App() {
           <Route path="/checkout">
             <Checkout/>
           </Route>
-          <Route path="/menu">
+          {/* <Route path="/menu">
             <MenuPage/>
+          </Route> */}
+
+          <Route path="/register">
+            <Register/>
           </Route>
 
         <Route path="/register">
@@ -45,7 +48,7 @@ function App() {
               <Partners/>
               <Footer/>
           </Route>
-          </Switch>
+        </Switch>
       </BrowserRouter>
   );
 }
