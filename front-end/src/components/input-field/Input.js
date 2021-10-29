@@ -8,9 +8,10 @@ const Input = (props) => {
         <Form className="Input">
             <Form.Group className="form">
                 <Form.Label className='title'>{props.title}</Form.Label>
-                <Form.Control className='field' type={props.type} placeholder={props.placeholder} />
+                <Form.Control type={props.type} placeholder={props.placeholder} />
             </Form.Group>
-        </Form></>
+        </Form>
+       </>
     );
 }
 

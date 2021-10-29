@@ -2,6 +2,10 @@ section {
     display: inline-block;
 }
 
+.backIcon {
+    width: 10%;
+}
+
 .back-icon {
     display: inline-block;
     padding-inline-start: 20px;
@@ -9,11 +13,14 @@ section {
     position: absolute;
     top: 20px;
     transform: scale(1.2);
+    width: 10%;
+    box-sizing: unset;
 }
 
 .page-title {
     display: inline-block;
     font-size: large;
+    margin-top: 1rem;
 }
 
 .custom-text-center{

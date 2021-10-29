@@ -1,52 +1,83 @@
 # Project: Saverie by G-Tech
 
-
 ## Assigned roles for Sprint 1
+
 Scrum Master: Ayesha Zafar <br/>
 Product Owner: Ishmal Khalid
 
+## Description of the Project
 
-## Description of the Project 
-Every year about 40 million tons of food in the United States ends up in landfills. This equates to approximately 40% of the entire US food supply ([source](https://www.rts.com/resources/guides/food-waste-america/)). Restaurants and other food businesses are big contributors to these numbers as, at the end of the day, there is bound to be leftover food that inevitably goes to waste. <br/> 
+Every year about 40 million tons of food in the United States ends up in landfills. This equates to approximately 40% of the entire US food supply ([source](https://www.rts.com/resources/guides/food-waste-america/)). Restaurants and other food businesses are big contributors to these numbers as, at the end of the day, there is bound to be leftover food that inevitably goes to waste. <br/>
 
-Therefore, this project is built to be an extensive and dynamic marketplace with restaurants, bakeries, cafes and other businesses in the food industry. It serves to any food suppliers and to anyone else with access to the internet as a consumer. It will allow for food business to log any food items that are available with them, and would rather go to waste, to be viewed by the general population that could potentially consume it to reduce wastage.
+Therefore, this project is built to be an extensive and dynamic marketplace with restaurants, bakeries, cafes and other businesses in the food industry. It serves to any food suppliers and to anyone else with access to the internet as a consumer. It will allow for food business to log any food items that are available with them, and would rather go to waste, to be viewed by the general population that could potentially consume it to reduce wastage.<br/>
+<br/>
 
+## Core Team Members
 
-## Core Team Members 
 Ayesha Zafar [GitHub Account: AyeshaZfr](https://github.com/AyeshaZfr) <br/>
 David Iosilevich [GitHub Account: DavidLevich](https://github.com/DavidLevich) <br/>
 Ishmal Khalid [GitHub Account: ishmalkhalid](https://github.com/ishmalkhalid) <br/>
 Jingjing Liu [GitHub Account: heyitsjj](https://github.com/heyitsjj) <br/>
 Yusra Khan [GitHub Account: yusra-khan](https://github.com/yusra-khan) <br/>
-Zunair Viqar [GitHub Account: Zunairviqar](https://github.com/Zunairviqar) 
+Zunair Viqar [GitHub Account: Zunairviqar](https://github.com/Zunairviqar) <br/>
+<br/>
 
+## History of the Project & How to Contribute
 
-## History of the Project & How to Contribute 
-### History 
+### History
+
 As study away students on a tight budget, we have to manage our budgets very carefully. On top of that, we watched two instances of food wastage unfold infront of us which made us want to develop an application which could benefit everyone simultaneously. <br/>
 
 In only our first week in New York, as we embarked on our search for Halal Food, we came across a restaurant called Holy Cow. As we finished up our meal, the restaurant owner reached out to us with an offer to take 3 burgers, if we wish to, for free. Upon inquiry, since the free offer came off as a surprise, the owner told us that someone had placed an order but they never showed up to receive it. As the food may have gone to waste otherwise, we were offered without any charge.<br/>
 
 Only a week later after the aforementioned case, we arrived at a 7 Eleven franchise looking for Pizzas. However, we were met with another surprise as the attendee informed us that they had trashed the pizzas only a few minutes back since no came to pick them up. <br/>
 
-At this point, we wished there was a platform that provides accessibility to the general population with an opportunity to receive and consume food that would otherwise go to waste. This would help reduce the wastage of food, as well as allow restaurants to rather sell the food for a very discounted price to cover the losses, or even give it away for free. It branches opportunities like those of immediate consumption for even shelf items that are closing to expiry. <br/> 
+At this point, we wished there was a platform that provides accessibility to the general population with an opportunity to receive and consume food that would otherwise go to waste. This would help reduce the wastage of food, as well as allow restaurants to rather sell the food for a very discounted price to cover the losses, or even give it away for free. It branches opportunities like those of immediate consumption for even shelf items that are closing to expiry. <br/>
 
-### To Contribute 
-If you are interested in our project and would like to contributt, please see the [CONTRIBUTING](https://github.com/software-students-fall2021/project-setup-g-tech/blob/master/CONTRIBUTING.md) file. Thank you! 
+### To Contribute
 
+If you are interested in our project and would like to contributt, please see the [CONTRIBUTING](https://github.com/software-students-fall2021/project-setup-g-tech/blob/master/CONTRIBUTING.md) file. Thank you! <br/>
+<br/>
 
-## Instructions for Building and Testing the Project 
-(To be updated once the project reaches this stage) 
+## Instructions for Building and Testing the Project
 
+(To be updated once the project reaches this stage) <br/>
+<br/>
 
-## Other Relevant Markdown documents or Web Pages 
-(No relevant documents or web pages for now. To be updated)
+## Other Relevant Markdown Documents or Web Pages
 
-## Any Other Notes 
-(No notes for now. To be updated)
+(No relevant documents or web pages for now. To be updated) <br/>
+<br/>
 
+## Any Other Notes
+
+(No notes for now. To be updated)<br/>
+<br/>
+
+## Instructions on How to Set Up and Run the Front-End Project
+
+### Step 1: Forking and Cloning
+
+To make sure that the original copy of the project is not affected, please: <br/>
+
+- navigate to the [project-setup-g-tech repository](https://github.com/software-students-fall2021/project-setup-g-tech) and fork the repository by clicking the "Fork" button in the top right corner; <br/>
+- clone your forked repository to your local computer using "git clone {HTTPS address of the repo}" <br/>
+
+### Step 2: Install Node.js
+
+Since React.js, the tool used in building the front-end of the project, is built to run in it, one must first [install Node.js](https://nodejs.org/en/). <br />
+
+### Step 3: Run "npm install" inside of the front-end folder on terminal to install all dependencies written in package.json
+
+Some dependencies used in the front-end of the project include: Boostrap for React, Material UI, Font Awesome, Axios, etc. By runing "npm install," all dependencies used in the project will be installed. <br/>
+
+### Step 4: Run "npm start" on terminal within the front-end folder to run the front-end
+
+Run "npm start" on terminal within the front-end folder to run the front-end of the project. <br/>
+<br/>
 
 ## Initial Instructions from Prof
+
 This repository will be used for team projects.
 
 Several sets of instructions are included in this repository. They should each be treated as separate assignments with their own due dates and sets of requirements.

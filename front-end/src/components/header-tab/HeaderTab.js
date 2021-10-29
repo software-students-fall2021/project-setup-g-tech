@@ -8,7 +8,9 @@ const HeaderTab = (props) => {
             <section className="custom-row custom-justify-content-center">
                 <p className='page-title custom-text-center'>{props.pageTitle}</p>
             </section>
-            <FontAwesomeIcon icon={faChevronLeft} className='back-icon' />
+            <div className="backIcon">
+                <FontAwesomeIcon icon={faChevronLeft}  className='back-icon' />
+            </div>
         </div>
     );
 }
