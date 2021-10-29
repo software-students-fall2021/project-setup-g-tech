@@ -1,0 +1,31 @@
+.AboutBlock{
+    background-color: white;
+    margin: 0;
+}
+.AboutMainHeading h3{
+    font-family: SaverieFont;
+    font-size: 27px;
+    text-align: center;
+    padding-top: 20px;
+    /* padding-bottom: 20px; */
+    /* text-decoration:underline; */
+}
+
+.AboutHeading h4{
+    font-family: SaverieFont;
+    font-size: 20px;
+    /* text-align: center; */
+    padding: 10px;
+}
+
+.AboutContent h5{
+    font-size: 14px;
+    padding-right: 25px;
+}
+.AboutImage{
+    width: 40px;
+}
+.HeaderRow{
+    padding-left: 20px;
+    padding-top: 10px;
+}

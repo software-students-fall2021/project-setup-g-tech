@@ -3,19 +3,13 @@ import './LogoSection.css';
 function LogoSection(){
     return (
         <div>
-            <div className="LogoBlock">
-                <div className = "LogoHeading">
-                    <h1>Saverie</h1>
-                </div>
-                <div className = "CatchPhrase">
-                    <h2>Eat more, Waste less</h2>
-                </div>
+            <div className = "LogoHeading">
+                <h1>SAVERIE</h1>
             </div>
-            <div className = "LogoPlaceHolder">
-
+            <div className = "CatchPhrase">
+                <h2>Eat more, Waste less</h2>
             </div>
         </div>
-
 
     );
 };
