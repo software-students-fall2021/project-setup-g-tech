@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Timer from "../Timer/Timer";
+import HeaderTab from "../header-tab/HeaderTab";
 import "./PageTimer.css";
 
 function PageTimer() {
   return (
     <div className="pageTimerContainer">
-      <div className="timerHeading">
-        <Link to="/usermenu">
-          <button className="goBack"> &lt; </button>
-        </Link>
-        <h1 className="timerTitle"> Order Confirmed </h1>
-      </div>
+      <HeaderTab pageTitle="Order Confirmed"/>
 
       <div className="timerContent">
         <p className="successMsg">

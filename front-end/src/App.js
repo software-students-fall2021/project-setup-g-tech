@@ -20,18 +20,18 @@ const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-          <Route path="/checkout">
-            <Checkout/>
-          </Route>
+        <Route path="/checkout">
+          <Checkout/>
+        </Route>
 
-          <Route path="/menu">
-            <MenuPage/>
-          </Route>
+        <Route path="/menu">
+          <MenuPage/>
+        </Route>
 
-          <Route path="/register">
-            <Register/>
-          </Route>
-          
+        <Route path="/register">
+          <Register/>
+        </Route>
+        
         <Route path="/signin">
           <Signin/>
         </Route>
@@ -40,19 +40,19 @@ const App = () => {
           <UserMenu />
         </Route>
         
-          <Route path="/saveddistributors"> 
-            <SavedDistributors /> 
-          </Route>
+        <Route path="/saveddistributors"> 
+          <SavedDistributors /> 
+        </Route>
 
-          <Route path="/pagetimer"> 
-            <PageTimer /> 
-          </Route>
-          
-          <Route path="/">
-              <LandingPage/>
-          </Route>
-        </Switch>
-      </BrowserRouter>
+        <Route path="/pagetimer"> 
+          <PageTimer /> 
+        </Route>
+        
+        <Route path="/">
+          <LandingPage/>
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 

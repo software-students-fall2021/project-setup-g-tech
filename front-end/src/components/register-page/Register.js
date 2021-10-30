@@ -7,7 +7,7 @@ import './Register.css';
 const Register = (props) => {
     return (
         <div className="Register">
-             <b><HeaderTab pageTitle="Let's begin!"/></b>
+             <HeaderTab pageTitle="Let's begin!"/>
              <div className="fields">
                 <Input title="First Name" type='text' placeholder='Jane'/>
                 <Input title="Last Name" type='text' placeholder='Miller'/>
