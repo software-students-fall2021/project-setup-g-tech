@@ -7,7 +7,7 @@ import './signin.css';
 const Signin = (props) => {
     return (
         <div className="Signin">
-             <b><HeaderTab pageTitle="Sign in"/></b>
+             <HeaderTab pageTitle="Sign in"/>
              <div className="fields">
                 <Input title="Email" type='email' placeholder='name@example.com'/>
                 <Input title="Password" type='password' placeholder='*******'/>

@@ -13,7 +13,7 @@ function AboutSection(){
             </div>
 
             <Row className = "HeaderRow">
-                <Col xs = {2}>
+                <Col xs ={1}>
                     <img className = "AboutImage" src={bulb}></img>
                 </Col>
 
@@ -32,7 +32,7 @@ function AboutSection(){
             </Row>
 
             <Row className = "HeaderRow">
-                <Col xs = {2}>
+                <Col xs = {1}>
                     <img className = "AboutImage" src={mission}></img>
                 </Col>
 
@@ -51,7 +51,7 @@ function AboutSection(){
             </Row>
 
             <Row className = "HeaderRow">
-                <Col xs = {2}>
+                <Col xs = {1}>
                     <img className = "AboutImage" src={bulb}></img>
                 </Col>
 
