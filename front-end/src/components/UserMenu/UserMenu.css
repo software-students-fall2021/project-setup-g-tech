@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
 .header {
     display: flex;
 }
@@ -34,4 +36,12 @@
 
 #sorticon {
     margin-top: 6px;
+}
+
+div {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+h4 {
+    font-weight: bold;
 }
