@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
 @font-face {
     font-family: SaverieFont;
-    /* src: url(../../Pacifico-Regular.ttf); */
-  }
+    src: url(../../Pacifico-Regular.ttf);
+}
 
 .LogoBlock{
     position: fixed;
@@ -25,6 +27,7 @@
 }
 
 .CatchPhrase h2{
+    font-family: 'Josefin Sans', sans-serif;
     font-size: 15px;
     color:white;
     text-align: center;
