@@ -3,28 +3,32 @@
 .AboutBlock{
     background-color: white;
     margin: 0;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    margin-top: -20px;
 }
 .AboutMainHeading h3{
     font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
     font-size: 27px;
     text-align: center;
-    padding-top: 20px;
-    /* padding-bottom: 20px; */
-    /* text-decoration:underline; */
+    padding-top: 30px;
+}
+
+.AboutRows{
+    max-width: 95%;
 }
 
 .AboutHeading h4{
     font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
     font-size: 20px;
-    /* text-align: center; */
     padding: 10px;
 }
 
 .AboutContent h5{
     font-size: 14px;
-    padding-right: 25px;
+    /* padding-right: 25px; */
 }
 .AboutImage{
     width: 40px;

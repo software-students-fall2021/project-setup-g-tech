@@ -12,6 +12,7 @@ function AboutSection(){
                 <h3>Learn About Us</h3>
             </div>
 
+            <div className = "AboutRows">
             <Row className = "HeaderRow">
                 <Col xs ={1}>
                     <img className = "AboutImage" src={bulb}></img>
@@ -68,6 +69,8 @@ function AboutSection(){
                     </div>
                 </Col>
             </Row>
+
+            </div>
 
 
         </div>
