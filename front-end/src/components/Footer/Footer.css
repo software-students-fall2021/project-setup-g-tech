@@ -9,3 +9,6 @@
     width: 100%;
     text-align:center;
   }
+  .footer a{
+    text-decoration: none;
+  }
