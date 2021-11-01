@@ -1,26 +1,28 @@
 .round-img{
     border-radius: 100%;
-    width: 50px;
-    height: 50px;
-    padding: 2%;
+    width: 60px;
+    height: 60px;
 }
 .card{
     border: 0.5px solid lightgray;
     border-radius: 10px;
     margin: 0px 10px;
 
-
 }
-
+.menuItems{
+    width: 100%;
+    margin: 0px 10px;
+}
 .card-row{
-
     padding: 10px;
 }
 h5.cardtitle{
     margin: 0;
+    font-size: 16px;
 }
 
 
 p.cardprice{
     margin: 0;
+    font-size: 14px;
 }

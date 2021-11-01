@@ -22,6 +22,7 @@ const MenuCard = (props) => {
                                   
                     </Col>
                 </Row>
+                
             </Container>   
         </div>
         
