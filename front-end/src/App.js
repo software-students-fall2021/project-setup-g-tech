@@ -51,6 +51,7 @@ const App = () => {
         <Route path="/">
           <LandingPage/>
         </Route>
+        
       </Switch>
     </BrowserRouter>
   );

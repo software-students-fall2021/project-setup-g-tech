@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
 section {
     display: inline-block;
 }
 
 .backIcon {
     width: 10%;
+}
+
+.back-icon{
+    color: black !important;
 }
 
 .back-icon {
@@ -18,6 +24,7 @@ section {
 }
 
 .page-title {
+    font-family: 'Josefin Sans', sans-serif;
     display: inline-block;
     font-size: large;
     margin-top: 1rem;
