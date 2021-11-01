@@ -28,7 +28,7 @@ const MenuPage = () => {
 
             {menuItems.map(menuItems => (
                 <div>
-                    {menuItems}
+                    <div className='menuItems'>{menuItems}</div>
                     {menuCards.map(menuCard => (
                         <div>{menuCard}</div>
                         
