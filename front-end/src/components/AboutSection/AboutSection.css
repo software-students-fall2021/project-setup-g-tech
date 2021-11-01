@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
 .AboutBlock{
     background-color: white;
     margin: 0;
 }
 .AboutMainHeading h3{
-    font-family: SaverieFont;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: bold;
     font-size: 27px;
     text-align: center;
     padding-top: 20px;
@@ -12,7 +15,8 @@
 }
 
 .AboutHeading h4{
-    font-family: SaverieFont;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: bold;
     font-size: 20px;
     /* text-align: center; */
     padding: 10px;

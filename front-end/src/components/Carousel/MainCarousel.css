@@ -1,4 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
 .MainPageCarousel{
     padding-top: 25px;
     background-color: white;
+}
+
+h3, p{
+    font-family: 'Josefin Sans', sans-serif;
 }
