@@ -11,9 +11,9 @@ function LandingPage(){
       <div className = "LandingPage">
         <LogoSection/>
         <AboutSection/>
-        <MainCarousel/>
-        <Partners/>
-        <Footer/>
+        {/* <MainCarousel/> */}
+        {/* <Partners/> */}
+        {/* <Footer/> */}
       </div>
     );
 };

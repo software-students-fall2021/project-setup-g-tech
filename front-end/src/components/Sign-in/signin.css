@@ -6,6 +6,23 @@
     text-decoration: none;
 }
 
+.button Input{
+    color: #ffffff;
+    padding: 6px 16px;
+    min-width: 240px;
+    text-transform: none;
+    /* border-color: #000000; */
+    background-color: #9cc9a8;
+    border-radius: 30px;
+    margin: 5px;
+    box-shadow: 0px 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.button Input:hover {
+    background-color: #89dc9f;
+    color: #ffffff;
+}
+
 .fields {
     padding-top: 20px;
 }
