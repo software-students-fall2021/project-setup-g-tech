@@ -6,7 +6,7 @@ const Checkout = (props) => {
     return (
 
         <div className='Checkout'>
-            <HeaderTab pageTitle='Check Out'/>
+            <HeaderTab pageTitle='Check Out' returnPath = "/menu"/>
             <div className='heading'>
                 <h2>Order Confirmation</h2>
             </div>

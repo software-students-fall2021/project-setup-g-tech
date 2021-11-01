@@ -2,6 +2,9 @@
     text-align: center;
     padding-top: 20px;
 }
+.button a{
+    text-decoration: none;
+}
 
 .fields {
     padding-top: 20px;

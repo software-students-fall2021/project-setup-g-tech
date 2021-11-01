@@ -8,6 +8,10 @@ section {
     width: 10%;
 }
 
+.back-icon{
+    color: black !important;
+}
+
 .back-icon {
     display: inline-block;
     padding-inline-start: 20px;
