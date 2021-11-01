@@ -10,10 +10,10 @@ const Billitem = (props) => {
                 <div className='col-4'>
                     <p className='table-item quantity'>{props.quantity}x</p>
                 </div>
-                <div className='col-2'>
+                <div className='my-col-2'>
                     <p className='table-item item-name'>{props.itemName}</p>
                 </div>
-                <div className='col-4'>
+                <div className='my-col-4'>
                     <p className='table-item price'>${props.price}</p>
                 </div>
             </div>

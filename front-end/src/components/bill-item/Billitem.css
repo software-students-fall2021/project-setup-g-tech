@@ -11,12 +11,12 @@
     justify-content: center;
 }
 
-.col-4 {
+.my-col-4 {
     width: 20%;
     text-align: right;
 }
 
-.col-2 {
+.my-col-2 {
     width: 60%;
 }
 
