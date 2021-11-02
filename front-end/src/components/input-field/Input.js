@@ -5,12 +5,20 @@ import './input.css';
 const Input = (props) => {
     return (
         <>
-        <Form className="Input">
+        {/* <Form className="Input">
             <Form.Group className="form">
                 <Form.Label className='title'>{props.title}</Form.Label>
-                <Form.Control type={props.type} placeholder={props.placeholder} />
+                <Form.Control name={props.name} type={props.type} placeholder={props.placeholder} />
             </Form.Group>
-        </Form>
+        </Form> */}
+        {/* <form className="Input"> */}
+        <div className="form-group form">
+            <label className='title form-label'>{props.title}</label>
+            <div>
+            <input className="form-control inputs" name={props.name} type={props.type} placeholder={props.placeholder}/>
+            </div>
+        </div>
+        {/* </form> */}
        </>
     );
 }
