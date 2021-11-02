@@ -20,9 +20,9 @@ function LandingPage(){
     return (
       <div className = "LandingPage">
         <LogoSection/>
-        <div class = "ContentSection">
+        <div className = "ContentSection">
           <AboutSection/>
-          {/* <MainCarousel/> */}
+          <MainCarousel/>
           <Partners/>
         </div>
 
