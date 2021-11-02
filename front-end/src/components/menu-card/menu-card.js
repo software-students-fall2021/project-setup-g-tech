@@ -15,7 +15,7 @@ const MenuCard = (props) => {
                     </Col>
                     <Col>
                         <h5 className="cardtitle">{props.title}</h5>
-                        <p className="cardprice">{props.price}</p>           
+                        <p className="cardprice"><strong>$</strong>{props.price}</p>           
                     </Col>
                     <Col>
                         <Counter/>
