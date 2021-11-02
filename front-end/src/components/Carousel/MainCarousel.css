@@ -8,3 +8,11 @@
 h3, p{
     font-family: 'Josefin Sans', sans-serif;
 }
+.CarouselHeading h3{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    padding-top: 10px;
+    /* padding-bottom: 15px; */
+}
