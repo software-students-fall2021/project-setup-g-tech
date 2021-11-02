@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Timer from "../Timer/Timer";
 import HeaderTab from "../header-tab/HeaderTab";
+import ButtonUI from "../button/button";
 import "./PageTimer.css";
 
 function PageTimer() {
@@ -25,9 +26,11 @@ function PageTimer() {
           please cancel the order.
         </p>
       </div>
-      <Link to="/usermenu">
-        <button className="cancelOrderBtn"> Cancel </button>
-      </Link>
+      <div className='cancelOrderBtn'>
+        <Link to="/usermenu">
+          <ButtonUI radius = '30px' width= '130px'> Cancel </ButtonUI>
+        </Link>
+      </div>  
     </div>
   );
 }

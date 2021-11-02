@@ -1,7 +1,10 @@
-import './Checkout.css';
+import { Link } from "react-router-dom";
 import HeaderTab from '../header-tab/HeaderTab';
 import Billitem from '../bill-item/Billitem';
 import TimerSelect from '../TimerSelect/TimerSelect';
+import ButtonUI from "../button/button";
+import './Checkout.css';
+
 
 const Checkout = (props) => {
     return (
@@ -21,6 +24,11 @@ const Checkout = (props) => {
 
             <h4>Pick-up Time</h4>
             <TimerSelect />
+            <div className='checkoutButton'>
+                <Link to="/PageTimer">
+                    <ButtonUI radius = '30px' width= '130px'> Checkout </ButtonUI>
+                </Link>
+            </div>
 
         </div>
     );
