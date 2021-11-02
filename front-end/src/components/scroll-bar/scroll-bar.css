@@ -3,7 +3,8 @@ div.scrollmenu {
     overflow: auto;
     white-space: nowrap;
     padding: 0px 15px;
-    margin: 10px 0px;
+    margin-bottom: 4px;
+
 
   }
   a.menuItem{
@@ -15,12 +16,12 @@ div.scrollmenu {
     display: inline-block;
     color: white;
     text-align: center;
-    /* padding: 14px; */
     text-decoration: none;
   }
   
   div.scrollmenu a:hover {
     background-color: #777;
+    border-radius: 8px;
   }
   ul.menuItem02{
       margin: 0;
