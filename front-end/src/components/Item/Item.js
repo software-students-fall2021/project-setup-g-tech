@@ -6,10 +6,10 @@ const Item = (props) => {
         <div>
             <hr />
             <div className='item'>
-                <div className='logo rounded'></div>
+                <img className='logo rounded' src={props.img} />
                 <div className='container'>
-                    <p className='title'>Distributor #{props.num}</p>
-                    <p className='desc'>Lorem ipsum dolor set amet</p>
+                    <p className='title'>{props.details.name}</p>
+                    <p style={{fontSize: '13px'}} className='desc'>{props.details.location}</p>
                 </div>
             </div>
         </div>
@@ -17,4 +17,3 @@ const Item = (props) => {
 }
     
 export default Item;
-    
