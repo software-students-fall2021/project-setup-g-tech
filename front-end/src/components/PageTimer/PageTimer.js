@@ -5,9 +5,11 @@ import HeaderTab from "../header-tab/HeaderTab";
 import "./PageTimer.css";
 
 function PageTimer() {
+  const timer = sessionStorage.getItem("timer")
+
   return (
     <div className="pageTimerContainer">
-      <HeaderTab pageTitle="Order Confirmed"/>
+      <HeaderTab pageTitle="Order Confirmed" returnPath='/checkout'/>
 
       <div className="timerContent">
         <p className="successMsg">
@@ -15,7 +17,7 @@ function PageTimer() {
           earliest convenience.
         </p>
 
-        <Timer pickUpTime="10" />
+        <Timer pickUpTime={timer} />
 
         <p className="msgAboutCancel">
           If you are unable to collect your order within the given time, it will

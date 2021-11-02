@@ -1,6 +1,7 @@
 import './Checkout.css';
 import HeaderTab from '../header-tab/HeaderTab';
 import Billitem from '../bill-item/Billitem';
+import TimerSelect from '../TimerSelect/TimerSelect';
 
 const Checkout = (props) => {
     return (
@@ -17,6 +18,9 @@ const Checkout = (props) => {
                 <Billitem quantity='1' itemName='Chicken Burger' price='4.77'/>
                 <Billitem quantity='2' itemName='French Fries - L' price='3.99'/>
             </div>
+
+            <h4>Pick-up Time</h4>
+            <TimerSelect />
 
         </div>
     );
