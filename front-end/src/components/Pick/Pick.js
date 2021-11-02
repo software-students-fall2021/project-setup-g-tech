@@ -8,7 +8,7 @@ const Pick = (props) => {
         <div className='container mt-3'>
             <Card className='card' style={{ width: '7em' }}>
                 <Card.Img className='image rounded' variant="top" src={props.img} />
-                <p className='card-title mt-2'>{props.details.restaurant_name}</p>
+                <p className='card-title mt-2'>{props.details.name}</p>
             </Card>
         </div>
     )

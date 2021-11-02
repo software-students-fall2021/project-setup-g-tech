@@ -13,18 +13,18 @@ const UserMenu = () => {
    const [data, setData] = useState([]);
 
    const fetchData = async () => {
-      const response = await axios("https://my.api.mockaroo.com/restaurants.json?key=0b54f900");
-      setData(response.data);
+      const response = await axios('http://localhost:3000/usermenu');
+      setData(response.data)
    }
-   useEffect(fetchData, []);
+   useEffect(fetchData, [])
 
    let picks = data
-      .sort((a, b) => a.restaurant_name.localeCompare(b.restaurant_name))
       .map((pick) => (<Pick key={pick.id} details={pick} img="https://picsum.photos/200" />))
       .slice(0, 8)
 
    let items = data
       .map((item) => (<Item key={item.id} details={item} img="https://picsum.photos/200" />))
+
 
    return (
       <div>
