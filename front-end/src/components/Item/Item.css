@@ -1,3 +1,11 @@
+.link {
+    color: black;
+}
+
+.link:hover {
+    color: black;
+}
+
 .item {
     display: flex;
     margin: 18px;
