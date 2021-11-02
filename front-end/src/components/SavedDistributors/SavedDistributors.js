@@ -21,7 +21,7 @@ function SavedDistributors() {
 
   return (
     <div className="savedListContainer">
-      <HeaderTab pageTitle="Saved Distributors"/>
+      <HeaderTab pageTitle="Saved Distributors" returnPath='/usermenu'/>
       <div className="listContent">
         <section className="restaurants">
           {data

@@ -1,24 +1,33 @@
-import Item from '../Item/Item'
-import Pick from '../Pick/Pick'
-import Avatar from '../Avatar/Avatar'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { InputGroup, FormControl, Dropdown } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios'
+import Item from '../Item/Item'
+import Pick from '../Pick/Pick'
+import Avatar from '../Avatar/Avatar'
 import './UserMenu.css'
 
 
 const UserMenu = () => {
-   let nums = []
-   for (let i = 0; i < 15; i++) {
-      nums.push(i + 1)
-   }
+   const [data, setData] = useState([]);
 
-   let picks = nums.slice(0, 6).map((n) => <Pick key={n} num={n} />)
-   let items = nums.map((n) => <Item key={n} num={n} />)
+   const fetchData = async () => {
+      const response = await axios("https://my.api.mockaroo.com/restaurants.json?key=0b54f900");
+      setData(response.data);
+   }
+   useEffect(fetchData, []);
+
+   let picks = data
+      .sort((a, b) => a.restaurant_name.localeCompare(b.restaurant_name))
+      .map((pick) => (<Pick key={pick.id} details={pick} img="https://picsum.photos/200" />))
+      .slice(0, 8)
+
+   let items = data
+      .map((item) => (<Item key={item.id} details={item} img="https://picsum.photos/200" />))
 
    return (
-      <div className='contianer'>
+      <div>
          <div className='header'>
             <div className='searchbar'>
                <div className='mt-3'>
