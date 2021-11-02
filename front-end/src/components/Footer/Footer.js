@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import ButtonUI from '../button/button';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col' 
+
 function Footer(){
     return (
       <div className = "footer">
@@ -10,14 +11,14 @@ function Footer(){
           <Col>
             <div>
             <Link to='/signin'>
-              <ButtonUI radius = '30px' width= '150px'> Sign Up</ButtonUI>
+              <ButtonUI radius = '30px' width= '130px'> Sign In</ButtonUI>
             </Link>
             </div>
           </Col>
           <Col>
             <div>
             <Link to='/register'>
-                <ButtonUI radius = '30px' width= '150px'> Register</ButtonUI>
+                <ButtonUI radius = '30px' width= '130px'> Register</ButtonUI>
             </Link>
             </div>
           </Col>

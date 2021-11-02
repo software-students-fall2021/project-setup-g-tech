@@ -13,9 +13,6 @@ function LogoSection(){
         else{
             $(".scrollArrow").css("display", "block")
         }
-        
-        // $(".LogoBlock").css("margin-top", - window.scrollY + "px")
-        console.log(window.scrollY);
     })
 
     return (
