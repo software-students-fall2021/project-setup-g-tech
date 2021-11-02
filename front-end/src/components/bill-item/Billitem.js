@@ -7,7 +7,7 @@ const Billitem = (props) => {
     return (
         <>
             <div className='row justify-content-center table-row'>
-                <div className='col-4'>
+                <div className='my-col-4'>
                     <p className='table-item quantity'>{props.quantity}x</p>
                 </div>
                 <div className='my-col-2'>
