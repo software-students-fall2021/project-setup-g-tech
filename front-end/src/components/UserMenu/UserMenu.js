@@ -45,24 +45,25 @@ const UserMenu = () => {
             </div>
             <Avatar />
          </div>
-         <h4 className='picks-title mt-3'>Top Picks for You</h4>
-         <div className='d-flex flex=row flex-nowrap overflow-auto'>
-            {picks}
+         <div className='content'>
+            <h4 className='picks-title mt-3'>Top Picks for You</h4>
+            <div className='d-flex flex=row flex-nowrap overflow-auto'>
+               {picks}
+            </div>
+            <div className='news-title mt-3'>
+               <h4>Newsfeed</h4>  
+                  <Dropdown>
+                     <Dropdown.Toggle className='toggle' variant='secondary' align='end'>
+                        Sort
+                     </Dropdown.Toggle>
+                     <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1">Most Recent</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Most Popular</Dropdown.Item>
+                     </Dropdown.Menu>
+                  </Dropdown>
+            </div>
+            {items}
          </div>
-         <div className='news-title mt-3'>
-            <h4>Newsfeed</h4>  
-               <Dropdown>
-                  <Dropdown.Toggle className='toggle' variant='secondary' align='end'>
-                     Sort
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                     <Dropdown.Item href="#/action-1">Most Recent</Dropdown.Item>
-                     <Dropdown.Item href="#/action-2">Most Popular</Dropdown.Item>
-                  </Dropdown.Menu>
-               </Dropdown>
-               
-         </div>
-         {items}
       </div>
    );
 }
