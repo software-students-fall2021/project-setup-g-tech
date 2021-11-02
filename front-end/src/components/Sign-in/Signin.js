@@ -30,57 +30,62 @@ const Signin = props => {
     console.log(email)
     // send form data to API to authenticate
     const formData = new FormData()
-    formData.append("User_ID", 1)
-    // formData.append("password", password)
+    formData.append("email", email)
+    formData.append("password", password)
     console.log(formData)
-    try {
-    console.log("heloooo")
+    try 
+    {
+      console.log("heloooo")
       // send the request to the server api to authenticate
       const response = await axios({
-        method: "get",
-        url: "https://my.api.mockaroo.com/user_info_saverie.json?key=84c7cbc0",
-        data: formData,
+        method: "post",
+        url: "https://my.api.mockaroo.com/user_info_saverie.json?key=6c488f80&__method=POST",
+        params: formData,
         headers: { "Content-Type": "multipart/form-data" },
       })
       // store the response data into the data state variable
-      console.log(response.data)
+      console.log("yolooo")
       setStatus(response.data)
-      console.log(status.email)
-    } catch (err) {
+      // console.log(status)
+      // console.log(status)
+    } 
+    catch (err) {
       // throw an error
+      console.log("shit hro")
       throw new Error(err)
     }
   }
-
+  // console.log(status)
     if (!status.success)
-        return (
-            <div className="Signin">
-                <HeaderTab pageTitle="Sign in" returnPath = "/"/>
-                <form className="fields" onSubmit={handleSubmit}>
-                    {
-                        //handle error condition
-                    }
-                    <Input title="Email" name="email" type='email' placeholder='name@example.com'/>
-                    <Input title="Password" name="password" type='password' placeholder='*******'/>
-                    <div className='button'>
-                    {/* <Submit type="submit" value="SIGN IN"/> */}
-                    {/* <Link to='/usermenu'> */}
-                        <Input className="submitButton" type="submit" value="SIGN IN"></Input>
-                    {/* </Link> */}
-                    </div>
-                </form>
-                {/* <div>
-                    <p>Don't have an account? </p>
-                    <p>Register</p>
-                </div> */}
-                <p>
-                    Server response (for debugging purposes):
-                    <br />
-                    <br />
-                    {JSON.stringify(status, null, 2)}
-                </p>
+    
+      return (
+        <div className="Signin">
+          <HeaderTab pageTitle="Sign in" returnPath = "/"/>
+          <form className="fields" onSubmit={handleSubmit}>
+            {
+                //handle error condition
+            }
+            <Input title="Email" name="email" type='email' placeholder='name@example.com'/>
+            <Input title="Password" name="password" type='password' placeholder='*******'/>
+            <div className='button'>
+            {/* <Submit type="submit" value="SIGN IN"/> */}
+            {/* <Link to='/usermenu'> */}
+                <Input className="submitButton" type="submit" value="SIGN IN"></Input>
+            {/* </Link> */}
             </div>
-        );
+          </form>
+          {/* <div>
+              <p>Don't have an account? </p>
+              <p>Register</p>
+          </div> */}
+          <p>
+            Server response (for debugging purposes):
+            <br />
+            <br />
+            {JSON.stringify(status, null, 2)}
+          </p>
+        </div>
+      );
     // otherwise, if the user has successfully logged-in, redirect them to a different page
     // in this example, we simply redirect to the home page, but a real app would redirect to a page that shows content only available to logged-in users
     else return <Redirect to="/usermenu" />
