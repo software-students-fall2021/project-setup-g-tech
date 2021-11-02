@@ -33,9 +33,9 @@ export default function TimerSelect() {
         </FormControl>
         </Box>
         { sessionStorage.setItem("timer", time) }
-        <Link to="/PageTimer">
+        {/* <Link to="/PageTimer">
             <button className="cancelOrderBtn"> Checkout </button>
-        </Link>
+        </Link> */}
     </>
   );
 }

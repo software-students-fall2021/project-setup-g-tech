@@ -8,3 +8,10 @@
 h2, h4 {
     font-weight: 600;
 }
+
+.checkoutButton {
+    position: fixed;
+    bottom: 50px;
+    left: 35%;
+  }
+  
