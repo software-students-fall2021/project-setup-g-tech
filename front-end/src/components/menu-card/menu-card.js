@@ -33,21 +33,23 @@ const MenuCard = (props) => {
             <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
 
             <div className='card'>
-            <Container>
-                <Row className='card-row'> 
-                    <Col>
-                        <img className  = 'round-img' src = {props.img} ></img>
-                    </Col>
-                    <Col>
-                        <h5 className="cardtitle">{props.name}</h5>
-                        <p className="cardprice">{'$ ' + props.price}</p>           
-                    </Col>
-                    <Col>
-                        <Counter counterUpdate={counterUpdater}/>
-                    </Col>
-                </Row>
-                
-            </Container> 
+                <Container>
+                    <Row className='card-row'> 
+                        {/* <div onClick={handleClick}> */}
+                            <Col onClick={handleClick}>
+                                <img className  = 'round-img' src = {props.img} ></img>
+                            </Col>
+                            <Col onClick={handleClick}>
+                                <h5 className="cardtitle">{props.name}</h5>
+                                <p className="cardprice"><strong>$</strong>{props.price}</p> 
+                                {/* <p>Tap to view description</p>           */}
+                            </Col>
+                        {/* </div> */}
+                        <Col>
+                            <Counter counterUpdate={counterUpdater}/>
+                        </Col>
+                    </Row>  
+                </Container>
             </div>
             {/* <div className='card'> */}
                 <Container>
