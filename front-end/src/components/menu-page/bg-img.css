@@ -1,0 +1,16 @@
+.bg-img-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    opacity: 1;
+}
+
+
+.bg-img-container img {
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%;
+    max-height: 200px;
+    /* opacity: 0.8; */
+}

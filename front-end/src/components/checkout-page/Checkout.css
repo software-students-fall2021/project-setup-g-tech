@@ -3,4 +3,36 @@
     margin-right: 20px;
     margin-top: 0;
     margin-bottom: 20px;
+<<<<<<< Updated upstream
 }
+=======
+}
+
+h2, h4 {
+    font-weight: 600;
+}
+
+.order-confirm {
+    padding-top: 20px;
+}
+
+.pick-up {
+    padding-top: 50px;
+}
+/* 
+.checkoutButton {
+    position: fixed;
+    bottom: 50px;
+    left: 35%;
+  } */
+
+.checkoutbutt{
+    position:fixed;
+    left: 80px;
+    bottom: 30px;
+    width: 100%;
+    align-items: center;
+    /* margin: 0 auto; */
+}
+  
+>>>>>>> Stashed changes

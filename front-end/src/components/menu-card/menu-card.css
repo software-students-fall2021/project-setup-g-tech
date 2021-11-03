@@ -26,3 +26,15 @@ p.cardprice{
     margin: 0;
     font-size: 14px;
 }
+
+.back {
+    /* padding: 12px 0px; */
+    /* margin: 8px 0px; */
+    /* border-bottom: 0.2px solid lightgray; */
+    /* border-radius: 4px; */
+    background-color: rgb(169, 207, 185);
+    height: 100.67px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

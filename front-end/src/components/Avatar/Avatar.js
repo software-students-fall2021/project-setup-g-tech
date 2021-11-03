@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Modal } from 'react-bootstrap'
 import userIcon from '../../images/user-icon.png'
+import Logout from '../Logout/Logout'
 import './Avatar.css'
 
 
@@ -28,6 +29,7 @@ const Avatar = (props) => {
                     </Link>
                     <Link to='/'>
                         <Button variant="secondary" onClick={handleClose}>
+                            {/* <Logout/> */}
                             Log Out
                         </Button>
                     </Link>
