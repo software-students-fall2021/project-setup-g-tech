@@ -22,7 +22,7 @@ const MenuCard = (props) => {
                         <img className  = 'round-img' src = {props.img} ></img>
                     </Col>
                     <Col>
-                        <h5 className="cardtitle">{props.title}</h5>
+                        <h5 className="cardtitle">{props.name}</h5>
                         <p className="cardprice"><strong>$</strong>{props.price}</p>           
                     </Col>
                     <Col>
