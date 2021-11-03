@@ -7,18 +7,32 @@ import HeaderTab from '../header-tab/HeaderTab';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import ButtonUI from'../button/button.js';
-
 import data from './restaurant_menu.json';
 
-
+let nobj = {};
 
 const MenuPage = () => {
     const [totalCounter, setTotalCounter] = useState(0);
+    const [selectedItems, setSelectedItems] = useState({});
 
     const onItemCountChange = (val) =>{
         setTotalCounter(totalCounter+val);
     };
 
+    const onItemSelect = (item) => {
+        let prevItems = selectedItems;
+        if (Object.keys(prevItems).includes(item['name'])){
+            if (prevItems[item['name']]===1 && item['qty'] ===-1){
+                delete prevItems[item['name']];
+            }else{
+                prevItems[item['name']]+=parseInt(item['qty']);
+            }
+        }else{
+            prevItems[item['name']]=1;
+        }
+        setSelectedItems(prevItems);
+        nobj = selectedItems;
+    };
 
 
     // code when using API
@@ -68,7 +82,7 @@ const MenuPage = () => {
                     <div>
                         {/* use this for API call: {repo[menuItem].map(itemList=>{ */}
                         {data[0][menuItem].map(itemList=>{
-                            return <MenuCard menuCountUpdater = {onItemCountChange} img = {itemList.img} name= {itemList.name} price = {itemList.price}/>
+                            return <MenuCard menuCountUpdater = {onItemCountChange} selectionUpdater = {onItemSelect} img = {itemList.img} name= {itemList.name} price = {itemList.price}/>
                         })}
                     </div>           
                 </div>                  
@@ -78,8 +92,7 @@ const MenuPage = () => {
                  <div className='floatBtn'>
                     <div className='floatBtnChild'>              
                          <ButtonUI width='200px' radius='8px'>Claim</ButtonUI>
-                     </div>
-                 
+                     </div>    
                 </div>
             )}
         </>

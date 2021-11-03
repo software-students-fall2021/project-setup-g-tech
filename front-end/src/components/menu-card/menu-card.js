@@ -6,9 +6,16 @@ import Counter from '../counter/counter'
 
 
 const MenuCard = (props) => {
+    let itName = props.name;
     const counterUpdater = (val) =>{
         if (props.menuCountUpdater){
-            props.menuCountUpdater(val);
+            props.menuCountUpdater(val); //to update count of total selected items
+
+            //to update item selected and its amount
+            const item = {};
+            item['name']=itName;
+            item['qty']=val;
+            props.selectionUpdater(item);
         }
     };
 
@@ -23,7 +30,7 @@ const MenuCard = (props) => {
                     </Col>
                     <Col>
                         <h5 className="cardtitle">{props.name}</h5>
-                        <p className="cardprice"><strong>$</strong>{props.price}</p>           
+                        <p className="cardprice">{'$ ' + props.price}</p>           
                     </Col>
                     <Col>
                         <Counter counterUpdate={counterUpdater}/>
