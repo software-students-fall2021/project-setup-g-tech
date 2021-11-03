@@ -6,6 +6,8 @@ import HeaderTab from "../header-tab/HeaderTab";
 import Restaurants from "../Restaurants/Restaurants";
 import axios from "axios";
 import "./SavedDistributors.css";
+import { Link } from 'react-router-dom'
+
 
 function SavedDistributors() {
   const [data, setData] = useState([]);
@@ -45,11 +47,13 @@ function SavedDistributors() {
           {data
             .sort((a, b) => a.restaurant_name.localeCompare(b.restaurant_name))
             .map((item) => (
-              <Restaurants
-                key={item.id}
-                img="https://picsum.photos/200"
-                details={item}
-              />
+              <Link to='/menu'>     
+                <Restaurants
+                  key={item.id}
+                  img="https://picsum.photos/200"
+                  details={item}
+                />
+              </Link>
             ))}
         </div>
       </div>

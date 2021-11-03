@@ -1,8 +1,11 @@
+import ReactCardFlip from 'react-card-flip';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import './menu-card.css'
+// import './cardflip.css';
 import Counter from '../counter/counter'
+import { useState } from 'react'
 
 
 const MenuCard = (props) => {
@@ -19,9 +22,16 @@ const MenuCard = (props) => {
         }
     };
 
+    const [isFlipped, setIsFlipped] = useState(false);
+    
+    const handleClick = () => {
+        setIsFlipped(!isFlipped);
+    };
 
     return ( 
         <div>
+            <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
+
             <div className='card'>
             <Container>
                 <Row className='card-row'> 
@@ -39,14 +49,17 @@ const MenuCard = (props) => {
                 
             </Container> 
             </div>
-            
-            
-            
+            {/* <div className='card'> */}
+                <Container>
+                    {/* <Row className='card-row'>  */}
+                        <div className="back" onClick={handleClick}>
+                            {props.description}
+                        </div>
+                    {/* </Row>   */}
+                </Container>
+            {/* </div> */}
+            </ReactCardFlip>
         </div>
-        
-         
-        
-
 
      );
 }
