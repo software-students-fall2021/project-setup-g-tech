@@ -4,6 +4,7 @@ import Billitem from '../bill-item/Billitem';
 import TimerSelect from '../TimerSelect/TimerSelect';
 import ButtonUI from "../button/button";
 import './Checkout.css';
+import cart from '../menu-page/menu-page';
 
 
 const Checkout = (props) => {

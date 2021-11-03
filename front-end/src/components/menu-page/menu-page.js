@@ -9,7 +9,7 @@ import axios from 'axios';
 import ButtonUI from'../button/button.js';
 import data from './restaurant_menu.json';
 
-let nobj = {};
+let cart = {};
 
 const MenuPage = () => {
     const [totalCounter, setTotalCounter] = useState(0);
@@ -31,7 +31,8 @@ const MenuPage = () => {
             prevItems[item['name']]=1;
         }
         setSelectedItems(prevItems);
-        nobj = selectedItems;
+        cart = selectedItems;
+        {console.log('cart', cart)}
     };
 
 
@@ -91,14 +92,15 @@ const MenuPage = () => {
             {totalCounter > 0 && (
                  <div className='floatBtn'>
                     <div className='floatBtnChild'>              
-                         <ButtonUI width='200px' radius='8px'>Claim</ButtonUI>
+                         <ButtonUI width='200px' radius='8px'><a href='/checkout'>Claim</a></ButtonUI>
                      </div>    
                 </div>
             )}
         </>
     );
-}
- 
+};
+
+export {cart};
 export default MenuPage;
 
 
