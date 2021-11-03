@@ -6,8 +6,16 @@ import Counter from '../counter/counter'
 
 
 const MenuCard = (props) => {
+    const counterUpdater = (val) =>{
+        if (props.menuCountUpdater){
+            props.menuCountUpdater(val);
+        }
+    };
+
+
     return ( 
-        <div className='card'>
+        <div>
+            <div className='card'>
             <Container>
                 <Row className='card-row'> 
                     <Col>
@@ -18,13 +26,18 @@ const MenuCard = (props) => {
                         <p className="cardprice"><strong>$</strong>{props.price}</p>           
                     </Col>
                     <Col>
-                        <Counter/>
-                                  
+                        <Counter counterUpdate={counterUpdater}/>
                     </Col>
                 </Row>
                 
-            </Container>   
+            </Container> 
+            </div>
+            
+            
+            
         </div>
+        
+         
         
 
 
