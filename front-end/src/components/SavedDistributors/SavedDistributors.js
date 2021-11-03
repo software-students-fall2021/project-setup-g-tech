@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { InputGroup, FormControl } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import HeaderTab from "../header-tab/HeaderTab";
 import Restaurants from "../Restaurants/Restaurants";
 import axios from "axios";
@@ -21,9 +23,25 @@ function SavedDistributors() {
 
   return (
     <div className="savedListContainer">
-      <HeaderTab pageTitle="Saved Distributors" returnPath='/usermenu'/>
+      <HeaderTab pageTitle="Saved Distributors" returnPath="/usermenu" />
+      <hr />
+      <div className="searchbar">
+        <div className="mt-3">
+          <InputGroup>
+            <FormControl
+              placeholder="Search"
+              aria-label="Search"
+              id="searchtext"
+            />
+            <InputGroup.Text id="searchicon">
+              <FontAwesomeIcon icon={faSearch} />
+            </InputGroup.Text>
+          </InputGroup>
+        </div>
+      </div>
+      <hr />
       <div className="listContent">
-        <section className="restaurants">
+        <div className="restaurants">
           {data
             .sort((a, b) => a.restaurant_name.localeCompare(b.restaurant_name))
             .map((item) => (
@@ -33,7 +51,7 @@ function SavedDistributors() {
                 details={item}
               />
             ))}
-        </section>
+        </div>
       </div>
     </div>
   );
