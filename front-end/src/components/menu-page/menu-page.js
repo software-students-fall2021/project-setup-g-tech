@@ -9,7 +9,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import ButtonUI from'../button/button.js';
 import data from './restaurant_menu.json';
-
 let nobj = {};
 
 const MenuPage = () => {
@@ -59,12 +58,18 @@ const MenuPage = () => {
 
     return (
         <>
-            <HeaderTab pageTitle="Burger King" returnPath='/usermenu' />
-
+            <HeaderTab pageTitle="Burger King" returnPath='/usermenu' />            
             <ImageCont img = 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-burger-tour-1-1539986612.jpg'/>
-            {/* <HorizontalMenu items = {menuItems}/> */}
+            <div  className='scrollmenu'>
+           {  menuItems.map((menuItems) =>
+                <ul className='menuItem02'>
+                    <a  className='menuItem' href= {"#" + menuItems}>{menuItems}</a>
+                </ul>
+            )};
+             </div>
+            
 
-            {menuItems.map(menuItems => (
+            {menuItems.map(menuItem => (
                 <div>
                     <div className='menuItems'>
                         <a id={menuItem}>
@@ -74,20 +79,8 @@ const MenuPage = () => {
                     <div>
                         {/* use this for API call: {repo[menuItem].map(itemList=>{ */}
                         {data[0][menuItem].map(itemList=>{
-<<<<<<< HEAD
-                            return (
-                            <div>
-                                {/* <CardFlip backtext="hello">
-                                    <MenuCard menuCountUpdater = {onItemCountChange} img = {itemList.img} name= {itemList.name} price = {itemList.price}/>
-                                </CardFlip> */}
-                                <MenuCard menuCountUpdater = {onItemCountChange} img = {itemList.img} name= {itemList.name} price = {itemList.price} description="Lettuce, tomatoes, onions"/>
-                                {/* <MenuCard menuCountUpdater = {onItemCountChange} img = {itemList.img} name= {itemList.name} price = {itemList.price}/> */}
-                            </div>
-                        )})}
-=======
-                            return <MenuCard menuCountUpdater = {onItemCountChange} selectionUpdater = {onItemSelect} img = {itemList.img} name= {itemList.name} price = {itemList.price}/>
+                            return <MenuCard menuCountUpdater = {onItemCountChange} selectionUpdater = {onItemSelect} img = {itemList.img} name= {itemList.name} price = {itemList.price} description = "lorem ipsum"/>
                         })}
->>>>>>> 7b09cf6a097a83016481dd741e557f6feff2d92d
                     </div>           
                 </div>                  
             ))}
@@ -97,14 +90,8 @@ const MenuPage = () => {
                     <div className='floatBtnChild'> 
                     <Link to='/checkout'>     
                          <ButtonUI width='200px' radius='8px'>Claim</ButtonUI>
-<<<<<<< HEAD
-                     </Link>
-                     
-                     </div>
-                 
-=======
+                    </Link>
                      </div>    
->>>>>>> 7b09cf6a097a83016481dd741e557f6feff2d92d
                 </div>
                 
                 
