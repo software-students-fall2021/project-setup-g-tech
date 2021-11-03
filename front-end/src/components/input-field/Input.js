@@ -15,7 +15,7 @@ const Input = (props) => {
         <div className="form-group form">
             <label className='title form-label'>{props.title}</label>
             <div>
-            <input className="form-control inputs" name={props.name} type={props.type} placeholder={props.placeholder}/>
+            <input className="form-control" name={props.name} type={props.type} placeholder={props.placeholder} value={props.value}/>
             </div>
         </div>
         {/* </form> */}

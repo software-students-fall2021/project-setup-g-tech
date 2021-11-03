@@ -18,8 +18,8 @@ const Register = (props) => {
              </div>
              {/* <Input title="Password" type='password' placeholder='*******'/> */}
              <div className='button'>
-             <Link to='/usermenu'>
-                <ButtonUI width='240px' radius='30px'><b>CONTINUE</b></ButtonUI>
+             <Link to='/signin'>
+                <Input className="submitButton" type="submit" value="CREATE ACCOUNT"></Input>
             </Link>
              </div>
         </div>
