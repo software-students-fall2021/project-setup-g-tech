@@ -2,14 +2,13 @@ import React from 'react';
 import './menu-page.css';
 import { useEffect, useState } from 'react';
 import ImageCont from './bg-image';
-import HorizontalMenu from '../scroll-bar/scroll-bar';
 import MenuCard from '../menu-card/menu-card';
 import HeaderTab from '../header-tab/HeaderTab';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import ButtonUI from'../button/button.js';
 
-
+import data from './restaurant_menu.json';
 
 
 
@@ -19,7 +18,6 @@ const MenuPage = () => {
     const onItemCountChange = (val) =>{
         setTotalCounter(totalCounter+val);
     };
-    // const  menuItems= ['Appetizers', 'Sides', 'Drinks', 'Dessert', 'Entrée', 'Sauces'];
     const menuCards = [
         <MenuCard menuCountUpdater = {onItemCountChange} img = 'https://image.shutterstock.com/shutterstock/photos/1113487829/display_1500/stock-photo-food-dine-fine-black-plate-dish-exclusive-elegant-modern-appetizer-meat-small-dinner-luxury-1113487829.jpg' title="xyz" price = "$$"/>,
         <MenuCard menuCountUpdater = {onItemCountChange} img = 'https://image.shutterstock.com/shutterstock/photos/1113487829/display_1500/stock-photo-food-dine-fine-black-plate-dish-exclusive-elegant-modern-appetizer-meat-small-dinner-luxury-1113487829.jpg' title="xyz" price = "$$"/>,
@@ -27,18 +25,24 @@ const MenuPage = () => {
 
     ]
 
-    const [repo, setRepo] = useState([]);
-    const getRepo = () => {
-        axios.get('https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST')
-        .then((response) =>{
-            console.log(response);
-            const myRepo =  response.data;
-            setRepo(myRepo);
-        })
-    }
+
+    // code when using API
+    // const [repo, setRepo] = useState([]);
+    // const getRepo = () => {
+    //     axios.get('https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST')
+    //     .then((response) =>{
+    //         console.log(response);
+    //         const myRepo =  response.data;
+    //         setRepo(myRepo);
+    //     })
+    // }
  
-    useEffect(() => getRepo(), [])
-    const menuItems =  Object.keys(repo);
+    // useEffect(() => getRepo(), [])
+    // let menuItems =  Object.keys(repo);
+
+    // Placeholder code for using data
+
+    let menuItems =  Object.keys(data[0]);
 
 
 
@@ -49,19 +53,37 @@ const MenuPage = () => {
             <HeaderTab pageTitle="Saverie"/>
 
             <ImageCont img = 'https://image.shutterstock.com/shutterstock/photos/1113487829/display_1500/stock-photo-food-dine-fine-black-plate-dish-exclusive-elegant-modern-appetizer-meat-small-dinner-luxury-1113487829.jpg'/>
-            <HorizontalMenu items = {menuItems}/>
+            {/* <HorizontalMenu items = {menuItems}/> */}
+
+            <div  className='scrollmenu'>
+           {  menuItems.map((menuItems) =>
+                <ul className='menuItem02'>
+                    <a  className='menuItem' href= {"#" + menuItems}>{menuItems}</a>
+                </ul>
+            )};
+             </div>
             
             
                   
 
             {menuItems.map(menuItem => (
                 <div>
-                    <div className='menuItems'>{menuItem}</div>
-                    {/* {repo.map((repos)=>(
-                        console.log('repos')
+                    <div className='menuItems'>
+                        <a id={menuItem}>
+                        
+                        {menuItem}
+                        </a>
+                        
+                    </div>
+                    {console.log(data[0].menuItem)}
+{/*    
+                    {data[0].map((data)=>(
+                     
                        <div>
-                           {repos.map((category)=>(
-                            <MenuCard img = {repos.category.img} title = {repos.category.name} price = {repos.category.price}/>
+                            <div className='menuItems'>{data}</div>
+
+                           {data[0].map((category)=>(
+                            <MenuCard img = {category.img} title = {category.name} price = {category.price}/>
                             ))};
 
                        </div> 
