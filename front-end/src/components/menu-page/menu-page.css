@@ -8,15 +8,15 @@ html {
 
 .menuItems{
     /* padding: 4px 28px; */
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
     margin:  20px;
 }
 
 .floatBtn{
-    background-color: white;
+    /* background-color: white; */
     position:fixed;
-    bottom:0px;
+    bottom:10px;
     width: 100%;
     align-items: center;
 

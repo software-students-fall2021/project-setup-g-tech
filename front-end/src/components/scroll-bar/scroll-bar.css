@@ -10,7 +10,7 @@ div.scrollmenu {
   a.menuItem{
       min-width: 50px;
       padding: 0px 8px;
-      font-size: 12px;
+      font-size: 15px;
   }
   div.scrollmenu a {
     display: inline-block;
