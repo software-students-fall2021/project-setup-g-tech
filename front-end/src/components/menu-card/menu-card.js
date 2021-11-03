@@ -9,29 +9,6 @@ import { useState } from 'react'
 
 
 const MenuCard = (props) => {
-<<<<<<< Updated upstream
-    return ( 
-        <div className='card'>
-            <Container>
-                <Row className='card-row'> 
-                    <Col>
-                        <img className  = 'round-img' src = {props.img} ></img>
-                    </Col>
-                    <Col>
-                        <h5 className="cardtitle">{props.title}</h5>
-                        <p className="cardprice">{props.price}</p>           
-                    </Col>
-                    <Col>
-                        <Counter/>
-                                  
-                    </Col>
-                </Row>
-                
-            </Container>   
-        </div>
-        
-
-=======
     const counterUpdater = (val) =>{
         if (props.menuCountUpdater){
             props.menuCountUpdater(val);
@@ -78,7 +55,6 @@ const MenuCard = (props) => {
             {/* </div> */}
             </ReactCardFlip>
         </div>
->>>>>>> Stashed changes
 
      );
 }

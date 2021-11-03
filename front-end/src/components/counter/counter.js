@@ -10,10 +10,6 @@ const Counter = () => {
 
 
     const handleClick1 = () => {
-<<<<<<< Updated upstream
-
-      setCounter(counter + 1)
-=======
       if (counter < 5) {
         setCounter(counter + 1);
       
@@ -24,7 +20,6 @@ const Counter = () => {
         props.counterUpdate(1);
       }
 
->>>>>>> Stashed changes
     }
     const handleClick2 = () => {
         {   

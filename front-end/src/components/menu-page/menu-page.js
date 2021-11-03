@@ -7,15 +7,6 @@ import MenuCard from '../menu-card/menu-card';
 import { Link } from 'react-router-dom'
 import HeaderTab from '../header-tab/HeaderTab';
 import 'bootstrap/dist/css/bootstrap.min.css';
-<<<<<<< Updated upstream
-
-const MenuPage = () => {
-    const menuItems = ['Appetizers', 'Sides', 'Drinks', 'Dessert', 'Entrée', 'Sauces'];
-    const menuCards = [
-        <MenuCard  img = 'https://image.shutterstock.com/shutterstock/photos/1113487829/display_1500/stock-photo-food-dine-fine-black-plate-dish-exclusive-elegant-modern-appetizer-meat-small-dinner-luxury-1113487829.jpg' title="xyz" price = "$$"/>,
-        <MenuCard  img = 'https://image.shutterstock.com/shutterstock/photos/1113487829/display_1500/stock-photo-food-dine-fine-black-plate-dish-exclusive-elegant-modern-appetizer-meat-small-dinner-luxury-1113487829.jpg' title="xyz" price = "$$"/>,
-        <MenuCard  img = 'https://image.shutterstock.com/shutterstock/photos/1113487829/display_1500/stock-photo-food-dine-fine-black-plate-dish-exclusive-elegant-modern-appetizer-meat-small-dinner-luxury-1113487829.jpg' title="xyz" price = "$$"/>
-=======
 import axios from 'axios';
 import ButtonUI from'../button/button.js';
 import data from './restaurant_menu.json';
@@ -46,34 +37,18 @@ const MenuPage = () => {
 
     let menuItems =  Object.keys(data[0]);
 
->>>>>>> Stashed changes
 
-    ]
+    
 
     return (
         <>
-<<<<<<< Updated upstream
-            <HeaderTab pageTitle="Restaurant Name" returnPath = "/usermenu"/>
-
-            <ImageCont img = 'https://image.shutterstock.com/shutterstock/photos/1113487829/display_1500/stock-photo-food-dine-fine-black-plate-dish-exclusive-elegant-modern-appetizer-meat-small-dinner-luxury-1113487829.jpg'/>
-            <HorizontalMenu items = {menuItems}/>
-=======
             <HeaderTab pageTitle="Burger King" returnPath='/usermenu' />
 
             <ImageCont img = 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-burger-tour-1-1539986612.jpg'/>
             {/* <HorizontalMenu items = {menuItems}/> */}
->>>>>>> Stashed changes
 
             {menuItems.map(menuItems => (
                 <div>
-<<<<<<< Updated upstream
-                    <div className='menuItems'>{menuItems}</div>
-                    {menuCards.map(menuCard => (
-                        <div>{menuCard}</div>
-                        
-                        ))}
-                    
-=======
                     <div className='menuItems'>
                         <a id={menuItem}>
                             {menuItem}
@@ -104,12 +79,11 @@ const MenuPage = () => {
                      
                      </div>
                  
->>>>>>> Stashed changes
                 </div>
                 
                 
 
-            ))}
+            )}
         </>
     );
 }

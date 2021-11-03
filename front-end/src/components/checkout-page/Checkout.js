@@ -20,8 +20,6 @@ const Checkout = (props) => {
                 <Billitem itemName='Total' price='3.99'/>
             </div>
 
-<<<<<<< Updated upstream
-=======
             <h4 className="pick-up">Pick-up Time</h4>
             <TimerSelect />
             {/* <div className='floatBtn'> */}
@@ -32,7 +30,6 @@ const Checkout = (props) => {
                 </div>
             {/* </div> */}
 
->>>>>>> Stashed changes
         </div>
     );
 }
