@@ -6,15 +6,12 @@
 div .card{
     margin: 10px;
     padding: 0 !important;
-
-
 }
 .card-row{
-    padding: 12px 0px;
-    margin: 8px 0px;
+    /* padding: 12px 0px; */
+    padding: 8px 4px;
     border-bottom: 0.2px solid lightgray;
     border-radius: 4px;
-
 }
 
 h5.cardtitle{
@@ -26,16 +23,6 @@ h5.cardtitle{
 p.cardprice{
     margin: 0;
     font-size: 14px;
+    color: rgb(82, 80, 80);
 }
 
-.back {
-    /* padding: 12px 0px; */
-    /* margin: 8px 0px; */
-    /* border-bottom: 0.2px solid lightgray; */
-    /* border-radius: 4px; */
-    background-color: rgb(169, 207, 185);
-    height: 100.67px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}

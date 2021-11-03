@@ -1,14 +1,23 @@
 .counter{
+<<<<<<< HEAD
     text-align: center;
     /* padding-left: 2px; */
     /* padding-right: 2px; */
-}
-button.btn{
-    padding: 0px 10px;
-
+=======
+   margin:0 auto;
+   text-align: center;
 }
 .buttons{
+    width: 100%;
+    transform: translateX(0%);
+>>>>>>> 7b09cf6a097a83016481dd741e557f6feff2d92d
+}
 
+.btn{
+    padding-bottom: 0px;
+}
+
+<<<<<<< HEAD
     margin:0px 3px;
 }
 
@@ -19,3 +28,5 @@ button.btn{
     padding-top: 10px;
     padding-left: 20px;
 }
+=======
+>>>>>>> 7b09cf6a097a83016481dd741e557f6feff2d92d
