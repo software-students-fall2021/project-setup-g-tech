@@ -46,7 +46,7 @@ const MenuPage = () => {
         <>
 
 
-            <HeaderTab pageTitle="Saverie"/>
+            <HeaderTab pageTitle="Saverie" returnPath='/usermenu' />
 
             <ImageCont img = 'https://image.shutterstock.com/shutterstock/photos/1113487829/display_1500/stock-photo-food-dine-fine-black-plate-dish-exclusive-elegant-modern-appetizer-meat-small-dinner-luxury-1113487829.jpg'/>
             <HorizontalMenu items = {menuItems}/>
