@@ -24,6 +24,9 @@ html {
     margin: 0 auto;
 }
 
+.floatBtnChild a{
+    color: #fff;
+}
 
 /* styles  for scroll bar */
 
