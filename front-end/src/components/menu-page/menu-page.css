@@ -7,14 +7,12 @@ html {
 }
 
 .menuItems{
-    /* padding: 4px 28px; */
     font-size: 20px;
     font-weight: 700;
     margin:  20px;
 }
 
 .floatBtn{
-    /* background-color: white; */
     position:fixed;
     bottom:10px;
     width: 100%;
@@ -35,16 +33,13 @@ div.scrollmenu {
     white-space: nowrap;
     padding: 0px 15px;
     margin-bottom: 12px;
-
-
   }
   a.menuItem{
       min-width: 50px;
       padding: 0px 8px;
-      font-size: 15px;
+      font-size: 18px;
   }
   div.scrollmenu a {
-
     color: white;
     text-align: center;
     text-decoration: none;

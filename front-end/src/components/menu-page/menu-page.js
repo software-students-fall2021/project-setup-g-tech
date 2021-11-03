@@ -18,12 +18,7 @@ const MenuPage = () => {
     const onItemCountChange = (val) =>{
         setTotalCounter(totalCounter+val);
     };
-    const menuCards = [
-        <MenuCard menuCountUpdater = {onItemCountChange} img = 'https://image.shutterstock.com/shutterstock/photos/1113487829/display_1500/stock-photo-food-dine-fine-black-plate-dish-exclusive-elegant-modern-appetizer-meat-small-dinner-luxury-1113487829.jpg' title="xyz" price = "$$"/>,
-        <MenuCard menuCountUpdater = {onItemCountChange} img = 'https://image.shutterstock.com/shutterstock/photos/1113487829/display_1500/stock-photo-food-dine-fine-black-plate-dish-exclusive-elegant-modern-appetizer-meat-small-dinner-luxury-1113487829.jpg' title="xyz" price = "$$"/>,
-        <MenuCard menuCountUpdater = {onItemCountChange} img = 'https://image.shutterstock.com/shutterstock/photos/1113487829/display_1500/stock-photo-food-dine-fine-black-plate-dish-exclusive-elegant-modern-appetizer-meat-small-dinner-luxury-1113487829.jpg' title="xyz" price = "$$"/>
 
-    ]
 
 
     // code when using API
@@ -62,39 +57,21 @@ const MenuPage = () => {
                 </ul>
             )};
              </div>
-            
-            
-                  
-
             {menuItems.map(menuItem => (
+                
                 <div>
                     <div className='menuItems'>
                         <a id={menuItem}>
-                        
-                        {menuItem}
-                        </a>
-                        
+                            {menuItem}
+                        </a>                        
                     </div>
-                    {console.log(data[0].menuItem)}
-{/*    
-                    {data[0].map((data)=>(
-                     
-                       <div>
-                            <div className='menuItems'>{data}</div>
-
-                           {data[0].map((category)=>(
-                            <MenuCard img = {category.img} title = {category.name} price = {category.price}/>
-                            ))};
-
-                       </div> 
-                    ))}; */}
-
-                    {menuCards.map(menuCard => (
-                        <div>{menuCard}</div>    
-                    ))}
-                </div>
-                
-                        
+                    <div>
+                        {/* use this for API call: {repo[menuItem].map(itemList=>{ */}
+                        {data[0][menuItem].map(itemList=>{
+                            return <MenuCard menuCountUpdater = {onItemCountChange} img = {itemList.img} name= {itemList.name} price = {itemList.price}/>
+                        })}
+                    </div>           
+                </div>                  
             ))}
            
             {totalCounter > 0 && (
@@ -105,11 +82,6 @@ const MenuPage = () => {
                  
                 </div>
             )}
-           
-            
-           
-        
-       
         </>
     );
 }
