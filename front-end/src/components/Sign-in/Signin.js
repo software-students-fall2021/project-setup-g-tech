@@ -35,7 +35,6 @@ const Signin = props => {
     console.log(formData)
     try 
     {
-      console.log("heloooo")
       // send the request to the server api to authenticate
       const response = await axios({
         method: "post",
@@ -44,7 +43,6 @@ const Signin = props => {
         headers: { "Content-Type": "multipart/form-data" },
       })
       // store the response data into the data state variable
-      console.log("yolooo")
       setStatus(response.data)
       // console.log(status)
       // console.log(status)
@@ -69,21 +67,21 @@ const Signin = props => {
             <Input title="Password" name="password" type='password' placeholder='*******'/>
             <div className='button'>
             {/* <Submit type="submit" value="SIGN IN"/> */}
-            {/* <Link to='/usermenu'> */}
+            <Link to='/usermenu'>
                 <Input className="submitButton" type="submit" value="SIGN IN"></Input>
-            {/* </Link> */}
+            </Link>
             </div>
           </form>
           {/* <div>
               <p>Don't have an account? </p>
               <p>Register</p>
           </div> */}
-          <p>
+          {/* <p>
             Server response (for debugging purposes):
             <br />
             <br />
             {JSON.stringify(status, null, 2)}
-          </p>
+          </p> */}
         </div>
       );
     // otherwise, if the user has successfully logged-in, redirect them to a different page
