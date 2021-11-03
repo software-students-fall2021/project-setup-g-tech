@@ -1,11 +1,13 @@
 .counter{
-    text-align: center;
-}
-button.btn{
-    padding: 0px 10px;
-
+   margin:0 auto;
+   text-align: center;
 }
 .buttons{
-
-    margin:0px 3px;
+    width: 100%;
+    transform: translateX(0%);
 }
+
+.btn{
+    padding-bottom: 0px;
+}
+
