@@ -3,21 +3,35 @@ import './counter.css';
 import {FaPlus, FaMinus} from "react-icons/fa"
 import React, { useState } from "react";
 
-
-const Counter = () => {
+let count = false;
+const Counter = (props) => {
 
     const [counter, setCounter] = useState(0)
 
 
     const handleClick1 = () => {
 
-      setCounter(counter + 1)
+      setCounter(counter + 1);
+      
+      count+=1;
+
+      if (props.counterUpdate){
+        props.counterUpdate(1);
+      }
+
     }
     const handleClick2 = () => {
-        {   
-            if(counter>0){
-                setCounter(counter - 1)
-            }
+        {  
+
+          if(counter>0){
+              setCounter(counter - 1)
+              count-=1;
+
+              if (props.counterUpdate){
+                props.counterUpdate(-1);
+              }
+              
+          }
         }
     }
     return (
@@ -35,4 +49,4 @@ const Counter = () => {
       
  
 export default Counter;
-
+export{count};

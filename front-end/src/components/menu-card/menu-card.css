@@ -3,15 +3,15 @@
     width: 60px;
     height: 60px;
 }
-.card{
-    border: 0.5px solid lightgray;
-    border-radius: 10px;
-    margin: 0px 10px;
+div .card{
+    margin: 10px;
+    padding: 0 !important;
+
 
 }
-.menuItems{
-    width: 100%;
-    margin: 0px 10px;
+.card-row{
+    margin: 12px 0px;
+
 }
 
 h5.cardtitle{
