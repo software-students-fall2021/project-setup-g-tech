@@ -12,7 +12,7 @@ const Checkout = (props) => {
         <div className='Checkout'>
             <HeaderTab pageTitle='Check Out' returnPath = "/menu"/>
             <div className='heading'>
-                <h2>Order Confirmation</h2>
+                <h2 className="order-confirm">Order Confirmation</h2>
             </div>
             
 
@@ -20,15 +20,19 @@ const Checkout = (props) => {
                 <Billitem quantity='3' itemName='Beef Burger' price='5.99'/>
                 <Billitem quantity='1' itemName='Chicken Burger' price='4.77'/>
                 <Billitem quantity='2' itemName='French Fries - L' price='3.99'/>
+                <br/>
+                <Billitem itemName='Total' price='3.99'/>
             </div>
 
-            <h4>Pick-up Time</h4>
+            <h4 className="pick-up">Pick-up Time</h4>
             <TimerSelect />
-            <div className='checkoutButton'>
-                <Link to="/PageTimer">
-                    <ButtonUI radius = '30px' width= '130px'> Checkout </ButtonUI>
-                </Link>
-            </div>
+            {/* <div className='floatBtn'> */}
+                <div className='checkoutbutt'> 
+                    <Link to="/PageTimer">
+                        <ButtonUI radius = '8px' width= '230px'> Checkout </ButtonUI>
+                    </Link>
+                </div>
+            {/* </div> */}
 
         </div>
     );

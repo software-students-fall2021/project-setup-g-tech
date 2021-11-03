@@ -10,10 +10,11 @@ const Counter = (props) => {
 
 
     const handleClick1 = () => {
-
-      setCounter(counter + 1);
+      if (counter < 5) {
+        setCounter(counter + 1);
       
-      count+=1;
+        count+=1;
+      }
 
       if (props.counterUpdate){
         props.counterUpdate(1);
@@ -36,12 +37,15 @@ const Counter = (props) => {
     }
     return (
         <div>
-            <div className = 'counter'> 
-              {counter}
-            </div>
             <div className="buttons">
               <button onClick={handleClick2} className='btn'><FaMinus/></button>
+              <span className = 'counter'> 
+                {counter}
+              </span>
               <button onClick={handleClick1} className='btn'><FaPlus/></button>
+            </div>
+            <div className="max">
+              Max: 5 
             </div>
           </div>
         )
