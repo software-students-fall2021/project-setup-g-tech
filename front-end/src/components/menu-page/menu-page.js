@@ -19,7 +19,7 @@ const MenuPage = () => {
     const onItemCountChange = (val) =>{
         setTotalCounter(totalCounter+val);
     };
-    const  menuItems= ['Appetizers', 'Sides', 'Drinks', 'Dessert', 'Entrée', 'Sauces'];
+    // const  menuItems= ['Appetizers', 'Sides', 'Drinks', 'Dessert', 'Entrée', 'Sauces'];
     const menuCards = [
         <MenuCard menuCountUpdater = {onItemCountChange} img = 'https://image.shutterstock.com/shutterstock/photos/1113487829/display_1500/stock-photo-food-dine-fine-black-plate-dish-exclusive-elegant-modern-appetizer-meat-small-dinner-luxury-1113487829.jpg' title="xyz" price = "$$"/>,
         <MenuCard menuCountUpdater = {onItemCountChange} img = 'https://image.shutterstock.com/shutterstock/photos/1113487829/display_1500/stock-photo-food-dine-fine-black-plate-dish-exclusive-elegant-modern-appetizer-meat-small-dinner-luxury-1113487829.jpg' title="xyz" price = "$$"/>,
@@ -38,7 +38,7 @@ const MenuPage = () => {
     }
  
     useEffect(() => getRepo(), [])
-    // const menuItems =  Object.keys(repo);
+    const menuItems =  Object.keys(repo);
 
 
 
@@ -59,12 +59,12 @@ const MenuPage = () => {
                     <div className='menuItems'>{menuItem}</div>
                     {/* {repo.map((repos)=>(
                         console.log('repos')
-                    //    <div>
-                    //        {repos.map((category)=>(
-                    //         <MenuCard img = {repos.category.img} title = {repos.category.name} price = {repos.category.price}/>
-                    //         ))};
+                       <div>
+                           {repos.map((category)=>(
+                            <MenuCard img = {repos.category.img} title = {repos.category.name} price = {repos.category.price}/>
+                            ))};
 
-                    //    </div> 
+                       </div> 
                     ))}; */}
 
                     {menuCards.map(menuCard => (
