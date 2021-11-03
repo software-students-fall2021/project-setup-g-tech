@@ -74,12 +74,7 @@ const MenuPage = () => {
                 
                         
             ))}
-            {/* {<>
-            if(count > 0){
-
-            }
-            </>
-            } */}
+           
             {totalCounter > 0 && (
                  <div className='floatBtn'>
                     <div className='floatBtnChild'>              
