@@ -5,7 +5,7 @@ const axios = require("axios") // middleware for making requests to APIs
 const cors = require('cors')
 server.use(cors())
 
-const port = 3000 // the port to listen to for incoming requests
+const port = 3001 // the port to listen to for incoming requests
 // call express's listen function to start listening to the port
 
 const listener = server.listen(port, function () {
