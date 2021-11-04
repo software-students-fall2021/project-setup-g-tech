@@ -4,9 +4,18 @@ import Timer from "../Timer/Timer";
 import HeaderTab from "../header-tab/HeaderTab";
 import ButtonUI from "../button/button";
 import "./PageTimer.css";
+import CancelOrder from "../CancelOrder/CancelOrder";
+import $ from "jquery";
 
 function PageTimer() {
-  const timer = sessionStorage.getItem("timer")
+  const timer = sessionStorage.getItem("timer");
+
+  const orderCancel = () => {
+    $(".cancel-order-screen").css("display", "block");
+    setTimeout(function() {
+      window.location.replace('/usermenu');
+    }, 2000);
+  };
 
   return (
     <div className="pageTimerContainer">
@@ -26,11 +35,14 @@ function PageTimer() {
           please cancel the order.
         </p>
       </div>
-      <div className='cancelOrderBtn'>
-        <Link to="/usermenu">
-          <ButtonUI radius = '30px' width= '130px'> Cancel </ButtonUI>
-        </Link>
-      </div>  
+      <div className='checkoutbutt'>
+        <ButtonUI radius = '8px' width= '230px' onClick={orderCancel}> Cancel Order </ButtonUI>
+      </div> 
+      <div className='cancel-order-screen'>
+        <CancelOrder />
+      </div>
+
+      
     </div>
   );
 }
