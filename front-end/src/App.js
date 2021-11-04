@@ -1,11 +1,6 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import './App.css';
-import LogoSection from './components/LogoSection/LogoSection';
-import MainCarousel from './components/Carousel/MainCarousel';
-import AboutSection from './components/AboutSection/AboutSection';
-import Partners from './components/Partners/Partners';
-import Footer from './components/Footer/Footer'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Checkout from './components/checkout-page/Checkout';
 import LandingPage from './components/LandingPage/LandingPage';
@@ -51,7 +46,7 @@ const App = () => {
         <Route path="/">
           <LandingPage/>
         </Route>
-        
+
       </Switch>
     </BrowserRouter>
   );

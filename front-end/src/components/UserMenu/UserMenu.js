@@ -13,7 +13,7 @@ const UserMenu = () => {
    const [data, setData] = useState([]);
 
    const fetchData = async () => {
-      const response = await axios('http://localhost:3000/usermenu');
+      const response = await axios('http://localhost:3001/usermenu');
       setData(response.data)
    }
    useEffect(fetchData, [])
