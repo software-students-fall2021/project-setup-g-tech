@@ -7,7 +7,7 @@ import Select from '@mui/material/Select';
 import Timer from '../Timer/Timer';
 
 export default function TimerSelect() {
-  const [time, setTime] = React.useState('');
+  const [time, setTime] = React.useState(15);
 
   const handleChange = (event) => {
     setTime(event.target.value);
@@ -25,13 +25,14 @@ export default function TimerSelect() {
             displayEmpty
             onChange={handleChange}
             >
-            <MenuItem disabled value=''><em>Select</em></MenuItem>
             <MenuItem value={15}>15 min</MenuItem>
             <MenuItem value={30}>30 min</MenuItem>
             <MenuItem value={45}>45 min</MenuItem>
             </Select>
         </FormControl>
         </Box>
+
+
         { sessionStorage.setItem("timer", time) }
         {/* <Link to="/PageTimer">
             <button className="cancelOrderBtn"> Checkout </button>

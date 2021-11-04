@@ -6,3 +6,7 @@
 .timer p {
   margin-bottom: 0px;
 }
+
+.cancel-order-screen {
+  display: none;
+}
