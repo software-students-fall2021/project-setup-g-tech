@@ -5,7 +5,7 @@ const axios = require("axios") // middleware for making requests to APIs
 const cors = require('cors')
 server.use(cors())
 
-const port = 3001 // the port to listen to for incoming requests
+const port = 3000 // the port to listen to for incoming requests
 // call express's listen function to start listening to the port
 
 const listener = server.listen(port, function () {
@@ -20,6 +20,7 @@ server.get('/usermenu', (req, res, next) => {
 })
 
 server.post("/register-submit", function(req, res){
+  if(req.body.first_name && req.body.last_name && req.body.email && req.body.password && req.body.repassword){
   const data = {
     status: "true",
     message: "The data has been entered to the database",
@@ -31,15 +32,21 @@ server.post("/register-submit", function(req, res){
       repassword: req.body.repassword,
     },
   }
-  // ... then send a response of some kind to client
-  console.log((data))
+ console.log((data))
+  res.status(200);
   res.redirect("http://localhost:3000/signin");
+  }
+  else{
+    res.status(400);
+    res.redirect("http://localhost:3000/register");
+  }
 })
 
 // a function to stop listening to the port
 const close = () => {
   listener.close()
 }
-module.exports = {
-  close: close,
-}
+// module.exports = {
+//   close: close,
+// }
+module.exports = server
