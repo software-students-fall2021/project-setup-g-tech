@@ -16,7 +16,7 @@ const Register = (props) => {
                 <Input title="Email" name="email" type='email' placeholder='name@example.com'/>
                 <Input title="Password" name="password" type='password' placeholder='*******'/>
                 <Input title="Re-enter Password"  name="repassword" type='password' placeholder='*******'/>
-
+                {/* <p className="pmatch" >Passwords do not match</p> */}
              {/* <Input title="Password" type='password' placeholder='*******'/> */}
              <div className='button'>
              {/* <Link to='/signin'> */}
