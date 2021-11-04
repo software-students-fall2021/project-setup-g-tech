@@ -5,6 +5,7 @@ const Billitem = (props) => {
     // console.log(pretotal);
     // pretotal = toString(pretotal);
     return (
+
         <>
             <div className='row justify-content-center table-row'>
                 <div className='my-col-4'>

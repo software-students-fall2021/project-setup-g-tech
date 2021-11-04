@@ -41,7 +41,7 @@ const Counter = (props) => {
         <button onClick={handleClick1} className='btn'><FaPlus/></button>
       </div>
       <div className="max">
-        Max: 5 
+        Max: {props.qty_available }
       </div>
     </div>
     )

@@ -1,25 +1,39 @@
 import React from 'react';
-import './menu-page.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'
 import ImageCont from './bg-image';
 import MenuCard from '../menu-card/menu-card';
-import { Link } from 'react-router-dom'
 import HeaderTab from '../header-tab/HeaderTab';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import ButtonUI from'../button/button.js';
 import data from './restaurant_menu.json';
-let nobj = {};
+import './menu-page.css';
 
 const MenuPage = () => {
+
+        // code when using API
+        // const [repo, setRepo] = useState([]);
+        // const getRepo = () => {
+        //     axios.get('https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST')
+        //     .then((response) =>{
+        //         console.log(response);
+        //         const myRepo =  response.data;
+        //         setRepo(myRepo);
+        //     })
+        // }
+        // useEffect(() => getRepo(), [])
+        // let menuItems =  Object.keys(repo);
+
     const [totalCounter, setTotalCounter] = useState(0);
     const [selectedItems, setSelectedItems] = useState({});
+    let [cart, addToCart] = useState({});
 
     const onItemCountChange = (val) =>{
         setTotalCounter(totalCounter+val);
     };
 
-    const onItemSelect = (item) => {
+    const onItemSelect = ( item) => {
         let prevItems = selectedItems;
         if (Object.keys(prevItems).includes(item['name'])){
             if (prevItems[item['name']]===1 && item['qty'] ===-1){
@@ -31,24 +45,11 @@ const MenuPage = () => {
             prevItems[item['name']]=1;
         }
         setSelectedItems(prevItems);
-        nobj = selectedItems;
+        cart = selectedItems;
+        addToCart(cart);
+        sessionStorage.setItem("cart",JSON.stringify(cart))
     };
-
-
-    // code when using API
-    // const [repo, setRepo] = useState([]);
-    // const getRepo = () => {
-    //     axios.get('https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST')
-    //     .then((response) =>{
-    //         console.log(response);
-    //         const myRepo =  response.data;
-    //         setRepo(myRepo);
-    //     })
-    // }
- 
-    // useEffect(() => getRepo(), [])
-    // let menuItems =  Object.keys(repo);
-
+    
     // Placeholder code for using data
 
     let menuItems =  Object.keys(data[0]);
@@ -79,28 +80,24 @@ const MenuPage = () => {
                     <div>
                         {/* use this for API call: {repo[menuItem].map(itemList=>{ */}
                         {data[0][menuItem].map(itemList=>{
-                            return <MenuCard menuCountUpdater = {onItemCountChange} selectionUpdater = {onItemSelect} img = {itemList.img} name= {itemList.name} price = {itemList.price} description = "lorem ipsum"/>
+                        
+                            return <MenuCard menuCountUpdater = {onItemCountChange} selectionUpdater = {onItemSelect} img = {itemList.img} name= {itemList.name} price = {itemList.price} description = {itemList.description} qty_available = {itemList.qty_available}/>
                         })}
                     </div>           
                 </div>                  
             ))}
-           
             {totalCounter > 0 && (
                  <div className='floatBtn'>
                     <div className='floatBtnChild'> 
-                    <Link to='/checkout'>     
-                         <ButtonUI width='200px' radius='8px'>Claim</ButtonUI>
+                    <Link to='/checkout'>
+                         <ButtonUI width='200px' radius='8px' >Claim</ButtonUI>
                     </Link>
                      </div>    
                 </div>
-                
-                
-
             )}
+            {/* <Link to={{pathname: '/checkout', cart}}></Link> */}
         </>
     );
 }
  
 export default MenuPage;
-
-
