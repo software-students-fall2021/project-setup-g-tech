@@ -16,7 +16,7 @@ const MenuCard = (props) => {
 
             //to update item selected and its amount
             const item = {};
-            item['name']=itName;
+            item['name']= itName;
             item['qty']=val;
             props.selectionUpdater(item);
         }
@@ -46,7 +46,7 @@ const MenuCard = (props) => {
                             </Col>
                         {/* </div> */}
                         <Col>
-                            <Counter counterUpdate={counterUpdater}/>
+                            <Counter counterUpdate={counterUpdater} qty_available = {props.qty_available} />
                         </Col>
                     </Row>  
                 </Container>
