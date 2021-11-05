@@ -3,28 +3,27 @@ import { InputGroup, FormControl, Dropdown } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
-import Item from '../Item/Item'
-import Pick from '../Pick/Pick'
+import ItemsList from '../ItemsList/ItemsList'
+import PicksList from '../PicksList/PicksList'
 import Avatar from '../Avatar/Avatar'
 import './UserMenu.css'
 
 
 const UserMenu = () => {
    const [data, setData] = useState([]);
+   const [search, setSearch] = useState('');
 
    const fetchData = async () => {
-      const response = await axios('http://localhost:3001/usermenu');
-      setData(response.data)
+      const res = await axios('http://localhost:3001/usermenu');
+      setData(res.data)
    }
    useEffect(fetchData, [])
 
-   let picks = data
-      .map((pick) => (<Pick key={pick.id} details={pick} img="https://picsum.photos/200" />))
-      .slice(0, 8)
+   
 
-   let items = data
-      .map((item) => (<Item key={item.id} details={item} img="https://picsum.photos/200" />))
-
+   const dynamicSearch = () => {
+      return data.filter(e => e.name.toLowerCase().includes(search.toLowerCase()))
+   }
 
    return (
       <div>
@@ -33,9 +32,13 @@ const UserMenu = () => {
                <div className='mt-3'>
                   <InputGroup>
                      <FormControl
+                        as='input'
+                        type='text'
                         placeholder='Search'
                         aria-label='Search'
                         id='searchtext'
+                        value={search}
+                        onChange={e => setSearch(e.target.value)}
                      />
                      <InputGroup.Text id='searchicon'>
                         <FontAwesomeIcon icon={faSearch} />
@@ -47,9 +50,7 @@ const UserMenu = () => {
          </div>
          <div className='content'>
             <h4 className='picks-title mt-3'>Top Picks for You</h4>
-            <div className='d-flex flex=row flex-nowrap overflow-auto'>
-               {picks}
-            </div>
+            <PicksList list={data} />
             <div className='news-title mt-3'>
                <h4>Newsfeed</h4>  
                   <Dropdown>
@@ -62,7 +63,7 @@ const UserMenu = () => {
                      </Dropdown.Menu>
                   </Dropdown>
             </div>
-            {items}
+            <ItemsList list={dynamicSearch()} />
          </div>
       </div>
    );
