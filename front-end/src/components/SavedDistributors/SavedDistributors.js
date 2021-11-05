@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 
 function SavedDistributors() {
   const [data, setData] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -23,6 +24,10 @@ function SavedDistributors() {
     fetchData();
   }, []);
 
+  const dynamicSearch = () => {
+    return data.filter(e => e.restaurant_name.toLowerCase().includes(search.toLowerCase()))
+ }
+
   return (
     <div className="savedListContainer">
       <HeaderTab pageTitle="Saved Distributors" returnPath="/usermenu" />
@@ -30,10 +35,14 @@ function SavedDistributors() {
       <div className="searchbar">
         <div className="mt-3">
           <InputGroup>
-            <FormControl
-              placeholder="Search"
-              aria-label="Search"
-              id="searchtext"
+          <FormControl
+              as='input'
+              type='text'
+              placeholder='Search'
+              aria-label='Search'
+              id='searchtext'
+              value={search}
+              onChange={e => setSearch(e.target.value)}
             />
             <InputGroup.Text id="searchicon">
               <FontAwesomeIcon icon={faSearch} />
@@ -44,7 +53,7 @@ function SavedDistributors() {
       <hr />
       <div className="listContent">
         <div className="restaurants">
-          {data
+          {dynamicSearch()
             .sort((a, b) => a.restaurant_name.localeCompare(b.restaurant_name))
             .map((item) => (
               <Link to='/menu'>     
