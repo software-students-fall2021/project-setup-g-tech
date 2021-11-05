@@ -4,3 +4,20 @@
     cursor: pointer;
     margin-right: 10px;
 }
+
+.avatar-modal {
+    width: 48%;
+    top: 12%;
+    left: 48%;
+}
+
+.avatar-footer {
+    height: 12em;
+    margin-bottom: 2em;
+}
+
+.modal-item {
+    width: 8em;
+    height: 2.5em;
+    justify-content: center;
+}
