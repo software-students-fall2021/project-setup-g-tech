@@ -11,16 +11,11 @@ function SavedDistributors() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await axios(
-        "https://my.api.mockaroo.com/restaurants.json?key=0b54f900"
-      );
-      setData(response.data);
-    }
-
-    fetchData();
-  }, []);
+  const fetchData = async () => {
+    const res = await axios("http://localhost:3001/saveddistributors");
+    setData(res.data);
+  };
+  useEffect(fetchData, []);
 
   const dynamicSearch = () => {
     return data.filter((e) =>

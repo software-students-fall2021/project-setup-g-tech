@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import Timer from "../Timer/Timer";
 import HeaderTab from "../header-tab/HeaderTab";
 import ButtonUI from "../button/button";
@@ -12,14 +11,14 @@ function PageTimer() {
 
   const orderCancel = () => {
     $(".cancel-order-screen").css("display", "block");
-    setTimeout(function() {
-      window.location.replace('/usermenu');
+    setTimeout(function () {
+      window.location.replace("/usermenu");
     }, 2000);
   };
 
   return (
     <div className="pageTimerContainer">
-      <HeaderTab pageTitle="Order Confirmed" returnPath='/checkout'/>
+      <HeaderTab pageTitle="Order Confirmed" returnPath="/checkout" />
 
       <div className="timerContent">
         <p className="successMsg">
@@ -35,14 +34,15 @@ function PageTimer() {
           please cancel the order.
         </p>
       </div>
-      <div className='checkoutbutt'>
-        <ButtonUI radius = '8px' width= '230px' onClick={orderCancel}> Cancel Order </ButtonUI>
-      </div> 
-      <div className='cancel-order-screen'>
+      <div className="checkoutbutt">
+        <ButtonUI radius="8px" width="230px" onClick={orderCancel}>
+          {" "}
+          Cancel Order{" "}
+        </ButtonUI>
+      </div>
+      <div className="cancel-order-screen">
         <CancelOrder />
       </div>
-
-      
     </div>
   );
 }
