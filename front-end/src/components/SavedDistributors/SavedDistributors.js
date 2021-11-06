@@ -3,15 +3,13 @@ import { InputGroup, FormControl } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import HeaderTab from "../header-tab/HeaderTab";
-import Restaurants from "../Restaurants/Restaurants";
+import ItemsList from "../ItemsList/ItemsList";
 import axios from "axios";
 import "./SavedDistributors.css";
-import { Link } from 'react-router-dom'
-
 
 function SavedDistributors() {
   const [data, setData] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -25,8 +23,10 @@ function SavedDistributors() {
   }, []);
 
   const dynamicSearch = () => {
-    return data.filter(e => e.restaurant_name.toLowerCase().includes(search.toLowerCase()))
- }
+    return data.filter((e) =>
+      e.name.toLowerCase().includes(search.toLowerCase())
+    );
+  };
 
   return (
     <div className="savedListContainer">
@@ -35,14 +35,14 @@ function SavedDistributors() {
       <div className="searchbar">
         <div className="mt-3">
           <InputGroup>
-          <FormControl
-              as='input'
-              type='text'
-              placeholder='Search'
-              aria-label='Search'
-              id='searchtext'
+            <FormControl
+              as="input"
+              type="text"
+              placeholder="Search"
+              aria-label="Search"
+              id="searchtext"
               value={search}
-              onChange={e => setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
             />
             <InputGroup.Text id="searchicon">
               <FontAwesomeIcon icon={faSearch} />
@@ -53,17 +53,7 @@ function SavedDistributors() {
       <hr />
       <div className="listContent">
         <div className="restaurants">
-          {dynamicSearch()
-            .sort((a, b) => a.restaurant_name.localeCompare(b.restaurant_name))
-            .map((item) => (
-              <Link to='/menu'>     
-                <Restaurants
-                  key={item.id}
-                  img="https://picsum.photos/200"
-                  details={item}
-                />
-              </Link>
-            ))}
+          <ItemsList list={dynamicSearch()} />
         </div>
       </div>
     </div>
