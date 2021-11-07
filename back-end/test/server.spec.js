@@ -4,8 +4,8 @@ chai.use(chaiHttp);
 var expect = require('chai').expect;
 var app = require('../server');
 
+// Login-in & register testing
 describe('Testing the POST Call', function(){
-
     it('API status code should return 200', function(done){
         chai.request(app)
               .post('/register-submit')
@@ -40,7 +40,49 @@ describe('Testing the POST Call', function(){
 
 });
 
+// User menu testing
+describe('Testing user menu', () => {
+    it('API status code returns 200', (done) => {
+        chai.request(app)
+            .get('/usermenu')
+            .query({user: 'mockData'})
+            .end((err, res) => {
+                expect(err).to.be.null
+                expect(res).to.have.status(200)
+                done()
+            })
+    })
+    it('API status code returns 404 for missing/incorrect data address', (done) => {
+        chai.request(app)
+            .get('/usermenu')
+            .query({user: 'none'})
+            .end((err, res) => {
+                expect(res).to.have.status(404)
+                done()
+            })
+    })
+  });
 
-
-
+// Saved distributors testing
+describe('Testing saveddistributors', () => {
+    it('API status code returns 200', (done) => {
+        chai.request(app)
+            .get('/saveddistributors')
+            .query({user: 'mockData'})
+            .end((err, res) => {
+                expect(err).to.be.null
+                expect(res).to.have.status(200)
+                done()
+            })
+    })
+    it('API status code returns 404 for missing/incorrect data address', (done) => {
+        chai.request(app)
+            .get('/saveddistributors')
+            .query({user: 'none'})
+            .end((err, res) => {
+                expect(res).to.have.status(404)
+                done()
+            })
+    })
+})
 

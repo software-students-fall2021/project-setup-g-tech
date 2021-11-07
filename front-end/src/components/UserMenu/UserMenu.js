@@ -10,16 +10,18 @@ import './UserMenu.css'
 
 
 const UserMenu = () => {
-   const [data, setData] = useState([]);
-   const [search, setSearch] = useState('');
+   const [data, setData] = useState([])
+   const [search, setSearch] = useState('')
 
    const fetchData = async () => {
-      const res = await axios('http://localhost:3001/usermenu');
-      setData(res.data)
+      const res = await axios.get('http://localhost:3001/usermenu', {
+         params: {
+            user: 'mockData'
+         }
+      });
+      setData(res.data);
    }
-   useEffect(fetchData, [])
-
-   
+   useEffect(fetchData, []);
 
    const dynamicSearch = () => {
       return data.filter(e => e.name.toLowerCase().includes(search.toLowerCase()))

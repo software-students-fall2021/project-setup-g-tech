@@ -1,29 +1,42 @@
 #!/usr/bin/env node
 const server = require("./app.js"); // load up the web server
 const axios = require("axios"); // middleware for making requests to APIs
+
 // use cors to bypass chrome error
 const cors = require("cors");
 server.use(cors());
 
-const port = 3001; // the port to listen to for incoming requests
-// call express's listen function to start listening to the port
+// the port to listen to for incoming requests
+const port = 3001; 
 
+// call express's listen function to start listening to the port
 const listener = server.listen(port, function () {
   console.log(`Server running on port: ${port}`);
 });
+
 // route handling
 server.get("/usermenu", (req, res, next) => {
-  axios
+  if(req.query.user == 'mockData') {
+    axios
     .get("https://my.api.mockaroo.com/restaurant_info.json?key=4aedac00")
     .then((apiRes) => res.json(apiRes.data))
-    .catch((err) => next(err));
+  }
+  else {
+    res.status(404)
+    next()
+  }
 });
 
 server.get("/saveddistributors", (req, res, next) => {
-  axios
+  if(req.query.user == 'mockData') {
+    axios
     .get("https://my.api.mockaroo.com/restaurants.json?key=0b54f900")
     .then((apiRes) => res.json(apiRes.data))
-    .catch((err) => next(err));
+  }
+  else {
+    res.status(404)
+    next()
+  }
 });
 
 server.post("/register-submit", function (req, res) {
@@ -58,6 +71,7 @@ server.post("/register-submit", function (req, res) {
 const close = () => {
   listener.close();
 };
+
 // module.exports = {
 //   close: close,
 // }
