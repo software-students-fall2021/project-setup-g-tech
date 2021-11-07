@@ -12,7 +12,11 @@ function SavedDistributors() {
   const [search, setSearch] = useState("");
 
   const fetchData = async () => {
-    const res = await axios("http://localhost:3001/saveddistributors");
+    const res = await axios.get('http://localhost:3001/saveddistributors', {
+      params: {
+        user: 'mockData'
+      }
+    });
     setData(res.data);
   };
   useEffect(fetchData, []);
