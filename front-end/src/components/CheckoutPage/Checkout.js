@@ -28,13 +28,9 @@ const Checkout = (props) => {
                             {
                                 sum += value*price ;  
                                 return <Billitem quantity = {value} itemName={key} price={price}/>
-                            }
-                             
-                                                  
+                            }                           
                     })             
-                )};
-                 
-               
+                )};    
                     <br/>
                     <Billitem itemName='Total' price={sum}/>
                 </div>
