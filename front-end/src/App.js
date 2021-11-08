@@ -2,7 +2,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Checkout from './components/checkout-page/Checkout';
+import Checkout from './components/CheckoutPage/Checkout';
 import LandingPage from './components/LandingPage/LandingPage';
 import Register from './components/register-page/Register';
 import Signin from './components/Sign-in/Signin';
