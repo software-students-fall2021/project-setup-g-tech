@@ -4,7 +4,7 @@ chai.use(chaiHttp);
 var expect = require('chai').expect;
 var app = require('../server');
 
-// Login-in & register testing
+// Register testing
 describe('Testing the POST Call', function(){
     it('API status code should return 200', function(done){
         chai.request(app)
@@ -33,6 +33,36 @@ describe('Testing the POST Call', function(){
               }).end((err,res)=>{
                  if(err) done(err);
                  expect(res).to.have.redirectTo("http://localhost:3000/register");
+                //  console.log(JSON.stringify(res,"",2));
+                 done();
+              })
+      })
+
+});
+
+// Sign in testing
+describe('Testing the POST call in sign in', function(){
+    it('API status code should return 200', function(done){
+        chai.request(app)
+              .post('/signin-submit')
+              .send({
+                    "email":"ishmal@gmail.com",
+                    "password":"saverie4lyfe"
+              }).end((err,res)=>{
+                 if(err) done(err);
+                 expect(res).to.have.redirectTo("http://localhost:3000/usermenu");
+                //  console.log(JSON.stringify(res,"",2));
+                 done();
+              })
+      })
+      it('API status code should return 400 for a missing value', function(done){
+        chai.request(app)
+              .post('/signin-submit')
+              .send({
+                "email":"ishmal@gmail.com",
+              }).end((err,res)=>{
+                 if(err) done(err);
+                 expect(res).to.have.redirectTo("http://localhost:3000/signin");
                 //  console.log(JSON.stringify(res,"",2));
                  done();
               })
@@ -85,7 +115,6 @@ describe('Testing saveddistributors', () => {
             })
     })
 })
-
 
 // // menu page testing
 describe('Testing menu page', () => {

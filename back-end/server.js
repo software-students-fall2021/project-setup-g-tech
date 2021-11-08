@@ -12,6 +12,10 @@ const port = 3001;
 
 // call express's listen function to start listening to the port
 const listener = server.listen(port, function () {
+
+  console.log(`Server running on port: ${port}`)
+})
+
   console.log(`Server running on port: ${port}`);
 });
 
@@ -38,6 +42,7 @@ server.get("/saveddistributors", (req, res, next) => {
   }
 });
 
+//register authentication
 server.get("/menu", (req, res, next) => {
   if (req.query.user == "mockData") {
     axios
@@ -74,6 +79,28 @@ server.post("/register-submit", function (req, res) {
   } else {
     res.status(400);
     res.redirect("http://localhost:3000/register");
+  }
+});
+
+//sign in suthentication
+server.post("/signin-submit", function (req, res) {
+  if (
+    req.body.email &&
+    req.body.password
+  ) {
+    const data = {
+      status: "true",
+      message: "The data has been posted",
+      your_data: {
+        email: req.body.email,
+        password: req.body.password      },
+    };
+    console.log(data);
+    res.status(200);
+    res.redirect("http://localhost:3000/usermenu");
+  } else {
+    res.status(400);
+    res.redirect("http://localhost:3000/signin");
   }
 });
 

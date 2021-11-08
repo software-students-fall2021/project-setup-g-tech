@@ -9,57 +9,58 @@ import './signin.css';
 
 const Signin = props => {
   // create state variables to hold username and password
-  const [status, setStatus] = useState({}) // the API will return an object indicating the login status in a success field of the response object
+  // const [status, setStatus] = useState({}) // the API will return an object indicating the login status in a success field of the response object
 
-  // if the user's logged-in status changes, call the setuser function that was passed to this component from the PrimaryNav component.
-  useEffect(() => {
-    // if the login was a success, call the setuser function that was passed to this component as a prop
-    if (status.success) {
-      console.log(`User successfully logged in: ${status.email}`)
-      props.setuser(status)
-    }
-  }, [status])
+  // // if the user's logged-in status changes, call the setuser function that was passed to this component from the PrimaryNav component.
+  // useEffect(() => {
+  //   // if the login was a success, call the setuser function that was passed to this component as a prop
+  //   if (status.success) {
+  //     console.log(`User successfully logged in: ${status.email}`)
+  //     props.setuser(status)
+  //   }
+  // }, [status])
 
-  const handleSubmit = async e => {
-    // prevent the HTML form from actually submitting... we use React's javascript code instead
-    e.preventDefault()
+  // const handleSubmit = async e => {
+  //   // prevent the HTML form from actually submitting... we use React's javascript code instead
+  //   e.preventDefault()
 
-    // get the username and password from the form fields
-    const email = e.target.email.value // gets the value of the field in the submitted form with name='username'
-    const password = e.target.password.value // gets the value of the field in the submitted form with name='password'
-    console.log(email)
-    // send form data to API to authenticate
-    const formData = new FormData()
-    formData.append("email", email)
-    formData.append("password", password)
-    console.log(formData)
-    try 
-    {
-      // send the request to the server api to authenticate
-      const response = await axios({
-        method: "post",
-        // url: "https://my.api.mockaroo.com/user_info_saverie.json?key=6c488f80&__method=POST",
-        params: formData,
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      // store the response data into the data state variable
-      setStatus(response.data)
-      // console.log(status)
-      // console.log(status)
-    } 
-    catch (err) {
-      // throw an error
-      console.log("shit hro")
-      throw new Error(err)
-    }
-  }
-  // console.log(status)
-    if (!status.success)
+  //   // get the username and password from the form fields
+  //   const email = e.target.email.value // gets the value of the field in the submitted form with name='username'
+  //   const password = e.target.password.value // gets the value of the field in the submitted form with name='password'
+  //   console.log(email)
+  //   // send form data to API to authenticate
+  //   const formData = new FormData()
+  //   formData.append("email", email)
+  //   formData.append("password", password)
+  //   console.log(formData)
+  //   try 
+  //   {
+  //     // send the request to the server api to authenticate
+  //     const response = await axios({
+  //       method: "post",
+  //       // url: "https://my.api.mockaroo.com/user_info_saverie.json?key=6c488f80&__method=POST",
+  //       params: formData,
+  //       headers: { "Content-Type": "multipart/form-data" },
+  //     })
+  //     // store the response data into the data state variable
+  //     setStatus(response.data)
+  //     // console.log(status)
+  //     // console.log(status)
+  //   } 
+  //   catch (err) {
+  //     // throw an error
+  //     // console.log("shit hro")
+  //     throw new Error(err)
+  //   }
+  // }
+  // // console.log(status)
+  //   if (!status.success)
     
       return (
         <div className="Signin">
           <HeaderTab pageTitle="Sign in" returnPath = "/"/>
-          <form className="fields" onSubmit={handleSubmit}>
+          {/* onSubmit={handleSubmit} */}
+          <form className="fields" action="http://localhost:3001/signin-submit" method="POST">
             {
                 //handle error condition
             }
@@ -67,9 +68,9 @@ const Signin = props => {
             <Input title="Password" name="password" type='password' placeholder='*******'/>
             <div className='button'>
             {/* <Submit type="submit" value="SIGN IN"/> */}
-            <Link to='/usermenu'>
+            {/* <Link to='/usermenu'> */}
                 <Input className="submitButton" type="submit" value="SIGN IN"></Input>
-            </Link>
+            {/* </Link> */}
             </div>
           </form>
           {/* <div>
@@ -86,7 +87,7 @@ const Signin = props => {
       );
     // otherwise, if the user has successfully logged-in, redirect them to a different page
     // in this example, we simply redirect to the home page, but a real app would redirect to a page that shows content only available to logged-in users
-    else return <Redirect to="/usermenu" />
+    // else return <Redirect to="/usermenu" />
 }
 
 export default Signin
