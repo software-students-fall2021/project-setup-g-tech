@@ -1,43 +1,59 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { InputGroup, FormControl } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import HeaderTab from "../header-tab/HeaderTab";
-import Restaurants from "../Restaurants/Restaurants";
+import ItemsList from "../ItemsList/ItemsList";
 import axios from "axios";
 import "./SavedDistributors.css";
-import { Link } from 'react-router-dom'
-
 
 function SavedDistributors() {
   const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await axios(
-        "https://my.api.mockaroo.com/restaurants.json?key=0b54f900"
-      );
-      setData(response.data);
-    }
+  const fetchData = async () => {
+    const res = await axios.get('http://localhost:3001/saveddistributors', {
+      params: {
+        user: 'mockData'
+      }
+    });
+    setData(res.data);
+  };
+  useEffect(fetchData, []);
 
-    fetchData();
-  }, []);
+  const dynamicSearch = () => {
+    return data.filter((e) =>
+      e.name.toLowerCase().includes(search.toLowerCase())
+    );
+  };
 
   return (
     <div className="savedListContainer">
-      <HeaderTab pageTitle="Saved Distributors"/>
+      <HeaderTab pageTitle="Saved Distributors" returnPath="/usermenu" />
+      <hr />
+      <div className="searchbar">
+        <div className="mt-3">
+          <InputGroup>
+            <FormControl
+              as="input"
+              type="text"
+              placeholder="Search"
+              aria-label="Search"
+              id="searchtext"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <InputGroup.Text id="searchicon">
+              <FontAwesomeIcon icon={faSearch} />
+            </InputGroup.Text>
+          </InputGroup>
+        </div>
+      </div>
+      <hr />
       <div className="listContent">
-        <section className="restaurants">
-          {data
-            .sort((a, b) => a.restaurant_name.localeCompare(b.restaurant_name))
-            .map((item) => (
-              <Link to='/menu'>     
-                <Restaurants
-                  key={item.id}
-                  img="https://picsum.photos/200"
-                  details={item}
-                />
-              </Link>
-            ))}
-        </section>
+        <div className="restaurants">
+          <ItemsList list={dynamicSearch()} />
+        </div>
       </div>
     </div>
   );

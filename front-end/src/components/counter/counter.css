@@ -4,11 +4,10 @@
     /* padding-right: 2px; */
 }
 button.btn{
-    padding: 0px 10px;
-
+    padding: 0px 8px;
 }
-.buttons{
 
+.buttons{
     margin:0px 3px;
 }
 
@@ -17,5 +16,6 @@ button.btn{
     color: grey;
     font-style: italic;
     padding-top: 10px;
-    padding-left: 20px;
+    text-align: center;
+    padding-right: 8px;
 }

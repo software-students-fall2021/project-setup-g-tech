@@ -1,3 +1,11 @@
+.link {
+    color: black;
+}
+
+.link:hover {
+    color: black;
+}
+
 .item {
     display: flex;
     margin: 18px;
@@ -8,8 +16,6 @@
 .logo {
     width: 4em;
     height: 3.5em;
-    border: solid 1px;
-    background-color: grey;
 }
 
 .title {

@@ -3,19 +3,17 @@
     width: 60px;
     height: 60px;
 }
-.card{
-    border: 0.5px solid lightgray;
-    border-radius: 10px;
-    margin: 0px 10px;
-
-}
-.menuItems{
-    width: 100%;
-    margin: 0px 10px;
+div .card{
+    margin: 10px;
+    padding: 0 !important;
 }
 .card-row{
-    padding: 10px;
+    /* padding: 12px 0px; */
+    padding: 8px 4px;
+    border-bottom: 0.2px solid lightgray;
+    border-radius: 4px;
 }
+
 h5.cardtitle{
     margin: 0;
     font-size: 16px;
@@ -25,6 +23,7 @@ h5.cardtitle{
 p.cardprice{
     margin: 0;
     font-size: 14px;
+    color: rgb(82, 80, 80);
 }
 
 .back {

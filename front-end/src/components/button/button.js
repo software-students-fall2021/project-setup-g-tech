@@ -1,7 +1,9 @@
 
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
-
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+</style>
 
 
 const ButtonUI = styled(Button)((props) => ({
@@ -9,6 +11,9 @@ const ButtonUI = styled(Button)((props) => ({
     padding: '6px 16px',
     minWidth: props.width,
     textTransform: 'none',
+    fontFamily: 'Josefin Sans',
+    fontWeight: 700,
+    fontSize: 18,
     borderColor: '#000000',
     backgroundColor: '#21a376',
     borderRadius: props.radius,

@@ -20,16 +20,15 @@ const Avatar = (props) => {
                 onClick={handleShow}
             />
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Footer>
+            <Modal dialogClassName='avatar-modal' show={show} onHide={handleClose}>
+                <Modal.Footer className='avatar-footer' style={{display: 'flex', justifyContent: 'center'}}>
                     <Link to='/saveddistributors'>
-                        <Button variant="secondary" onClick={handleClose}>
+                        <Button style={{marginTop: '2em', marginBottom: '0.5em'}} className='modal-item' variant="secondary" onClick={handleClose}>
                             Restaurants
                         </Button>
                     </Link>
                     <Link to='/'>
-                        <Button variant="secondary" onClick={handleClose}>
-                            {/* <Logout/> */}
+                        <Button style={{marginBottom: '3em'}} className='modal-item' variant="secondary" onClick={handleClose}>
                             Log Out
                         </Button>
                     </Link>

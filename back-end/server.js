@@ -1,12 +1,21 @@
 #!/usr/bin/env node
-const server = require("./app") // load up the web server
-const port = 3000 // the port to listen to for incoming requests
+const server = require("./app.js"); // load up the web server
+const axios = require("axios"); // middleware for making requests to APIs
+require("dotenv").config({ silent: true }); // .env
+
+// use cors to bypass chrome error
+const cors = require("cors");
+server.use(cors());
+
+// the port to listen to for incoming requests
+const port = 3001;
+
 // call express's listen function to start listening to the port
 const listener = server.listen(port, function () {
-<<<<<<< Updated upstream
+
   console.log(`Server running on port: ${port}`)
 })
-=======
+
   console.log(`Server running on port: ${port}`);
 });
 
@@ -34,6 +43,17 @@ server.get("/saveddistributors", (req, res, next) => {
 });
 
 //register authentication
+server.get("/menu", (req, res, next) => {
+  if (req.query.user == "mockData") {
+    axios
+      .get(`https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST`)
+      .then((apiRes) => res.json(apiRes.data));
+  } else {
+    res.status(404);
+    next();
+  }
+});
+
 server.post("/register-submit", function (req, res) {
   if (
     req.body.first_name &&
@@ -84,12 +104,12 @@ server.post("/signin-submit", function (req, res) {
   }
 });
 
-
->>>>>>> Stashed changes
 // a function to stop listening to the port
 const close = () => {
-  listener.close()
-}
-module.exports = {
-  close: close,
-}
+  listener.close();
+};
+
+// module.exports = {
+//   close: close,
+// }
+module.exports = server;

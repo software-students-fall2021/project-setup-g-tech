@@ -7,7 +7,53 @@ html {
 }
 
 .menuItems{
-    padding: 4px 28px;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
+    margin:  20px;
 }
+
+.floatBtn{
+    position:fixed;
+    bottom:10px;
+    width: 100%;
+    align-items: center;
+
+}
+.floatBtnChild{
+    width: 200px;
+    margin: 0 auto;
+}
+
+.floatBtnChild a{
+    color: #fff;
+}
+
+/* styles  for scroll bar */
+
+div.scrollmenu {
+    background-color: #333;
+    overflow: auto;
+    white-space: nowrap;
+    padding: 0px 15px;
+    margin-bottom: 12px;
+  }
+  a.menuItem{
+      min-width: 50px;
+      padding: 0px 8px;
+      font-size: 18px;
+  }
+  div.scrollmenu a {
+    color: white;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  div.scrollmenu a:hover {
+    background-color: #777;
+    border-radius: 8px;
+  }
+  ul.menuItem02{
+    display: inline-block !important;
+    margin: 0;
+    padding: 12px 0px;
+  }

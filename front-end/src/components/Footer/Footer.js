@@ -1,6 +1,6 @@
 import './Footer.css';
 import { Link } from 'react-router-dom'
-import ButtonUI from '../button/button';
+import ButtonUI from '../Button/button';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col' 
 
@@ -11,7 +11,7 @@ function Footer(){
           <Col>
             <div>
             <Link to='/signin'>
-              <ButtonUI radius = '30px' width= '130px'> Sign Up</ButtonUI>
+              <ButtonUI radius = '30px' width= '130px'> Sign In</ButtonUI>
             </Link>
             </div>
           </Col>

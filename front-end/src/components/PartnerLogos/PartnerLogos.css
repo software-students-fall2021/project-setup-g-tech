@@ -1,0 +1,16 @@
+.container {
+    margin: 0px !important;
+}
+
+.card {
+    border: hidden;
+    padding-bottom: 20px;
+    background: none !important;
+}
+
+.card-title {
+    border: hidden;
+    width: 8em;
+    display: flex;
+    font-weight: 500;
+}

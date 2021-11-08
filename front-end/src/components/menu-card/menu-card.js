@@ -4,15 +4,26 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import './menu-card.css'
 // import './cardflip.css';
-import Counter from '../counter/counter'
+import Counter from '../Counter/counter.js'
 import { useState } from 'react'
 
 
 const MenuCard = (props) => {
+    let itName = props.name;
+    let itPrice = props.price;
+
     const counterUpdater = (val) =>{
         if (props.menuCountUpdater){
-            props.menuCountUpdater(val);
-        }
+                     //to update item selected and its amount
+            const item = {};
+            item['name']= itName;
+            item['qty'] = val;
+            item['price'] = itPrice;
+            props.menuCountUpdater(val,item); //to update count of total selected items
+
+            props.selectionUpdater(item);
+            
+          }
     };
 
     const [isFlipped, setIsFlipped] = useState(false);
@@ -28,31 +39,24 @@ const MenuCard = (props) => {
             <div className='card'>
                 <Container>
                     <Row className='card-row'> 
-                        {/* <div onClick={handleClick}> */}
                             <Col onClick={handleClick}>
                                 <img className  = 'round-img' src = {props.img} ></img>
                             </Col>
                             <Col onClick={handleClick}>
                                 <h5 className="cardtitle">{props.name}</h5>
                                 <p className="cardprice"><strong>$</strong>{props.price}</p> 
-                                {/* <p>Tap to view description</p>           */}
                             </Col>
-                        {/* </div> */}
                         <Col>
-                            <Counter counterUpdate={counterUpdater}/>
+                            <Counter counterUpdate={counterUpdater} qty_available = {props.qty_available} qty = {props.qty} />
                         </Col>
                     </Row>  
                 </Container>
             </div>
-            {/* <div className='card'> */}
                 <Container>
-                    {/* <Row className='card-row'>  */}
                         <div className="back" onClick={handleClick}>
                             {props.description}
                         </div>
-                    {/* </Row>   */}
                 </Container>
-            {/* </div> */}
             </ReactCardFlip>
         </div>
 
