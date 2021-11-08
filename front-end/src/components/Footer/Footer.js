@@ -1,6 +1,6 @@
 import './Footer.css';
 import { Link } from 'react-router-dom'
-import ButtonUI from '../button/button';
+import ButtonUI from '../Button/button';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col' 
 
