@@ -12,18 +12,6 @@ import './menu-page.css';
 
 const MenuPage = () => {
 
-        // code when using API
-        // const [repo, setRepo] = useState([]);
-        // const getRepo = () => {
-        //     axios.get('https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST')
-        //     .then((response) =>{
-        //         console.log(response);
-        //         const myRepo =  response.data;
-        //         setRepo(myRepo);
-        //     })
-        // }
-        // useEffect(() => getRepo(), [])
-        // let menuItems =  Object.keys(repo);
 
     const [totalCounter, setTotalCounter] = useState(0);
     const [selectedItems, setSelectedItems] = useState({});
@@ -56,9 +44,21 @@ const MenuPage = () => {
     };
     
     // Placeholder code for using data
+    // let menuItems =  Object.keys(data[0]);
 
-    let menuItems =  Object.keys(data[0]);
-
+    // API Backend get data
+    const [data, setData] = useState([])
+ 
+    const fetchData = async () => {
+       const res = await axios.get('http://localhost:3001/menu', {
+          params: {
+             user: 'mockData'
+          }
+       });
+       setData(res.data);
+    }
+    useEffect(fetchData, []);
+    let menuItems =  Object.keys(data);
 
     
 
@@ -83,9 +83,9 @@ const MenuPage = () => {
                         </a>                        
                     </div>
                     <div>
-                        {/* use this for API call: {repo[menuItem].map(itemList=>{ */}
-                        {data[0][menuItem].map(itemList=>{
-                        
+                        {/* use this for API call: {data[menuItem].map(itemList=>{ */}
+                        {/* use this for using db.json file {data[0][menuItem].map(itemList=>{ */}
+                        {data[menuItem].map(itemList=>{
                             return <MenuCard menuCountUpdater = {onItemCountChange} selectionUpdater = {onItemSelect} img = {itemList.img} name= {itemList.name} price = {itemList.price} description = {itemList.description} qty_available = {itemList.qty_available}/>
                         })}
                     </div>           
