@@ -7,7 +7,9 @@ import ButtonUI from "../button/button";
 import './Checkout.css';
 
 const Checkout = (props) => {
-        const cartItems = JSON.parse(sessionStorage.getItem("cart"));
+        let cartItems = JSON.parse(sessionStorage.getItem("cart"));
+        let cartItemsPrice = JSON.parse(sessionStorage.getItem("price"));
+        let sum  = 0;
         return (
 
             <div className='Checkout'>
@@ -15,14 +17,26 @@ const Checkout = (props) => {
                 <div className='heading'>
                     <h2 className="order-confirm">Order Confirmation</h2>
                 </div>
-                {console.log('cartItems',cartItems)}
 
                 <div className='Items'> 
-                {  Object.entries(cartItems).map(([key, value]) =>
-                    <Billitem quantity = {value} itemName={key} price={props.price}/>
-                    )};
+                
+                
+                {Object.entries(cartItems).map(([key, value]) =>
+                    Object.entries(cartItemsPrice).map(([name, price]) =>{
+                        let test = key===name;
+                        if(test)
+                            {
+                                sum += value*price ;  
+                                return <Billitem quantity = {value} itemName={key} price={price}/>
+                            }
+                             
+                                                  
+                    })             
+                )};
+                 
+               
                     <br/>
-                    <Billitem itemName='Total' price='3.99'/>
+                    <Billitem itemName='Total' price={sum}/>
                 </div>
     
                 <h4 className="pick-up">Pick-up Time</h4>
