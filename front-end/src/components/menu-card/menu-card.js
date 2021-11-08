@@ -10,16 +10,22 @@ import { useState } from 'react'
 
 const MenuCard = (props) => {
     let itName = props.name;
+    let itPrice = props.price;
+
     const counterUpdater = (val) =>{
         if (props.menuCountUpdater){
             props.menuCountUpdater(val); //to update count of total selected items
 
             //to update item selected and its amount
             const item = {};
+
             item['name']= itName;
             item['qty']=val;
+            item['price'] = itPrice;
+
+
             props.selectionUpdater(item);
-        }
+          }
     };
 
     const [isFlipped, setIsFlipped] = useState(false);

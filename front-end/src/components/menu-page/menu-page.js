@@ -27,7 +27,8 @@ const MenuPage = () => {
 
     const [totalCounter, setTotalCounter] = useState(0);
     const [selectedItems, setSelectedItems] = useState({});
-    let [cart, addToCart] = useState({});
+    const [selectedItemsPrice, setSelectedItemsPrice] = useState({});
+
 
     const onItemCountChange = (val) =>{
         setTotalCounter(totalCounter+val);
@@ -35,19 +36,23 @@ const MenuPage = () => {
 
     const onItemSelect = ( item) => {
         let prevItems = selectedItems;
+        let previtemPrice = selectedItemsPrice;
+
         if (Object.keys(prevItems).includes(item['name'])){
             if (prevItems[item['name']]===1 && item['qty'] ===-1){
-                delete prevItems[item['name']];
+                delete prevItems[item['name']];  
+                delete previtemPrice[item['name']] ;         
             }else{
                 prevItems[item['name']]+=parseInt(item['qty']);
             }
         }else{
             prevItems[item['name']]=1;
+            previtemPrice[item['name']] = item['price'];
         }
         setSelectedItems(prevItems);
-        cart = selectedItems;
-        addToCart(cart);
-        sessionStorage.setItem("cart",JSON.stringify(cart))
+        setSelectedItemsPrice(previtemPrice);
+        sessionStorage.setItem("cart",JSON.stringify(selectedItems));
+        sessionStorage.setItem("price",JSON.stringify(selectedItemsPrice));
     };
     
     // Placeholder code for using data
