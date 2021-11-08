@@ -38,6 +38,17 @@ server.get("/saveddistributors", (req, res, next) => {
   }
 });
 
+server.get("/menu", (req, res, next) => {
+  if (req.query.user == "mockData") {
+    axios
+      .get(`https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST`)
+      .then((apiRes) => res.json(apiRes.data));
+  } else {
+    res.status(404);
+    next();
+  }
+});
+
 server.post("/register-submit", function (req, res) {
   if (
     req.body.first_name &&
