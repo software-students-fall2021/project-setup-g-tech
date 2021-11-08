@@ -19,7 +19,7 @@ const listener = server.listen(port, function () {
 server.get("/usermenu", (req, res, next) => {
   if (req.query.user == "mockData") {
     axios
-      .get(`${process.env.API_BASE_URL}?key=${process.env.API_SECRET_KEY}`)
+      .get(`https://my.api.mockaroo.com/restaurant_info.json?key=4aedac00`)
       .then((apiRes) => res.json(apiRes.data));
   } else {
     res.status(404);
@@ -30,7 +30,7 @@ server.get("/usermenu", (req, res, next) => {
 server.get("/saveddistributors", (req, res, next) => {
   if (req.query.user == "mockData") {
     axios
-      .get(`${process.env.API_BASE_URL}?key=${process.env.API_SECRET_KEY}`)
+      .get(`https://my.api.mockaroo.com/restaurant_info.json?key=4aedac00`)
       .then((apiRes) => res.json(apiRes.data));
   } else {
     res.status(404);
