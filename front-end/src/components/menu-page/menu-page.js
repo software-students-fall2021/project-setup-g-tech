@@ -6,7 +6,7 @@ import ImageCont from './bg-image';
 import MenuCard from '../menu-card/menu-card';
 import HeaderTab from '../header-tab/HeaderTab';
 import axios from 'axios';
-import ButtonUI from'../button/button.js';
+import ButtonUI from'../Button/button.js';
 import data from './restaurant_menu.json';
 import './menu-page.css';
 
@@ -18,18 +18,20 @@ const MenuPage = () => {
     const [selectedItemsPrice, setSelectedItemsPrice] = useState({});
 
 
-    const onItemCountChange = (val) =>{
+
+    const onItemCountChange = (val, item) =>{
         setTotalCounter(totalCounter+val);
     };
 
-    const onItemSelect = ( item) => {
+    const onItemSelect = (item) => {
         let prevItems = selectedItems;
         let previtemPrice = selectedItemsPrice;
 
         if (Object.keys(prevItems).includes(item['name'])){
             if (prevItems[item['name']]===1 && item['qty'] ===-1){
                 delete prevItems[item['name']];  
-                delete previtemPrice[item['name']] ;         
+                delete previtemPrice[item['name']] ;
+                  
             }else{
                 prevItems[item['name']]+=parseInt(item['qty']);
             }
@@ -85,7 +87,9 @@ const MenuPage = () => {
                     <div>
                         {/* use this for API call: {data[menuItem].map(itemList=>{ */}
                         {/* use this for using db.json file {data[0][menuItem].map(itemList=>{ */}
+                        
                         {data[menuItem].map(itemList=>{
+                      
                             return <MenuCard menuCountUpdater = {onItemCountChange} selectionUpdater = {onItemSelect} img = {itemList.img} name= {itemList.name} price = {itemList.price} description = {itemList.description} qty_available = {itemList.qty_available}/>
                         })}
                     </div>           

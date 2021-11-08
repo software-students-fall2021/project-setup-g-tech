@@ -8,11 +8,9 @@ const Counter = (props) => {
 
     const [counter, setCounter] = useState(0)
 
-
     const handleClick1 = () => {
-      if (counter < 5) {
+      if (counter < props.qty_available) {
         setCounter(counter + 1);
-
         count+=1;
       }
 
@@ -37,6 +35,7 @@ const Counter = (props) => {
         <button onClick={handleClick2} className='btn'><FaMinus/></button>
         <span className = 'counter'> 
           {counter}
+
         </span>
         <button onClick={handleClick1} className='btn'><FaPlus/></button>
       </div>
