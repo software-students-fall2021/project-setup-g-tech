@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 const server = require("./app.js"); // load up the web server
 const axios = require("axios"); // middleware for making requests to APIs
+require("dotenv").config({ silent: true }); // .env
 
 // use cors to bypass chrome error
 const cors = require("cors");
 server.use(cors());
 
 // the port to listen to for incoming requests
-const port = 3001; 
+const port = 3001;
 
 // call express's listen function to start listening to the port
 const listener = server.listen(port, function () {
@@ -16,26 +17,24 @@ const listener = server.listen(port, function () {
 
 // route handling
 server.get("/usermenu", (req, res, next) => {
-  if(req.query.user == 'mockData') {
+  if (req.query.user == "mockData") {
     axios
-    .get("https://my.api.mockaroo.com/restaurant_info.json?key=4aedac00")
-    .then((apiRes) => res.json(apiRes.data))
-  }
-  else {
-    res.status(404)
-    next()
+      .get(`${process.env.API_BASE_URL}?key=${process.env.API_SECRET_KEY}`)
+      .then((apiRes) => res.json(apiRes.data));
+  } else {
+    res.status(404);
+    next();
   }
 });
 
 server.get("/saveddistributors", (req, res, next) => {
-  if(req.query.user == 'mockData') {
+  if (req.query.user == "mockData") {
     axios
-    .get("https://my.api.mockaroo.com/restaurants.json?key=0b54f900")
-    .then((apiRes) => res.json(apiRes.data))
-  }
-  else {
-    res.status(404)
-    next()
+      .get(`${process.env.API_BASE_URL}?key=${process.env.API_SECRET_KEY}`)
+      .then((apiRes) => res.json(apiRes.data));
+  } else {
+    res.status(404);
+    next();
   }
 });
 
