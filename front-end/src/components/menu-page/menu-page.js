@@ -6,7 +6,7 @@ import ImageCont from './bg-image';
 import MenuCard from '../menu-card/menu-card';
 import HeaderTab from '../header-tab/HeaderTab';
 import axios from 'axios';
-import ButtonUI from'../Button/button.js';
+import ButtonUI from'../Button/Button';
 import data from './restaurant_menu.json';
 import './menu-page.css';
 

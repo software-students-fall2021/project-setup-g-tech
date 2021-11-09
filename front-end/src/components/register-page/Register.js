@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom'
 import HeaderTab from '../header-tab/HeaderTab';
 import Input from '../input-field/Input';
-import ButtonUI from '../Button/button';
+import ButtonUI from '../Button/Button';
 import './Register.css';
 
 const Register = (props) => {
