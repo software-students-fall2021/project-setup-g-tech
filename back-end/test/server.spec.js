@@ -126,31 +126,32 @@ describe("Testing orderhistorypage", () => {
   });
 });
 
+
 // Saved distributors testing
 describe("Testing saveddistributors", () => {
-  it("API status code returns 200", (done) => {
-    chai
-      .request(app)
-      .get("/saveddistributors")
-      .query({ user: "mockData" })
-      .end((err, res) => {
-        expect(err).to.be.null;
-        expect(res).to.have.status(200);
-        done();
-      });
+    it("API status code returns 200", (done) => {
+      chai
+        .request(app)
+        .get("/saveddistributors")
+        .query({ user: "mockData" })
+        .end((err, res) => {
+          expect(err).to.be.null;
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+    it("API status code returns 404 for missing/incorrect data address", (done) => {
+      chai
+        .request(app)
+        .get("/saveddistributors")
+        .query({ user: "none" })
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          done();
+        });
+    });
   });
-  it("API status code returns 404 for missing/incorrect data address", (done) => {
-    chai
-      .request(app)
-      .get("/saveddistributors")
-      .query({ user: "none" })
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-        done();
-      });
-  });
-});
-
+  
 // // menu page testing
 describe("Testing menu page", () => {
   it("API status code returns 200", (done) => {
