@@ -1,7 +1,7 @@
 import React from "react";
 import Timer from "../Timer/Timer";
 import HeaderTab from "../header-tab/HeaderTab";
-import ButtonUI from "../Button/button";
+import ButtonUI from "../ButtonUI/ButtonUI";
 import "./PageTimer.css";
 import CancelOrder from "../CancelOrder/CancelOrder";
 import $ from "jquery";
