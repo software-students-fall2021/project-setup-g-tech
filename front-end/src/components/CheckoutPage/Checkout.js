@@ -3,7 +3,7 @@ import { Link , useLocation} from "react-router-dom";
 import HeaderTab from '../header-tab/HeaderTab';
 import Billitem from '../BillItem/Billitem';
 import TimerSelect from '../TimerSelect/TimerSelect';
-import ButtonUI from "../Button/button";
+import ButtonUI from "../ButtonUI/ButtonUI";
 import './Checkout.css';
 
 const Checkout = (props) => {
