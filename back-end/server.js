@@ -16,9 +16,6 @@ const listener = server.listen(port, function () {
   console.log(`Server running on port: ${port}`)
 })
 
-  console.log(`Server running on port: ${port}`);
-});
-
 // route handling
 server.get("/usermenu", (req, res, next) => {
   if (req.query.user == "mockData") {
