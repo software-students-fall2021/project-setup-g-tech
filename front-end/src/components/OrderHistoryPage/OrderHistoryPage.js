@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import HeaderTab from "../header-tab/HeaderTab";
 import axios from "axios";
-import "./OrderHistoryPage.css";
 import OrderHistoryList from "../OrderHistoryList/OrderHistoryList";
 
 function OrderHistoryPage() {
@@ -21,19 +20,16 @@ function OrderHistoryPage() {
   };
   useEffect(fetchData, []);
 
-  {
-    /*
   const dynamicSearch = () => {
     return data.filter((e) =>
-      e.name.toLowerCase().includes(search.toLowerCase())
+      e.orderRestaurant.toLowerCase().includes(search.toLowerCase())
     );
   };
-*/
-  }
+
   return (
     <div className="orderHistoryContainer">
       <HeaderTab pageTitle="Past Orders" returnPath="/usermenu" />
-      {/*
+      <hr />
       <div className="searchbar">
         <div className="mt-3">
           <InputGroup>
@@ -52,10 +48,9 @@ function OrderHistoryPage() {
           </InputGroup>
         </div>
       </div>
-      */}
       <div className="pastOrderList">
         <div className="orders">
-          <OrderHistoryList list={data} />
+          <OrderHistoryList list={dynamicSearch()} />
         </div>
       </div>
     </div>
