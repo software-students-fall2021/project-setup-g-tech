@@ -1,55 +1,59 @@
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Checkout from './components/CheckoutPage/Checkout';
-import LandingPage from './components/LandingPage/LandingPage';
-import Register from './components/register-page/Register';
-import Signin from './components/Sign-in/Signin';
-import MenuPage from './components/menu-page/menu-page';
-import UserMenu from './components/UserMenu/UserMenu';
-import PageTimer from './components/PageTimer/PageTimer'; 
-import SavedDistributors from './components/SavedDistributors/SavedDistributors'; 
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Checkout from "./components/CheckoutPage/Checkout";
+import LandingPage from "./components/LandingPage/LandingPage";
+import Register from "./components/register-page/Register";
+import Signin from "./components/Sign-in/Signin";
+import MenuPage from "./components/menu-page/menu-page";
+import UserMenu from "./components/UserMenu/UserMenu";
+import PageTimer from "./components/PageTimer/PageTimer";
+import SavedDistributors from "./components/SavedDistributors/SavedDistributors";
+import OrderHistoryPage from "./components/OrderHistoryPage/OrderHistoryPage";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/checkout">
-          <Checkout/>
+          <Checkout />
         </Route>
 
         <Route path="/menu">
-          <MenuPage/>
+          <MenuPage />
         </Route>
 
         <Route path="/register">
-          <Register/>
+          <Register />
         </Route>
-        
+
         <Route path="/signin">
-          <Signin/>
+          <Signin />
         </Route>
 
         <Route path="/usermenu">
           <UserMenu />
         </Route>
-        
-        <Route path="/saveddistributors"> 
-          <SavedDistributors /> 
+
+        <Route path="/orderhistorypage">
+          <OrderHistoryPage />
         </Route>
 
-        <Route path="/pagetimer"> 
-          <PageTimer /> 
+        <Route path="/saveddistributors">
+          <SavedDistributors />
         </Route>
-        
+
+        <Route path="/pagetimer">
+          <PageTimer />
+        </Route>
+
         <Route path="/">
-          <LandingPage/>
+          <LandingPage />
         </Route>
-
       </Switch>
     </BrowserRouter>
   );
-}
+};
 
 export default App;
