@@ -41,6 +41,20 @@ describe("Testing the POST Call", function () {
         done();
       });
   });
+  it("API status code should return 400 for a missing value", function (done) {
+    chai
+      .request(app)
+      .post("/register-submit")
+      .send({
+        first_name: "Yusra",
+        last_name: "Khan",
+      })
+      .end((err, res) => {
+        if (err) done(err);
+        expect(res).to.have.redirectTo("http://localhost:3000/register");
+        done();
+      });
+  });
 });
 
 // Sign in testing
