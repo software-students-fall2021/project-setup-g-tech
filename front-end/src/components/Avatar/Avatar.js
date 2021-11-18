@@ -3,12 +3,18 @@ import { Link } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import userIcon from "../../images/user-icon.png";
 import Logout from "../Logout/Logout";
+import url from 'url'
 import "./Avatar.css";
 
 const Avatar = (props) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const favoritesPath = url.format({
+    pathname:"/saveddistributors",
+    query: { "user": props.user}
+  })
 
   return (
     <div>
@@ -24,7 +30,7 @@ const Avatar = (props) => {
           className="avatar-footer"
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <Link to="/saveddistributors">
+          <Link to={favoritesPath}>
             <Button
               style={{ marginTop: "2em", marginBottom: "0.5em" }}
               className="modal-item"

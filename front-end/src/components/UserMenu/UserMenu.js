@@ -13,10 +13,13 @@ const UserMenu = () => {
    const [data, setData] = useState([])
    const [search, setSearch] = useState('')
 
+   const params = new URLSearchParams(window.location.search);
+   const user = params.get('user');
+
    const fetchData = async () => {
       const res = await axios.get('http://localhost:3001/usermenu', {
          params: {
-            user: 'mockData'
+            id: user
          }
       });
       setData(res.data);
@@ -48,7 +51,7 @@ const UserMenu = () => {
                   </InputGroup>
                </div>
             </div>
-            <Avatar />
+            <Avatar user={user} />
          </div>
          <div className='content'>
             <h4 className='picks-title mt-3'>Top Picks for You</h4>
