@@ -5,20 +5,28 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import HeaderTab from "../header-tab/HeaderTab";
 import ItemsList from "../ItemsList/ItemsList";
 import axios from "axios";
+import url from 'url';
 import "./SavedDistributors.css";
 
 function SavedDistributors() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
 
+  const params = new URLSearchParams(window.location.search);
+  const user = params.get('id');
+  const returnPath = url.format({
+    pathname:"/usermenu",
+    query: { id: user}
+  })
+
   const fetchData = async () => {
-    const res = await axios.get('http://localhost:3001/saveddistributors', {
-      params: {
-        user: 'mockData'
-      }
-    });
-    setData(res.data);
-  };
+     const res = await axios.get('http://localhost:3001/saveddistributors', {
+        params: {
+           id: user
+        }
+     });
+     setData(res.data);
+  }
   useEffect(fetchData, []);
 
   const dynamicSearch = () => {
@@ -29,7 +37,7 @@ function SavedDistributors() {
 
   return (
     <div className="savedListContainer">
-      <HeaderTab pageTitle="Saved Distributors" returnPath="/usermenu" />
+      <HeaderTab pageTitle="Saved Distributors" returnPath={returnPath} />
       <hr />
       <div className="searchbar">
         <div className="mt-3">
@@ -52,7 +60,7 @@ function SavedDistributors() {
       <hr />
       <div className="listContent">
         <div className="restaurants">
-          <ItemsList list={dynamicSearch()} />
+          <ItemsList user={user} list={dynamicSearch()} />
         </div>
       </div>
     </div>

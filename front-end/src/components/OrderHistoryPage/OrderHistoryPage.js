@@ -4,16 +4,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import HeaderTab from "../header-tab/HeaderTab";
 import axios from "axios";
+import url from 'url'
 import OrderHistoryList from "../OrderHistoryList/OrderHistoryList";
 
 function OrderHistoryPage() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
 
+  const params = new URLSearchParams(window.location.search);
+  const user = params.get('id');
+  const returnPath = url.format({
+    pathname:"/usermenu",
+    query: { id: user}
+  })
+
   const fetchData = async () => {
     const res = await axios.get("http://localhost:3001/orderhistorypage", {
       params: {
-        user: "mockData",
+        id: user,
       },
     });
     setData(res.data);
@@ -28,7 +36,7 @@ function OrderHistoryPage() {
 
   return (
     <div className="orderHistoryContainer">
-      <HeaderTab pageTitle="Past Orders" returnPath="/usermenu" />
+      <HeaderTab pageTitle="Past Orders" returnPath={returnPath} />
       <hr />
       <div className="searchbar">
         <div className="mt-3">
