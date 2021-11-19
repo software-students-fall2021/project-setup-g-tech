@@ -1,9 +1,10 @@
 import Item from '../Item/Item'
 
 const ItemsList = (props) => {
-    let items = props.list
+    const items = props.list
         .sort((a, b) => a.name.localeCompare(b.name))
-        .map(item => <Item key={item.id} details={item} img="https://picsum.photos/200" />)
+        .map(item => <Item saved={props.saved} user={props.user} key={item.id} details={item} img="https://picsum.photos/200" />)
+        
     return (
         <div>
             {items}

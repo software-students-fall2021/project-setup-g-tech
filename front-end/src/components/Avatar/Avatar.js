@@ -13,7 +13,12 @@ const Avatar = (props) => {
 
   const favoritesPath = url.format({
     pathname:"/saveddistributors",
-    query: { "user": props.user}
+    query: { id: props.user}
+  })
+
+  const orderHistoryPath = url.format({
+    pathname:"/orderhistorypage",
+    query: { id: props.user}
   })
 
   return (
@@ -40,7 +45,7 @@ const Avatar = (props) => {
               Restaurants
             </Button>
           </Link>
-          <Link to="/orderhistorypage">
+          <Link to={orderHistoryPath}>
             <Button
               style={{ marginBottom: "0.5em" }}
               className="modal-item"

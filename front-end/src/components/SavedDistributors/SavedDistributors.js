@@ -13,10 +13,10 @@ function SavedDistributors() {
   const [search, setSearch] = useState("");
 
   const params = new URLSearchParams(window.location.search);
-  const user = params.get('user');
+  const user = params.get('id');
   const returnPath = url.format({
     pathname:"/usermenu",
-    query: { "user": user}
+    query: { id: user}
   })
 
   const fetchData = async () => {
@@ -60,7 +60,7 @@ function SavedDistributors() {
       <hr />
       <div className="listContent">
         <div className="restaurants">
-          <ItemsList list={dynamicSearch()} />
+          <ItemsList user={user} list={dynamicSearch()} />
         </div>
       </div>
     </div>

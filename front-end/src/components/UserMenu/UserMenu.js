@@ -11,10 +11,11 @@ import './UserMenu.css'
 
 const UserMenu = () => {
    const [data, setData] = useState([])
+   const [saved, setSaved] = useState([])
    const [search, setSearch] = useState('')
 
    const params = new URLSearchParams(window.location.search);
-   const user = params.get('user');
+   const user = params.get('id');
 
    const fetchData = async () => {
       const res = await axios.get('http://localhost:3001/usermenu', {
@@ -25,6 +26,16 @@ const UserMenu = () => {
       setData(res.data);
    }
    useEffect(fetchData, []);
+
+   const fetchSaved = async () => {
+      const res = await axios.get('http://localhost:3001/saveddistributors', {
+         params: {
+            id: user
+         }
+      });
+      setSaved(res.data);
+   }
+   useEffect(fetchSaved, [])
 
    const dynamicSearch = () => {
       return data.filter(e => e.name.toLowerCase().includes(search.toLowerCase()))
@@ -68,7 +79,7 @@ const UserMenu = () => {
                      </Dropdown.Menu>
                   </Dropdown>
             </div>
-            <ItemsList list={dynamicSearch()} />
+            <ItemsList saved={saved} user={user} list={dynamicSearch()} />
          </div>
       </div>
    );
