@@ -59,9 +59,6 @@ const Item = mongoose.model('Item', menuSchema, 'menuitems')
 const Restaurant = mongoose.model('Restaurant', restaurantSchema, 'restaurants')
 const User = mongoose.model('User', userSchema, 'users')
 
-  console.log(`Server running on port: ${port}`);
-});
-
 
 // mongoose setup
 const db_url = 'mongodb+srv://david:saverie@cluster0.53ot4.mongodb.net/saverie?retryWrites=true'
