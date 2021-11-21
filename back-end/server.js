@@ -8,6 +8,7 @@ require("dotenv").config({ silent: true }); // .env
 
 // use cors to bypass chrome error
 const cors = require("cors");
+const { privateDecrypt } = require("crypto");
 server.use(cors());
 
 // the port to listen to for incoming requests
@@ -15,21 +16,27 @@ const port = 3001;
 
 // call express's listen function to start listening to the port
 const listener = server.listen(port, function () {
-  console.log(`Server running on port: ${port}`);
-});
+  console.log(`Server running on port: ${port}`)
+})
 
 // mongoose setup
-const db_url =
-  "mongodb+srv://david:saverie@cluster0.53ot4.mongodb.net/saverie?retryWrites=true";
-mongoose.connect(db_url, () => {
-  console.log("Db connection state: " + mongoose.connection.readyState);
-});
+const db_url = 'mongodb+srv://david:saverie@cluster0.53ot4.mongodb.net/saverie?retryWrites=true'
+mongoose.connect(db_url, () => { console.log('Db connection state: ' + mongoose.connection.readyState) })
+const menuSchema = new mongoose.Schema({
+  type: String,
+  title: String,
+  price: Number,
+  quantity: Number,
+  description: String,
+  // image: String
+})
 const historySchema = new mongoose.Schema({
   date: Date,
-  name: String,
+  items: [menuSchema],
   order_total: Number,
-  status: String,
-});
+  status: String
+})
+
 const userSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
@@ -37,8 +44,22 @@ const userSchema = new mongoose.Schema({
   password: String,
   favorites: Array,
   history: [historySchema],
-});
-const User = mongoose.model("User", userSchema, "users");
+  cart: [menuSchema]
+})
+const restaurantSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  password: String,
+  location: String,
+  image: String,
+  items: [menuSchema]
+})
+
+
+const Item = mongoose.model('Item', menuSchema, 'menuitems')
+const Restaurant = mongoose.model('Restaurant', restaurantSchema, 'restaurants')
+const User = mongoose.model('User', userSchema, 'users')
+
 
 // route handling
 server.get("/usermenu", (req, res) => {
@@ -188,6 +209,49 @@ server.post("/signin-submit", function (req, res) {
     res.redirect("http://localhost:3000/signin");
   }
 });
+
+//menu registration in authentication
+server.post("/menu-submit", function (req, res) {
+
+  if (
+    req.body.category &&
+    req.body.item_name &&
+    req.body.price &&
+    req.body.quantity
+  ) {
+   
+    // Check if item exists
+    Restaurant.find({items: {title: req.body.item_name}}, (err, docs) => {
+      if(docs.length || err){
+        console.log('Menu item already exists.')
+        res.status(400);
+        res.redirect("http://localhost:3000/business-menu")
+        
+      }
+      else {
+        // Create new Item
+        const new_item = new Item({ 
+          type: req.body.category,
+          title: req.body.item_name,
+          price: req.body.price,
+          quantity: req.body.quantity,
+          description: req.body.description,
+        })
+
+        new_item.save(err => { if(err) console.log('Unable to add new menu item') })
+        res.status(200);
+        res.redirect(url.format({
+          pathname:"http://localhost:3000/business-menu",
+        }));
+      }
+    })
+  } else {
+    res.status(400);
+    res.redirect("http://localhost:3000/business-menu");
+
+  }
+
+})
 
 // a function to stop listening to the port
 const close = () => {

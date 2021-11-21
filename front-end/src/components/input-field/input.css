@@ -12,7 +12,9 @@ button:active,
 button:hover,
 label:focus,
 .btn:active,
-.btn.active
+.btn.active,
+select:active,
+select:hover
 {
     outline:0px !important;
     -webkit-appearance:none;
