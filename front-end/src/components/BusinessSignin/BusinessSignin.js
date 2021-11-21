@@ -7,7 +7,7 @@ const BusinessSignin = props => {
       return (
         <div className="Signin">
           <HeaderTab pageTitle="Sign in" returnPath = "/business"/>
-          <form className="fields" action="http://localhost:3001/signin-submit" method="POST">
+          <form className="fields" action="http://localhost:3001/business-signin-submit" method="POST">
             <Input title="Email" name="email" type='email' placeholder='name@example.com'/>
             <Input title="Password" name="password" type='password' placeholder='*******'/>
             <div className='button'>

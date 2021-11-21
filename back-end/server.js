@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 const server = require("./app.js"); // load up the web server
 const axios = require("axios"); // middleware for making requests to APIs
-const url = require("url"); // process queries in url strings
-const mongoose = require("mongoose"); // module for database communication
-const restaurant_info = require("./restaurant_info.json");
+const express = require("express") // CommonJS import style!
+const url = require('url');   // process queries in url strings
+const mongoose = require('mongoose'); // module for database communication
+const restaurant_info = require('./restaurant_info.json')
+const cookieParser = require("cookie-parser") // middleware useful for parsing cookies in requests
 require("dotenv").config({ silent: true }); // .env
 
 // use cors to bypass chrome error
@@ -11,6 +13,19 @@ const cors = require("cors");
 const { privateDecrypt } = require("crypto");
 var bcrypt = require("bcryptjs");
 server.use(cors());
+
+const jwt = require("jsonwebtoken")
+const passport = require("passport")
+server.use(passport.initialize()) // tell express to use passport middleware
+// use this JWT strategy within passport for authentication handling
+const { jwtOptions, jwtStrategy } = require("./jwt-config.js") // import setup options for using JWT in passport
+passport.use(jwtStrategy)
+// use express's builtin body-parser middleware to parse any data included in a request
+server.use(express.json()) // decode JSON-formatted incoming POST data
+server.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
+server.use(cookieParser()) // useful middleware for dealing with cookies
+
+
 
 // the port to listen to for incoming requests
 const port = 3001;
@@ -21,14 +36,15 @@ const listener = server.listen(port, function () {
 })
 
 // mongoose setup
-const db_url = 'mongodb+srv://david:saverie@cluster0.53ot4.mongodb.net/saverie?retryWrites=true'
+const db_url = process.env.DB_DOMAIN
 mongoose.connect(db_url, () => { console.log('Db connection state: ' + mongoose.connection.readyState) })
+
 const menuSchema = new mongoose.Schema({
   type: String,
   title: String,
   price: Number,
   quantity: Number,
-  description: String,
+  description: String
   // image: String
 })
 const historySchema = new mongoose.Schema({
@@ -52,15 +68,42 @@ const restaurantSchema = new mongoose.Schema({
   email: String,
   password: String,
   location: String,
-  image: String,
+  // image: String,
   items: [menuSchema]
 })
-
 
 const Item = mongoose.model('Item', menuSchema, 'menuitems')
 const Restaurant = mongoose.model('Restaurant', restaurantSchema, 'restaurants')
 const User = mongoose.model('User', userSchema, 'users')
 
+server.get(
+  "/usermenu",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+  //   // our jwt passport config will send error responses to unauthenticated users will
+  //   // so we only need to worry about sending data to properly authenticated users!
+
+  //   res.json({
+  //     success: true,
+  //     user: {
+  //       id: req.user.id,
+  //       username: req.user.username,
+  //     },
+  //     message:
+  //       "Congratulations: you have accessed this route because you have a valid JWT token!",
+  //   })
+  }
+)
+
+// a route that sends a response including the Set-Cookie header.
+server.get("/set-cookie", (req, res) => {
+  res
+    .cookie("token", token) // send a cookie in the response with the key 'foo' and value 'bar'
+    .send({
+      success: true,
+      message: "Sent a cookie to the browser... hopefully it saved it.",
+    })
+})
 
 // route handling
 server.get("/usermenu", (req, res) => {
@@ -74,6 +117,20 @@ server.get("/usermenu", (req, res) => {
     }
   });
 });
+
+// // a route that looks for a Cookie header in the request and sends back whatever data was found in it.
+// app.get("/get-cookie", (req, res) => {
+//   const numCookies = Object.keys(req.cookies).length // how many cookies were passed to the server
+
+//   console.log(`Incoming cookie data: ${JSON.stringify(req.cookies, null, 0)}`)
+//   res.send({
+//     success: numCookies ? true : false,
+//     message: numCookies
+//       ? "thanks for sending cookies to the server :)"
+//       : "no cookies sent to server :(",
+//     cookieData: req.cookies,
+//   })
+// })
 
 server.post("/updateitem", (req, res) => {
   User.findByIdAndUpdate(
@@ -141,6 +198,7 @@ server.get("/menu", (req, res, next) => {
   });
 });
 
+// User registration
 server.post("/register-submit", async (req, res) => {
   if (
     req.body.first_name &&
@@ -181,38 +239,52 @@ server.post("/register-submit", async (req, res) => {
       }
     });
   } else {
-    res.status(400);
+    res.status(400).send("All fields not entered/passwords do not match.");
     res.redirect("http://localhost:3000/register");
   }
 });
 
-//sign in suthentication
+//sign in authentication
 server.post("/signin-submit", function (req, res) {
   if (req.body.email && req.body.password) {
-    User.find({email: req.body.email}, (err, docs) => {
-      if(err || docs.length == 0){
+    User.findOne({email: req.body.email}, (err, user) => {
+      if(user.length || err){
         console.log('User not found')
         res.status(400)
+        // res.json({ success: false, message: `user not found: ${req.body.email}.` })
         res.redirect("http://localhost:3000/signin")
       }
-      else if(bcrypt.compare(req.body.password, docs[0].password)) {
-        console.log('User exists: ', docs[0].email);
+
+      else if(bcrypt.compare(req.body.password, user.password)) {
+        console.log('User exists: ', user.email);
         res.status(200);
-        res.redirect(
-          url.format({
-            pathname: "http://localhost:3000/usermenu",
-            query: { id: docs[0]._id.toString() },
-          })
-        );
-      } else {
-        console.log("Incorrect password");
+        const payload = { id: user.id } // some data we'll encode into the token
+        const token = jwt.sign(payload, jwtOptions.secretOrKey) // create a signed token
+        res.cookie("token", token, {
+          httpOnly:true,
+        });
+
+        return res.redirect("http://localhost:3000/usermenu");
+
+        // res.json({ success: true, email: user.email, token: token }) // send the token to the client to store
+        // res.redirect(url.format({
+        //   pathname:"http://localhost:3000/usermenu",
+        //   query: { id: docs[0]._id.toString()}
+        // }));
+        
+      else {
+        console.log('Incorrect password')
+        console.log(user.password)
+        console.log(req.body.password)
+        res.status(401).json({ success: false, message: "incorrect password" })
       }
-    });
-  } else {
+    })
+  } 
+  else {
     res.status(400);
-    res.redirect("http://localhost:3000/signin");
+    res.json({ success: false, message: `no username or password supplied.` });
   }
-});
+})
 
 // Restaurant sign in authentication
 server.post("/business-signin-submit", function (req, res) {
@@ -241,47 +313,90 @@ server.post("/business-signin-submit", function (req, res) {
   }
 })
 
-//menu registration in authentication
+// business restaurant registration
+server.post("/business-register-submit", function (req, res) {
+  if (
+    req.body.name &&
+    req.body.email &&
+    req.body.location &&
+    req.body.password &&
+    req.body.repassword &&
+    req.body.password == req.body.repassword
+  ) {
+    // Check if restaurant exists
+    Restaurant.find({email: req.body.email}, (err, docs) => {
+
+      if (docs.length || err){
+        console.log("Email taken")
+        res.status(400)
+        res.redirect("http://localhost:3000/business-register")
+      }
+      else {
+        // Create new restaurant
+        const new_restaurant = new Restaurant({ 
+          name: req.body.name,
+          email: req.body.email,
+          location: req.body.location,
+          password: req.body.password,
+          items: {}
+        })
+        console.log('Restaurant created')
+        new_restaurant.save(err => { if(err) console.log('Unable to register new restaurant') })
+        res.status(200);
+        res.redirect(url.format({
+          pathname:"http://localhost:3000/business-menu",
+          query: { id: new_restaurant._id.toString()}
+        }));
+      }
+    })
+  } else {
+    console.log('Not all fields entered.')
+    res.status(400);
+    res.redirect("http://localhost:3000/business-register");
+  }
+});
+
+//restaurant item addition
 server.post("/menu-submit", function (req, res) {
 
   if (
     req.body.category &&
     req.body.item_name &&
     req.body.price &&
-    req.body.quantity
-  ) {
-   
-    // Check if item exists
-    Restaurant.find({items: {title: req.body.item_name}}, (err, docs) => {
-      if(docs.length || err){
-        console.log('Menu item already exists.')
-        res.status(400);
-        res.redirect("http://localhost:3000/business-menu")
-        
-      }
-      else {
-        // Create new Item
-        const new_item = new Item({ 
-          type: req.body.category,
-          title: req.body.item_name,
-          price: req.body.price,
-          quantity: req.body.quantity,
-          description: req.body.description,
-        })
+    req.body.quantity &&
+    req.body.description
 
-        new_item.save(err => { if(err) console.log('Unable to add new menu item') })
-        res.status(200);
-        res.redirect(url.format({
-          pathname:"http://localhost:3000/business-menu",
-        }));
-      }
+  ) {
+    // Create new item
+    const new_item = new Item({ 
+      type: req.body.category,
+      title: req.body.item_name,
+      price: req.body.price,
+      quantity: req.body.quantity,
+      description: req.body.description,
     })
-  } else {
+
+    new_item.save(err => { if(err) console.log('Unable to add new menu item') })
+    res.status(200);
+    res.redirect(url.format({
+      pathname:"http://localhost:3000/business-menu",
+      query: { id: new_item._id.toString()}
+    }));
+  } 
+  else {
     res.status(400);
     res.redirect("http://localhost:3000/business-menu");
-
   }
+})
 
+// a route to handle logging out users
+server.get("/logout", function (req, res) {
+  // nothing really to do here... logging out with JWT authentication is handled entirely by the front-end by deleting the token from the browser's memory
+  res.json({
+    success: true,
+    message:
+      "There is actually nothing to do on the server side... you simply need to delete your token from the browser's local storage!",
+  })
 })
 
 // a function to stop listening to the port
