@@ -26,7 +26,7 @@ function LandingPage(){
           <Partners/>
         </div>
 
-        <Footer/>
+        <Footer signin='/signin' register='/register'/>
       </div>
     );
 };
