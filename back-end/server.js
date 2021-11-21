@@ -214,6 +214,33 @@ server.post("/signin-submit", function (req, res) {
   }
 });
 
+// Restaurant sign in authentication
+server.post("/business-signin-submit", function (req, res) {
+  if (req.body.email && req.body.password) {
+    Restaurant.find({email: req.body.email}, (err, docs) => {
+      if(err || docs.length == 0){
+        console.log('Restaurant not found')
+        res.status(400)
+        res.redirect("http://localhost:3000/business-signin")
+      }
+      else if(docs[0].password == req.body.password) {
+        console.log('Restaurant exists: ', docs[0].email);
+        res.status(200);
+        res.redirect(url.format({
+          pathname:"http://localhost:3000/business-menu",
+          query: { id: docs[0]._id.toString()}
+        }));
+      }
+      else {
+        console.log('Incorrect password')
+      }
+    })
+  } else {
+    res.status(400);
+    res.redirect("http://localhost:3000/business-signin");
+  }
+})
+
 //menu registration in authentication
 server.post("/menu-submit", function (req, res) {
 
