@@ -11,6 +11,7 @@ require("dotenv").config({ silent: true }); // .env
 // use cors to bypass chrome error
 const cors = require("cors");
 const { privateDecrypt } = require("crypto");
+var bcrypt = require("bcryptjs");
 server.use(cors());
 
 const jwt = require("jsonwebtoken")
@@ -52,6 +53,7 @@ const historySchema = new mongoose.Schema({
   order_total: Number,
   status: String
 })
+
 const userSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
@@ -103,6 +105,19 @@ server.get("/set-cookie", (req, res) => {
     })
 })
 
+// route handling
+server.get("/usermenu", (req, res) => {
+  User.findById(req.query.id, (err, docs) => {
+    if (err || docs.length == 0) {
+      console.log("User not found");
+      res.status(404);
+      res.redirect("http://localhost:3000/signin");
+    } else {
+      res.json(restaurant_info);
+    }
+  });
+});
+
 // // a route that looks for a Cookie header in the request and sends back whatever data was found in it.
 // app.get("/get-cookie", (req, res) => {
 //   const numCookies = Object.keys(req.cookies).length // how many cookies were passed to the server
@@ -119,12 +134,14 @@ server.get("/set-cookie", (req, res) => {
 
 server.post("/updateitem", (req, res) => {
   User.findByIdAndUpdate(
-    req.body.id, 
-    {$push: {favorites: req.body.name}}, 
-    {safe: true, upsert: true}, 
-    (err, doc) => {if(err) console.log(err)
-  })
-})
+    req.body.id,
+    { $push: { favorites: req.body.name } },
+    { safe: true, upsert: true },
+    (err, doc) => {
+      if (err) console.log(err);
+    }
+  );
+});
 
 server.get("/orderhistorypage", (req, res, next) => {
   if (req.query.id) {
@@ -135,43 +152,54 @@ server.get("/orderhistorypage", (req, res, next) => {
       .then((apiRes) => res.json(apiRes.data));
   } else {
     res.status(404);
-    next()
+    next();
   }
-})
+});
+
+server.post("/updateorderstatus", (req, res) => {
+  User.findByIdAndUpdate(
+    req.body.id,
+    { $push: { favorites: req.body.order_status } },
+    { safe: true, upsert: true },
+    (err, doc) => {
+      if (err) console.log(err);
+    }
+  );
+});
 
 server.get("/saveddistributors", (req, res, next) => {
   User.findById(req.query.id, (err, docs) => {
-    if(err || docs.length == 0){
-      console.log('User not found')
+    if (err || docs.length == 0) {
+      console.log("User not found");
       res.status(404);
-      res.redirect("http://localhost:3000/signin")
+      res.redirect("http://localhost:3000/signin");
+    } else {
+      restInfo = restaurant_info;
+      data = restInfo.filter((e) => docs.favorites.includes(e.name));
+      res.json(data);
     }
-    else{
-      restInfo = restaurant_info
-      data = restInfo.filter(e => docs.favorites.includes(e.name))
-      res.json(data)
-    }
-  })
-})
+  });
+});
 
 //register authentication
 server.get("/menu", (req, res, next) => {
   User.findById(req.query.id, (err, docs) => {
-    if(err || docs.length == 0){
-      console.log('User not found')
+    if (err || docs.length == 0) {
+      console.log("User not found");
       res.status(404);
-      next()
-    }
-    else{
+      next();
+    } else {
       axios
-      .get(`https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST`)
-      .then((apiRes) => res.json(apiRes.data))
+        .get(
+          `https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST`
+        )
+        .then((apiRes) => res.json(apiRes.data));
     }
-  })
-})
+  });
+});
 
 // User registration
-server.post("/register-submit", function (req, res) {
+server.post("/register-submit", async (req, res) => {
   if (
     req.body.first_name &&
     req.body.last_name &&
@@ -180,31 +208,36 @@ server.post("/register-submit", function (req, res) {
     req.body.repassword &&
     req.body.password == req.body.repassword
   ) {
+
+    encryptedPassword = await bcrypt.hash(req.body.password, 10);
     // Check if user exists
-    User.find({email: req.body.email}, (err, docs) => {
-      if(docs.length || err){
-        console.log('Email taken')
+    User.find({ email: req.body.email }, (err, docs) => {
+      if (docs.length || err) {
+        console.log("Email taken");
         res.status(400);
-        res.redirect("http://localhost:3000/register")
-      }
-      else {
+        res.redirect("http://localhost:3000/register");
+      } else {
         // Create new user
-        const new_user = new User({ 
+        const new_user = new User({
           firstName: req.body.first_name,
           lastName: req.body.last_name,
           email: req.body.email,
-          password: req.body.password,
+          password: encryptedPassword,
           favorites: [],
-          history: {}
-        })
-        new_user.save(err => { if(err) console.log('Unable to create new user') })
+          history: {},
+        });
+        new_user.save((err) => {
+          if (err) console.log("Unable to create new user");
+        });
         res.status(200);
-        res.redirect(url.format({
-          pathname:"http://localhost:3000/usermenu",
-          query: { id: new_user._id.toString()}
-        }));
+        res.redirect(
+          url.format({
+            pathname: "http://localhost:3000/usermenu",
+            query: { id: new_user._id.toString() },
+          })
+        );
       }
-    })
+    });
   } else {
     res.status(400).send("All fields not entered/passwords do not match.");
     res.redirect("http://localhost:3000/register");
@@ -221,7 +254,8 @@ server.post("/signin-submit", function (req, res) {
         // res.json({ success: false, message: `user not found: ${req.body.email}.` })
         res.redirect("http://localhost:3000/signin")
       }
-      else if(user.password == req.body.password) {
+
+      else if(bcrypt.compare(req.body.password, user.password)) {
         console.log('User exists: ', user.email);
         res.status(200);
         const payload = { id: user.id } // some data we'll encode into the token
@@ -237,7 +271,7 @@ server.post("/signin-submit", function (req, res) {
         //   pathname:"http://localhost:3000/usermenu",
         //   query: { id: docs[0]._id.toString()}
         // }));
-      }
+        
       else {
         console.log('Incorrect password')
         console.log(user.password)
@@ -249,7 +283,33 @@ server.post("/signin-submit", function (req, res) {
   else {
     res.status(400);
     res.json({ success: false, message: `no username or password supplied.` });
-    // res.redirect("http://localhost:3000/signin");
+  }
+})
+
+// Restaurant sign in authentication
+server.post("/business-signin-submit", function (req, res) {
+  if (req.body.email && req.body.password) {
+    Restaurant.find({email: req.body.email}, (err, docs) => {
+      if(err || docs.length == 0){
+        console.log('Restaurant not found')
+        res.status(400)
+        res.redirect("http://localhost:3000/business-signin")
+      }
+      else if(docs[0].password == req.body.password) {
+        console.log('Restaurant exists: ', docs[0].email);
+        res.status(200);
+        res.redirect(url.format({
+          pathname:"http://localhost:3000/business-menu",
+          query: { id: docs[0]._id.toString()}
+        }));
+      }
+      else {
+        console.log('Incorrect password')
+      }
+    })
+  } else {
+    res.status(400);
+    res.redirect("http://localhost:3000/business-signin");
   }
 })
 
@@ -348,4 +408,3 @@ const close = () => {
 //   close: close,
 // }
 module.exports = server;
-
