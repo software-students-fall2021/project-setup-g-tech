@@ -6,8 +6,9 @@ import ImageCont from './bg-image';
 import MenuCard from '../menu-card/menu-card';
 import HeaderTab from '../header-tab/HeaderTab';
 import axios from 'axios';
-import ButtonUI from'../Button/button.js';
+import ButtonUI from'../ButtonUI/ButtonUI';
 import data from './restaurant_menu.json';
+import url from 'url'
 import './menu-page.css';
 
 const MenuPage = () => {
@@ -17,6 +18,12 @@ const MenuPage = () => {
     const [selectedItems, setSelectedItems] = useState({});
     const [selectedItemsPrice, setSelectedItemsPrice] = useState({});
 
+    const params = new URLSearchParams(window.location.search);
+    const user = params.get('id');
+    const returnPath = url.format({
+        pathname:"/usermenu",
+        query: { id: user}
+    })
 
 
     const onItemCountChange = (val, item) =>{
@@ -54,7 +61,7 @@ const MenuPage = () => {
     const fetchData = async () => {
        const res = await axios.get('http://localhost:3001/menu', {
           params: {
-             user: 'mockData'
+             id: user
           }
        });
        setData(res.data);
@@ -66,7 +73,7 @@ const MenuPage = () => {
 
     return (
         <>
-            <HeaderTab pageTitle="Burger King" returnPath='/usermenu' />            
+            <HeaderTab pageTitle="Burger King" returnPath={returnPath} />            
             <ImageCont img = 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-burger-tour-1-1539986612.jpg'/>
             <div  className='scrollmenu'>
            {  menuItems.map((menuItems) =>

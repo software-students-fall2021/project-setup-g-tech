@@ -1,23 +1,23 @@
 import './Footer.css';
 import { Link } from 'react-router-dom'
-import ButtonUI from '../Button/button';
+import ButtonUI from '../ButtonUI/ButtonUI';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col' 
 
-function Footer(){
+function Footer(props){
     return (
       <div className = "footer">
       <Row>
           <Col>
             <div>
-            <Link to='/signin'>
+            <Link to={props.signin}>
               <ButtonUI radius = '30px' width= '130px'> Sign In</ButtonUI>
             </Link>
             </div>
           </Col>
           <Col>
             <div>
-            <Link to='/register'>
+            <Link to={props.register}>
                 <ButtonUI radius = '30px' width= '130px'> Register</ButtonUI>
             </Link>
             </div>

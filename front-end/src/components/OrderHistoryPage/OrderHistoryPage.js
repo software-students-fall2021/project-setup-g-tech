@@ -3,12 +3,11 @@ import { InputGroup, FormControl } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import HeaderTab from "../header-tab/HeaderTab";
-import ItemsList from "../ItemsList/ItemsList";
 import axios from "axios";
-import url from 'url';
-import "./SavedDistributors.css";
+import url from 'url'
+import OrderHistoryList from "../OrderHistoryList/OrderHistoryList";
 
-function SavedDistributors() {
+function OrderHistoryPage() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -20,24 +19,24 @@ function SavedDistributors() {
   })
 
   const fetchData = async () => {
-     const res = await axios.get('http://localhost:3001/saveddistributors', {
-        params: {
-           id: user
-        }
-     });
-     setData(res.data);
-  }
+    const res = await axios.get("http://localhost:3001/orderhistorypage", {
+      params: {
+        id: user,
+      },
+    });
+    setData(res.data);
+  };
   useEffect(fetchData, []);
 
   const dynamicSearch = () => {
     return data.filter((e) =>
-      e.name.toLowerCase().includes(search.toLowerCase())
+      e.orderRestaurant.toLowerCase().includes(search.toLowerCase())
     );
   };
 
   return (
-    <div className="savedListContainer">
-      <HeaderTab pageTitle="Saved Distributors" returnPath={returnPath} />
+    <div className="orderHistoryContainer">
+      <HeaderTab pageTitle="Past Orders" returnPath={returnPath} />
       <hr />
       <div className="searchbar">
         <div className="mt-3">
@@ -57,14 +56,13 @@ function SavedDistributors() {
           </InputGroup>
         </div>
       </div>
-      <hr />
-      <div className="listContent">
-        <div className="restaurants">
-          <ItemsList user={user} list={dynamicSearch()} />
+      <div className="pastOrderList">
+        <div className="orders">
+          <OrderHistoryList list={dynamicSearch()} />
         </div>
       </div>
     </div>
   );
 }
 
-export default SavedDistributors;
+export default OrderHistoryPage;
