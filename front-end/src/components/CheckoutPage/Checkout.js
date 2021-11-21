@@ -18,6 +18,12 @@ const Checkout = (props) => {
     pathname: "/menu",
     query: { id: user },
   });
+
+  const timerPath = url.format({
+    pathname: "/pagetimer",
+    query: { id: user },
+  });
+
   return (
     <div className="Checkout">
       <HeaderTab pageTitle="Check Out" returnPath={returnPath} />
@@ -44,7 +50,7 @@ const Checkout = (props) => {
       <TimerSelect />
       {/* <div className='floatBtn'> */}
       <div className="checkoutbutt">
-        <Link to="/PageTimer">
+        <Link to={timerPath}>
           <ButtonUI radius="8px" width="230px">
             {" "}
             Checkout{" "}

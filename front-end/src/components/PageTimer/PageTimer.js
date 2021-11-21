@@ -29,7 +29,7 @@ function PageTimer() {
 
     $(".cancel-order-screen").css("display", "block");
     setTimeout(function () {
-      window.location.replace({ returnPath });
+      window.location.replace(returnPath);
     }, 2000);
   };
 
