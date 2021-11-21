@@ -354,6 +354,8 @@ server.post("/business-register-submit", function (req, res) {
         console.log('Menu item already exists.')
         res.status(400);
         res.redirect("http://localhost:3000/business-menu") 
+      }
+    })
     // Check if restaurant exists
     Restaurant.find({email: req.body.email}, (err, docs) => {
 
