@@ -129,18 +129,20 @@ server.get("/saveddistributors", (req, res, next) => {
   })
 })
 
-//register authentication
+//get menu 
 server.get("/menu", (req, res, next) => {
-  User.findById(req.query.id, (err, docs) => {
+  Restaurant.findById(req.query.id, (err, docs) => {
     if(err || docs.length == 0){
-      console.log('User not found')
+      console.log('Restaurant not found')
       res.status(404);
       next()
     }
     else{
-      axios
-      .get(`https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST`)
-      .then((apiRes) => res.json(apiRes.data))
+      console.log(docs)
+      res.json(docs)
+      // axios
+      // .get(`https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST`)
+      // .then((apiRes) => res.json(apiRes.data))
     }
   })
 })
@@ -185,7 +187,7 @@ server.post("/register-submit", function (req, res) {
   }
 });
 
-//sign in suthentication
+//sign in suthentication user
 server.post("/signin-submit", function (req, res) {
   if (req.body.email && req.body.password) {
     User.find({email: req.body.email}, (err, docs) => {
@@ -209,6 +211,33 @@ server.post("/signin-submit", function (req, res) {
   } else {
     res.status(400);
     res.redirect("http://localhost:3000/signin");
+  }
+})
+
+//sign in authentication business
+server.post("/signin-submit-business", function (req, res) {
+  if (req.body.email && req.body.password) {
+    Restaurant.find({email: req.body.email}, (err, docs) => {
+      if(err || docs.length == 0){
+        console.log('Restaurant not found')
+        res.status(400)
+        res.redirect("http://localhost:3000/business-signin")
+      }
+      else if(docs[0].password == req.body.password) {
+        console.log('User exists: ', docs[0].email);
+        res.status(200);
+        res.redirect(url.format({
+          pathname:"http://localhost:3000/business-menu",
+          query: { id: docs[0]._id.toString()}
+        }));
+      }
+      else {
+        console.log('Incorrect password')
+      }
+    })
+  } else {
+    res.status(400);
+    res.redirect("http://localhost:3000/business-signin");
   }
 })
 

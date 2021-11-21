@@ -29,7 +29,7 @@ const Item = (props) => {
     
     const menuPath = url.format({
         pathname:"/menu",
-        query: { id: props.user}
+        query: { id: props.details._id}
     })
 
     // const checkUpdates = async () => {
@@ -45,6 +45,7 @@ const Item = (props) => {
             <hr />
             <div className='item'>
                 <Link className='link' to={menuPath}>
+
                     <div className='info'>
                         <img className='logo rounded' src={props.img} />
                         <div className='container'>
