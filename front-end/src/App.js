@@ -14,6 +14,7 @@ import OrderHistoryPage from "./components/OrderHistoryPage/OrderHistoryPage";
 import Business from "./components/BusinessLanding/BusinessLanding";
 import BusinessSignin from "./components/BusinessSignin/BusinessSignin";
 import BusinessRegister from "./components/BusinessRegister/BusinessRegister";
+import BusinessMenu from "./components/BusinessMenu/BusinessMenu";
 
 const App = () => {
   return (
@@ -30,6 +31,10 @@ const App = () => {
 
         <Route path="/business-signin">
           <BusinessSignin />
+        </Route>
+        
+        <Route path="/business-menu">
+          <BusinessMenu />
         </Route>
 
         <Route path="/checkout">
