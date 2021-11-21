@@ -9,6 +9,7 @@ require("dotenv").config({ silent: true }); // .env
 // use cors to bypass chrome error
 const cors = require("cors");
 const { privateDecrypt } = require("crypto");
+var bcrypt = require("bcryptjs");
 server.use(cors());
 
 // the port to listen to for incoming requests
@@ -127,7 +128,7 @@ server.get("/menu", (req, res, next) => {
   })
 })
 
-server.post("/register-submit", function (req, res) {
+server.post("/register-submit", async (req, res) => {
   if (
     req.body.first_name &&
     req.body.last_name &&
@@ -136,6 +137,8 @@ server.post("/register-submit", function (req, res) {
     req.body.repassword &&
     req.body.password == req.body.repassword
   ) {
+
+    encryptedPassword = await bcrypt.hash(req.body.password, 10);
     // Check if user exists
     User.find({email: req.body.email}, (err, docs) => {
       if(docs.length || err){
@@ -149,7 +152,7 @@ server.post("/register-submit", function (req, res) {
           firstName: req.body.first_name,
           lastName: req.body.last_name,
           email: req.body.email,
-          password: req.body.password,
+          password: encryptedPassword,
           favorites: [],
           history: {}
         })
@@ -176,7 +179,7 @@ server.post("/signin-submit", function (req, res) {
         res.status(400)
         res.redirect("http://localhost:3000/signin")
       }
-      else if(docs[0].password == req.body.password) {
+      else if(bcrypt.compare(req.body.password, docs[0].password)) {
         console.log('User exists: ', docs[0].email);
         res.status(200);
         res.redirect(url.format({
@@ -192,7 +195,7 @@ server.post("/signin-submit", function (req, res) {
     res.status(400);
     res.redirect("http://localhost:3000/signin");
   }
-})
+});
 
 //menu registration in authentication
 server.post("/menu-submit", function (req, res) {
