@@ -3,7 +3,6 @@ const server = require("./app.js"); // load up the web server
 const axios = require("axios"); // middleware for making requests to APIs
 const url = require('url');   // process queries in url strings
 const mongoose = require('mongoose'); // module for database communication
-const restaurant_info = require('./restaurant_info.json')
 require("dotenv").config({ silent: true }); // .env
 
 // use cors to bypass chrome error
@@ -69,7 +68,16 @@ server.get("/usermenu", (req, res) => {
       res.redirect("http://localhost:3000/signin")
     }
     else {
-      res.json(restaurant_info)
+      Restaurant.find({}, (err,docs)=>{
+        if(err || docs.length == 0){
+          console.log('Restaurants not found')
+          res.status(404);
+          res.redirect("http://localhost:3000/signin");
+        }
+        else{
+          res.json(docs);
+        }
+      })
     }
   })
 })
@@ -101,12 +109,22 @@ server.get("/saveddistributors", (req, res, next) => {
     if(err || docs.length == 0){
       console.log('User not found')
       res.status(404);
-      res.redirect("http://localhost:3000/signin")
+      res.redirect("http://localhost:3000/signin");
+      
     }
     else{
-      restInfo = restaurant_info
-      data = restInfo.filter(e => docs.favorites.includes(e.name))
-      res.json(data)
+      // let restInfo ='';
+      Restaurant.find({}, (err,restInfo)=>{
+        if(err || docs.length == 0){
+          console.log('Restaurants not found')
+          res.status(404);
+          res.redirect("http://localhost:3000/signin");
+        }
+        else{
+          data = restInfo.filter(e => docs.favorites.includes(e.name));
+          res.json(data);
+        }
+      })
     }
   })
 })
@@ -203,14 +221,13 @@ server.post("/menu-submit", function (req, res) {
     req.body.price &&
     req.body.quantity
   ) {
-   
     // Check if item exists
     Restaurant.find({items: {title: req.body.item_name}}, (err, docs) => {
+      console.log()
       if(docs.length || err){
         console.log('Menu item already exists.')
         res.status(400);
-        res.redirect("http://localhost:3000/business-menu")
-        
+        res.redirect("http://localhost:3000/business-menu") 
       }
       else {
         // Create new Item
@@ -232,9 +249,7 @@ server.post("/menu-submit", function (req, res) {
   } else {
     res.status(400);
     res.redirect("http://localhost:3000/business-menu");
-
   }
-
 })
 
 // a function to stop listening to the port

@@ -13,13 +13,13 @@ const BusinessMenu = (props) => {
                         <label className='title form-label'>Category</label>
                         <div>
                             <select className="form-select dropdown-toggle CategorySelection dropdown-toggle dropdown-toggle-split" name="category" id="cars">
-                                <option value="volvo">Appetizers</option>
-                                <option value="saab">Pizzas</option>
-                                <option value="mercedes">Pastas</option>
-                                <option value="audi">Fries</option>
-                                <option value="audi">Sides</option>
-                                <option value="audi">Drinks</option>
-                                <option value="audi">Sauces</option>
+                                <option value="Appetizers">Appetizers</option>
+                                <option value="Pizzas">Pizzas</option>
+                                <option value="Pastas">Pastas</option>
+                                <option value="Fries">Fries</option>
+                                <option value="Sides">Sides</option>
+                                <option value="Drinks">Drinks</option>
+                                <option value="Sauces">Sauces</option>
                             </select>
                         </div>
                     </div>
