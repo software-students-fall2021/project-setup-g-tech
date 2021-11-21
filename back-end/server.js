@@ -4,7 +4,8 @@ const axios = require("axios"); // middleware for making requests to APIs
 const express = require("express") // CommonJS import style!
 const url = require('url');   // process queries in url strings
 const mongoose = require('mongoose'); // module for database communication
-
+const restaurant_info = require('./restaurant_info.json')
+const cookieParser = require("cookie-parser") // middleware useful for parsing cookies in requests
 require("dotenv").config({ silent: true }); // .env
 
 // use cors to bypass chrome error
@@ -107,23 +108,12 @@ server.get("/set-cookie", (req, res) => {
 // route handling
 server.get("/usermenu", (req, res) => {
   User.findById(req.query.id, (err, docs) => {
-
-    if(err || docs.length == 0){
-      console.log('User not found')
-      res.status(404)
-      res.redirect("http://localhost:3000/signin")
-    }
-    else {
-      Restaurant.find({}, (err,docs)=>{
-        if(err || docs.length == 0){
-          console.log('Restaurants not found')
-          res.status(404);
-          res.redirect("http://localhost:3000/signin");
-        }
-        else{
-          res.json(docs);
-        }
-      })
+    if (err || docs.length == 0) {
+      console.log("User not found");
+      res.status(404);
+      res.redirect("http://localhost:3000/signin");
+    } else {
+      res.json(restaurant_info);
     }
   });
 });
@@ -183,40 +173,27 @@ server.get("/saveddistributors", (req, res, next) => {
       console.log("User not found");
       res.status(404);
       res.redirect("http://localhost:3000/signin");
-      
+    } else {
+      restInfo = restaurant_info;
+      data = restInfo.filter((e) => docs.favorites.includes(e.name));
+      res.json(data);
     }
-    else{
-      // let restInfo ='';
-      Restaurant.find({}, (err,restInfo)=>{
-        if(err || docs.length == 0){
-          console.log('Restaurants not found')
-          res.status(404);
-          res.redirect("http://localhost:3000/signin");
-        }
-        else{
-          data = restInfo.filter(e => docs.favorites.includes(e.name));
-          res.json(data);
-        }
-      })
-    }
-  })
-})
+  });
+});
 
-
-//get menu 
+//register authentication
 server.get("/menu", (req, res, next) => {
-  Restaurant.findById(req.query.id, (err, docs) => {
-    if(err || docs.length == 0){
-      console.log('Restaurant not found')
+  User.findById(req.query.id, (err, docs) => {
+    if (err || docs.length == 0) {
+      console.log("User not found");
       res.status(404);
-      next()
-    }
-    else{
-      console.log(docs)
-      res.json(docs)
-      // axios
-      // .get(`https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST`)
-      // .then((apiRes) => res.json(apiRes.data))
+      next();
+    } else {
+      axios
+        .get(
+          `https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST`
+        )
+        .then((apiRes) => res.json(apiRes.data));
     }
   });
 });
@@ -267,7 +244,7 @@ server.post("/register-submit", async (req, res) => {
   }
 });
 
-//sign in suthentication user
+//sign in authentication
 server.post("/signin-submit", function (req, res) {
   if (req.body.email && req.body.password) {
     User.findOne({email: req.body.email}, (err, user) => {
@@ -346,16 +323,6 @@ server.post("/business-register-submit", function (req, res) {
     req.body.repassword &&
     req.body.password == req.body.repassword
   ) {
-
-    // Check if item exists
-    Restaurant.find({items: {title: req.body.item_name}}, (err, docs) => {
-      console.log()
-      if(docs.length || err){
-        console.log('Menu item already exists.')
-        res.status(400);
-        res.redirect("http://localhost:3000/business-menu") 
-      }
-    })
     // Check if restaurant exists
     Restaurant.find({email: req.body.email}, (err, docs) => {
 
@@ -363,7 +330,6 @@ server.post("/business-register-submit", function (req, res) {
         console.log("Email taken")
         res.status(400)
         res.redirect("http://localhost:3000/business-register")
-
       }
       else {
         // Create new restaurant
