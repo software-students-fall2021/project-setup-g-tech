@@ -5,6 +5,7 @@ require("dotenv").config({ silent: true }); // .env
 
 // use cors to bypass chrome error
 const cors = require("cors");
+const { privateDecrypt } = require("crypto");
 server.use(cors());
 
 // the port to listen to for incoming requests
@@ -13,8 +14,49 @@ const port = 3001;
 // call express's listen function to start listening to the port
 const listener = server.listen(port, function () {
 
+<<<<<<< Updated upstream
   console.log(`Server running on port: ${port}`)
 })
+=======
+// mongoose setup
+const db_url = 'mongodb+srv://david:saverie@cluster0.53ot4.mongodb.net/saverie?retryWrites=true'
+mongoose.connect(db_url, () => { console.log('Db connection state: ' + mongoose.connection.readyState) })
+const historySchema = new mongoose.Schema({
+  date: Date,
+  items: [menuSchema],
+  order_total: Number,
+  status: String
+})
+const userSchema = new mongoose.Schema({
+  firstName: String,
+  lastName: String,
+  email: String,
+  password: String,
+  favorites: Array,
+  history: [historySchema],
+  cart: [menuSchema]
+})
+const restaurantSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  password: String,
+  location: String,
+  image: String,
+  items: [menuSchema]
+})
+const menuSchema = new mongoose.Schema({
+  type: String,
+  title: String,
+  price: Number,
+  quantity: Number,
+  description: String,
+  image: String
+})
+
+const Item = mongoose.model('Item', menuSchema, 'menuitems')
+const Restaurant = mongoose.model('Restaurant', restaurantSchema, 'restaurants')
+const User = mongoose.model('User', userSchema, 'users')
+>>>>>>> Stashed changes
 
   console.log(`Server running on port: ${port}`);
 });
@@ -51,6 +93,36 @@ server.get("/menu", (req, res, next) => {
   } else {
     res.status(404);
     next();
+  }
+});
+
+server.post("/menu-submit", function (req, res) {
+  if (
+    req.body.category &&
+    req.body.item_name &&
+    req.body.price &&
+    req.body.quantity &&
+    req.body.description 
+  ) {
+    // Create new item
+    const new_item = new Item({ 
+      type: req.body.category,
+      title: req.body.item_name,
+      price: req.body.price,
+      quantity: req.body.quantity,
+      description: req.body.description
+    })
+
+    new_item.save(err => { if(err) console.log('Unable to create new item') })
+    res.status(200);
+    res.redirect(url.format({
+      pathname:"http://localhost:3000/business-menu",
+      query: { id: new_item._id.toString()}
+    }));
+  } 
+  else {
+    res.status(400);
+    res.redirect("http://localhost:3000/register");
   }
 });
 
