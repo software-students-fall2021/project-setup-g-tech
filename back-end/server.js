@@ -76,24 +76,24 @@ const Item = mongoose.model('Item', menuSchema, 'menuitems')
 const Restaurant = mongoose.model('Restaurant', restaurantSchema, 'restaurants')
 const User = mongoose.model('User', userSchema, 'users')
 
-server.get(
-  "/usermenu",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-  //   // our jwt passport config will send error responses to unauthenticated users will
-  //   // so we only need to worry about sending data to properly authenticated users!
+// server.get(
+//   "/usermenu",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//   //   // our jwt passport config will send error responses to unauthenticated users will
+//   //   // so we only need to worry about sending data to properly authenticated users!
 
-  //   res.json({
-  //     success: true,
-  //     user: {
-  //       id: req.user.id,
-  //       username: req.user.username,
-  //     },
-  //     message:
-  //       "Congratulations: you have accessed this route because you have a valid JWT token!",
-  //   })
-  }
-)
+//   //   res.json({
+//   //     success: true,
+//   //     user: {
+//   //       id: req.user.id,
+//   //       username: req.user.username,
+//   //     },
+//   //     message:
+//   //       "Congratulations: you have accessed this route because you have a valid JWT token!",
+//   //   })
+//   }
+// )
 
 // a route that sends a response including the Set-Cookie header.
 server.get("/set-cookie", (req, res) => {
@@ -108,12 +108,23 @@ server.get("/set-cookie", (req, res) => {
 // route handling
 server.get("/usermenu", (req, res) => {
   User.findById(req.query.id, (err, docs) => {
-    if (err || docs.length == 0) {
-      console.log("User not found");
-      res.status(404);
-      res.redirect("http://localhost:3000/signin");
-    } else {
-      res.json(restaurant_info);
+
+    if(err || docs.length == 0){
+      console.log('User not found')
+      res.status(404)
+      res.redirect("http://localhost:3000/signin")
+    }
+    else {
+      Restaurant.find({}, (err,docs)=>{
+        if(err || docs.length == 0){
+          console.log('Restaurants not found')
+          res.status(404);
+          res.redirect("http://localhost:3000/signin");
+        }
+        else{
+          res.json(docs);
+        }
+      })
     }
   });
 });
@@ -173,12 +184,23 @@ server.get("/saveddistributors", (req, res, next) => {
       console.log("User not found");
       res.status(404);
       res.redirect("http://localhost:3000/signin");
-    } else {
-      restInfo = restaurant_info;
-      data = restInfo.filter((e) => docs.favorites.includes(e.name));
-      res.json(data);
+      
     }
-  });
+    else{
+      // let restInfo ='';
+      Restaurant.find({}, (err,restInfo)=>{
+        if(err || docs.length == 0){
+          console.log('Restaurants not found')
+          res.status(404);
+          res.redirect("http://localhost:3000/signin");
+        }
+        else{
+          data = restInfo.filter(e => docs.favorites.includes(e.name));
+          res.json(data);
+        }
+      })
+    }
+  })
 });
 
 //register authentication
