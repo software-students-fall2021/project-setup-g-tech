@@ -11,11 +11,27 @@ import UserMenu from "./components/UserMenu/UserMenu";
 import PageTimer from "./components/PageTimer/PageTimer";
 import SavedDistributors from "./components/SavedDistributors/SavedDistributors";
 import OrderHistoryPage from "./components/OrderHistoryPage/OrderHistoryPage";
+import Business from "./components/BusinessLanding/BusinessLanding";
+import BusinessSignin from "./components/BusinessSignin/BusinessSignin";
+import BusinessRegister from "./components/BusinessRegister/BusinessRegister";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Switch>
+
+        <Route path="/business">
+          <Business />
+        </Route>
+
+        <Route path="/business-register">
+          <BusinessRegister />
+        </Route>
+
+        <Route path="/business-signin">
+          <BusinessSignin />
+        </Route>
+
         <Route path="/checkout">
           <Checkout />
         </Route>
