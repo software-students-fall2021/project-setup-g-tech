@@ -9,27 +9,29 @@ import Avatar from "../Avatar/Avatar";
 import "./UserMenu.css";
 
 const UserMenu = () => {
+  const jwtToken = localStorage.getItem("token")
+
   const [data, setData] = useState([]);
   const [saved, setSaved] = useState([]);
   const [search, setSearch] = useState("");
 
-  const params = new URLSearchParams(window.location.search);
-  const user = params.get("id");
+  //const params = new URLSearchParams(window.location.search);
+  //const user = params.get("id");
 
   const fetchData = async () => {
     const res = await axios.get("http://localhost:3001/usermenu", {
-      params: {
-        id: user,
-      },
-    });
-    setData(res.data);
+      headers: {
+        Authorization: `JWT ${jwtToken}`
+      }
+    })
+      .then(setData(res.data));
   };
   useEffect(fetchData, []);
 
   const fetchSaved = async () => {
     const res = await axios.get("http://localhost:3001/saveddistributors", {
-      params: {
-        id: user,
+      headers: {
+        Authorization: `JWT ${jwtToken}`
       },
     });
     setSaved(res.data);
@@ -63,11 +65,11 @@ const UserMenu = () => {
             </InputGroup>
           </div>
         </div>
-        <Avatar user={user} />
+        <Avatar />{/* user={user} */}
       </div>
       <div className="content">
         <h4 className="picks-title mt-3">Top Picks for You</h4>
-        <PicksList list={data} user={user} />
+        <PicksList list={data} /> {/* user={user} */}
         <div className="news-title mt-3">
           <h4>Newsfeed</h4>
           <Dropdown>
@@ -80,7 +82,7 @@ const UserMenu = () => {
             </Dropdown.Menu>
           </Dropdown>
         </div>
-        <ItemsList saved={saved} user={user} list={dynamicSearch()} />
+        <ItemsList saved={saved} list={dynamicSearch()} />{/* user={user} */}
       </div>
     </div>
   );

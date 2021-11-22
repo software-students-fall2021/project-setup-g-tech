@@ -1,13 +1,13 @@
 // import HeaderTab from './components/header-tab/HeaderTab.js';
-import HeaderTab from '../header-tab/HeaderTab';
-import Input from '../input-field/Input';
-import { Link } from 'react-router-dom'
-import React, { useState, useEffect } from "react"
-import { Redirect } from "react-router-dom"
-import axios from "axios"
-import './signin.css';
+import HeaderTab from "../header-tab/HeaderTab";
+import Input from "../input-field/Input";
+import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
+import "./signin.css";
 
-const Signin = props => {
+const Signin = (props) => {
   // create state variables to hold username and password
   // const [status, setStatus] = useState({}) // the API will return an object indicating the login status in a success field of the response object
 
@@ -33,7 +33,7 @@ const Signin = props => {
   //   formData.append("email", email)
   //   formData.append("password", password)
   //   console.log(formData)
-  //   try 
+  //   try
   //   {
   //     // send the request to the server api to authenticate
   //     const response = await axios({
@@ -46,7 +46,7 @@ const Signin = props => {
   //     setStatus(response.data)
   //     // console.log(status)
   //     // console.log(status)
-  //   } 
+  //   }
   //   catch (err) {
   //     // throw an error
   //     // console.log("shit hro")
@@ -55,39 +55,89 @@ const Signin = props => {
   // }
   // // console.log(status)
   //   if (!status.success)
-    
-      return (
-        <div className="Signin">
-          <HeaderTab pageTitle="Sign in" returnPath = "/"/>
-          {/* onSubmit={handleSubmit} */}
-          <form className="fields" action="http://localhost:3001/signin-submit" method="POST">
-            {
-                //handle error condition
-            }
-            <Input title="Email" name="email" type='email' placeholder='name@example.com'/>
-            <Input title="Password" name="password" type='password' placeholder='*******'/>
-            <div className='button'>
-            {/* <Submit type="submit" value="SIGN IN"/> */}
-            {/* <Link to='/usermenu'> */}
-                <Input className="submitButton" type="submit" value="SIGN IN"></Input>
-            {/* </Link> */}
-            </div>
-          </form>
-          {/* <div>
+
+  const [response, setResponse] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // if the user's logged-in status changes, save the token we receive from the server and direct user to usermenu page
+  useEffect(() => {
+    // if the user is logged-in, save the token to local storage
+    if (response.success && response.token) {
+      console.log(`User successfully logged in: ${response.username}`);
+      localStorage.setItem("token", response.token); // store the token into localStorage
+      window.location.replace("http://localhost:3000/usermenu");
+    }
+  }, [response]);
+
+  const handleSubmit = async (e) => {
+    // prevent the HTML form from actually submitting... we use React's javascript code instead
+    e.preventDefault();
+
+    try {
+      // create an object with the data we want to send to the server
+      const requestData = {
+        email: e.target.email.value, // gets the value of the field in the submitted form with name='username'
+        password: e.target.password.value, // gets the value of the field in the submitted form with name='password',
+      };
+      // send a POST request with the data to the server api to authenticate
+      const response = await axios.post(
+        "http://localhost:3001/signin-submit",
+        requestData
+      );
+      // store the response data into the data state variable
+      console.log(`Server response: ${JSON.stringify(response.data, null, 0)}`);
+      setResponse(response.data);
+    } catch (err) {
+      // request failed... user entered invalid credentials
+      setErrorMessage(
+        "You entered invalid credentials.  Try harder!  Check out the usernames in the server's user_data.js file."
+      );
+    }
+  };
+
+  //action="http://localhost:3001/signin-submit" method="POST"
+  return (
+    <div className="Signin">
+      <HeaderTab pageTitle="Sign in" returnPath="/" />
+      {/* onSubmit={handleSubmit} */}
+      <form className="fields" onSubmit={handleSubmit}>
+        {
+          //handle error condition
+        }
+        <Input
+          title="Email"
+          name="email"
+          type="email"
+          placeholder="name@example.com"
+        />
+        <Input
+          title="Password"
+          name="password"
+          type="password"
+          placeholder="*******"
+        />
+        <div className="button">
+          {/* <Submit type="submit" value="SIGN IN"/> */}
+          {/* <Link to='/usermenu'> */}
+          <Input className="submitButton" type="submit" value="SIGN IN"></Input>
+          {/* </Link> */}
+        </div>
+      </form>
+      {/* <div>
               <p>Don't have an account? </p>
               <p>Register</p>
           </div> */}
-          {/* <p>
+      {/* <p>
             Server response (for debugging purposes):
             <br />
             <br />
             {JSON.stringify(status, null, 2)}
           </p> */}
-        </div>
-      );
-    // otherwise, if the user has successfully logged-in, redirect them to a different page
-    // in this example, we simply redirect to the home page, but a real app would redirect to a page that shows content only available to logged-in users
-    // else return <Redirect to="/usermenu" />
-}
+    </div>
+  );
+  // otherwise, if the user has successfully logged-in, redirect them to a different page
+  // in this example, we simply redirect to the home page, but a real app would redirect to a page that shows content only available to logged-in users
+  // else return <Redirect to="/usermenu" />
+};
 
-export default Signin
+export default Signin;
