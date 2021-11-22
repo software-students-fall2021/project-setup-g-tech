@@ -182,23 +182,21 @@ server.get("/saveddistributors", (req, res, next) => {
       })
     }
   })
-})
+});
 
-
-//get menu 
+//register authentication
 server.get("/menu", (req, res, next) => {
-  Restaurant.findById(req.query.id, (err, docs) => {
-    if(err || docs.length == 0){
-      console.log('Restaurant not found')
+  User.findById(req.query.id, (err, docs) => {
+    if (err || docs.length == 0) {
+      console.log("User not found");
       res.status(404);
-      next()
-    }
-    else{
-      console.log(docs)
-      res.json(docs)
-      // axios
-      // .get(`https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST`)
-      // .then((apiRes) => res.json(apiRes.data))
+      next();
+    } else {
+      axios
+        .get(
+          `https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST`
+        )
+        .then((apiRes) => res.json(apiRes.data));
     }
   });
 });
@@ -249,7 +247,7 @@ server.post("/register-submit", async (req, res) => {
   }
 });
 
-//sign in suthentication user
+//sign in authentication
 server.post("/signin-submit", function (req, res) {
   if (req.body.email && req.body.password) {
     User.findOne({email: req.body.email}, (err, user) => {
@@ -324,16 +322,6 @@ server.post("/business-register-submit", function (req, res) {
     req.body.repassword &&
     req.body.password == req.body.repassword
   ) {
-
-    // Check if item exists
-    Restaurant.find({items: {title: req.body.item_name}}, (err, docs) => {
-      console.log()
-      if(docs.length || err){
-        console.log('Menu item already exists.')
-        res.status(400);
-        res.redirect("http://localhost:3000/business-menu") 
-      }
-    })
     // Check if restaurant exists
     Restaurant.find({email: req.body.email}, (err, docs) => {
 
@@ -341,7 +329,6 @@ server.post("/business-register-submit", function (req, res) {
         console.log("Email taken")
         res.status(400)
         res.redirect("http://localhost:3000/business-register")
-
       }
       else {
         // Create new restaurant
@@ -417,7 +404,9 @@ const close = () => {
 };
 
 
+
 module.exports = {
   server,
   User
 }
+
