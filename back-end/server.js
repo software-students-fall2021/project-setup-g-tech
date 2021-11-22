@@ -4,8 +4,8 @@ const axios = require("axios"); // middleware for making requests to APIs
 const express = require("express") // CommonJS import style!
 const url = require('url');   // process queries in url strings
 const mongoose = require('mongoose'); // module for database communication
-const restaurant_info = require('./restaurant_info.json')
-const cookieParser = require("cookie-parser") // middleware useful for parsing cookies in requests
+const cookieParser = require('cookie-parser')
+
 require("dotenv").config({ silent: true }); // .env
 
 // use cors to bypass chrome error
@@ -76,25 +76,6 @@ const Item = mongoose.model('Item', menuSchema, 'menuitems')
 const Restaurant = mongoose.model('Restaurant', restaurantSchema, 'restaurants')
 const User = mongoose.model('User', userSchema, 'users')
 
-// server.get(
-//   "/usermenu",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//   //   // our jwt passport config will send error responses to unauthenticated users will
-//   //   // so we only need to worry about sending data to properly authenticated users!
-
-//   //   res.json({
-//   //     success: true,
-//   //     user: {
-//   //       id: req.user.id,
-//   //       username: req.user.username,
-//   //     },
-//   //     message:
-//   //       "Congratulations: you have accessed this route because you have a valid JWT token!",
-//   //   })
-//   }
-// )
-
 // a route that sends a response including the Set-Cookie header.
 server.get("/set-cookie", (req, res) => {
   res
@@ -106,9 +87,9 @@ server.get("/set-cookie", (req, res) => {
 })
 
 // route handling
-server.get("/usermenu", (req, res) => {
-  User.findById(req.query.id, (err, docs) => {
-
+server.get("/usermenu", passport.authenticate("jwt", { session: false }), (req, res) => {
+  const id = req.user.id
+  User.findById(id, (err, docs) => {
     if(err || docs.length == 0){
       console.log('User not found')
       res.status(404)
@@ -274,7 +255,7 @@ server.post("/signin-submit", function (req, res) {
         console.log('User not found')
         res.status(400)
         // res.json({ success: false, message: `user not found: ${req.body.email}.` })
-        res.redirect("http://localhost:3000/signin")
+        return res.redirect("http://localhost:3000/signin")
       }
 
       else if(bcrypt.compare(req.body.password, user.password)) {
@@ -282,11 +263,7 @@ server.post("/signin-submit", function (req, res) {
         res.status(200);
         const payload = { id: user.id } // some data we'll encode into the token
         const token = jwt.sign(payload, jwtOptions.secretOrKey) // create a signed token
-        res.cookie("token", token, {
-          httpOnly:true,
-        });
-
-        return res.redirect("http://localhost:3000/usermenu");
+        return res.json({ success: true, email: user.email, token: token }) // send the token to the client to store
 
         // res.json({ success: true, email: user.email, token: token }) // send the token to the client to store
         // res.redirect(url.format({
@@ -298,13 +275,13 @@ server.post("/signin-submit", function (req, res) {
         console.log('Incorrect password')
         console.log(user.password)
         console.log(req.body.password)
-        res.status(401).json({ success: false, message: "incorrect password" })
+        return res.status(401).json({ success: false, message: "incorrect password" })
       }
     })
   } 
   else {
     res.status(400);
-    res.json({ success: false, message: `no username or password supplied.` });
+    return res.json({ success: false, message: `no username or password supplied.` });
   }
 })
 
@@ -426,7 +403,10 @@ const close = () => {
   listener.close();
 };
 
-// module.exports = {
-//   close: close,
-// }
-module.exports = server;
+
+
+module.exports = {
+  server,
+  User
+}
+
