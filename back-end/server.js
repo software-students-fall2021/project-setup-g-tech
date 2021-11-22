@@ -25,7 +25,8 @@ server.use(express.json()) // decode JSON-formatted incoming POST data
 server.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
 server.use(cookieParser()) // useful middleware for dealing with cookies
 
-
+var path  = require('path')
+const multer = require("multer")
 
 // the port to listen to for incoming requests
 const port = 3001;
@@ -68,7 +69,7 @@ const restaurantSchema = new mongoose.Schema({
   email: String,
   password: String,
   location: String,
-  // image: String,
+  image: String,
   items: [menuSchema]
 })
 
@@ -327,8 +328,22 @@ server.post("/business-signin-submit", function (req, res) {
   }
 })
 
-// business restaurant registration
-server.post("/business-register-submit", function (req, res) {
+server.use(express.static(__dirname+"./public/"));
+// destination: "../public/uploads/",
+
+// Handling Image Uploads
+var Storage = multer.diskStorage({
+  destination: "./public/uploads/",
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '_' + Date.now()+path.extname(file.originalname));
+  }
+});
+var Upload = multer({ storage: Storage }).single('file')
+// End of Handling Image File Uploads
+
+// Start of business restaurant registration
+server.post("/business-register-submit",Upload, function (req, res) {
+  console.log(req.body)
   if (
     req.body.name &&
     req.body.email &&
@@ -352,6 +367,7 @@ server.post("/business-register-submit", function (req, res) {
           email: req.body.email,
           location: req.body.location,
           password: req.body.password,
+          image: req.file.filename,
           items: {}
         })
         console.log('Restaurant created')
@@ -369,6 +385,7 @@ server.post("/business-register-submit", function (req, res) {
     res.redirect("http://localhost:3000/business-register");
   }
 });
+// End of business restaurant registration
 
 //restaurant item addition
 server.post("/menu-submit", function (req, res) {
