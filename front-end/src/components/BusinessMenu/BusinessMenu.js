@@ -8,7 +8,6 @@ const BusinessMenu = (props) => {
              <HeaderTab pageTitle="Submit a menu item" returnPath = "/business"/>
              <div className="fields">
                 <form action="http://localhost:3001/menu-submit" method="POST">
-
                     <div className="form-group form">
                         <label className='title form-label'>Category</label>
                         <div>

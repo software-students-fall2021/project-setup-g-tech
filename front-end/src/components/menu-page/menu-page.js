@@ -27,6 +27,24 @@ const MenuPage = () => {
     pathname: "/checkout",
     query: { id: user },
   });
+  // ======================================================
+  // add restaurants menu from backend
+  const rest_id = params.get("key");
+
+  // fetch data of all restaurants
+  const [docs, setResData] = useState([]);
+  const fetchResData = async () => {
+    // const res =
+    const res = await axios.get("http://localhost:3001/menu-res", {
+      params: {
+        id: user,
+        key: rest_id,
+      },
+    });
+    setResData(res.data);
+  };
+  useEffect(fetchResData, []);
+  // ======================================================
 
   const onItemCountChange = (val, item) => {
     setTotalCounter(totalCounter + val);
@@ -63,11 +81,13 @@ const MenuPage = () => {
     const res = await axios.get("http://localhost:3001/menu", {
       params: {
         id: user,
+        key: rest_id,
       },
     });
     setData(res.data);
   };
   useEffect(fetchData, []);
+  console.log("data", data);
   let menuItems = Object.keys(data);
 
   return (
