@@ -87,7 +87,6 @@ const MenuPage = () => {
     setData(res.data);
   };
   useEffect(fetchData, []);
-  console.log("data", data);
   let menuItems = Object.keys(data);
 
   return (
