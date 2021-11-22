@@ -184,6 +184,21 @@ server.get("/saveddistributors", (req, res, next) => {
   })
 });
 
+  // ======================================================
+//menu display for restaurant wo API
+server.get("/menu-res", (req, res, next) => {
+  Restaurant.findOne({_id : req.query.key}, (err, docs) => {
+    if (err || docs.length == 0) {
+      console.log("Restaurant not found");
+      res.status(404);
+      next();
+    } 
+    else{
+      res.json(docs);
+    }
+  });
+});
+  // ======================================================
 //register authentication
 server.get("/menu", (req, res, next) => {
   User.findById(req.query.id, (err, docs) => {
