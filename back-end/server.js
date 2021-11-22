@@ -40,6 +40,7 @@ const listener = server.listen(port, function () {
 const db_url = process.env.DB_DOMAIN
 mongoose.connect(db_url, () => { console.log('Db connection state: ' + mongoose.connection.readyState) })
 
+
 const menuSchema = new mongoose.Schema({
   type: String,
   title: String,
@@ -110,6 +111,8 @@ server.get("/usermenu", passport.authenticate("jwt", { session: false }), (req, 
     }
   });
 });
+
+
 
 // // a route that looks for a Cookie header in the request and sends back whatever data was found in it.
 // app.get("/get-cookie", (req, res) => {
@@ -201,13 +204,15 @@ server.get("/menu-res", (req, res, next) => {
 });
   // ======================================================
 //register authentication
+//menu display
 server.get("/menu", (req, res, next) => {
-  User.findById(req.query.id, (err, docs) => {
+  Restaurant.find({_id : req.query.key}, (err, docs) => {
     if (err || docs.length == 0) {
-      console.log("User not found");
+      console.log("Restaurant not found");
       res.status(404);
       next();
-    } else {
+    } 
+    else {
       axios
         .get(
           `https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST`
@@ -216,7 +221,21 @@ server.get("/menu", (req, res, next) => {
     }
   });
 });
-
+  // ======================================================
+//menu display for restaurant wo API
+server.get("/menu-res", (req, res, next) => {
+  Restaurant.findOne({_id : req.query.key}, (err, docs) => {
+    if (err || docs.length == 0) {
+      console.log("Restaurant not found");
+      res.status(404);
+      next();
+    } 
+    else{
+      res.json(docs);
+    }
+  });
+});
+  // ======================================================
 // User registration
 server.post("/register-submit", async (req, res) => {
   if (
