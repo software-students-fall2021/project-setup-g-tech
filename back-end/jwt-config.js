@@ -2,6 +2,34 @@ require("dotenv").config({ silent: true }) // load environmental variables from 
 const passportJWT = require("passport-jwt")
 const ExtractJwt = passportJWT.ExtractJwt
 const JwtStrategy = passportJWT.Strategy
+const mongoose = require('mongoose')
+
+//Db connection and setup
+mongoose.connect(process.env.DB_DOMAIN)
+const menuSchema = new mongoose.Schema({
+  type: String,
+  title: String,
+  price: Number,
+  quantity: Number,
+  description: String
+  // image: String
+})
+const historySchema = new mongoose.Schema({
+  date: Date,
+  items: [menuSchema],
+  order_total: Number,
+  status: String
+})
+const userSchema = new mongoose.Schema({
+  firstName: String,
+  lastName: String,
+  email: String,
+  password: String,
+  favorites: Array,
+  history: [historySchema],
+  cart: [menuSchema]
+})
+const UserModel = mongoose.model('UserModel', userSchema, 'users')
 
 // set up some JWT authentication options
 let jwtOptions = {}
@@ -12,7 +40,7 @@ jwtOptions.secretOrKey = process.env.JWT_SECRET // an arbitrary string used duri
 const jwtStrategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
   // console.log("JWT payload received", jwt_payload) // debugging
 
-  User.findOne({_id: jwt_payload.id}, (err, user) => {
+  UserModel.findOne({_id: jwt_payload.id}, (err, user) => {
     if(!user || err){
         // we didn't find the user... fail!
         next(null, false)

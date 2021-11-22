@@ -76,25 +76,6 @@ const Item = mongoose.model('Item', menuSchema, 'menuitems')
 const Restaurant = mongoose.model('Restaurant', restaurantSchema, 'restaurants')
 const User = mongoose.model('User', userSchema, 'users')
 
-// server.get(
-//   "/usermenu",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//   //   // our jwt passport config will send error responses to unauthenticated users will
-//   //   // so we only need to worry about sending data to properly authenticated users!
-
-//   //   res.json({
-//   //     success: true,
-//   //     user: {
-//   //       id: req.user.id,
-//   //       username: req.user.username,
-//   //     },
-//   //     message:
-//   //       "Congratulations: you have accessed this route because you have a valid JWT token!",
-//   //   })
-//   }
-// )
-
 // a route that sends a response including the Set-Cookie header.
 server.get("/set-cookie", (req, res) => {
   res
@@ -436,4 +417,7 @@ const close = () => {
 };
 
 
-module.exports = server
+module.exports = {
+  server,
+  User
+}
