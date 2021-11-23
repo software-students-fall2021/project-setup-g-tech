@@ -58,12 +58,18 @@ const historySchema = new mongoose.Schema({
   status: String,
 });
 
+/*
+const favoriteSchema = new mongoose.Schema({
+  name: String,
+  location: String,
+});
+*/
 const userSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   email: String,
   password: String,
-  favorites: Array,
+  favorites: [{name: String,location: String}],
   history: [historySchema],
   cart: [menuSchema],
 });
@@ -136,16 +142,23 @@ server.get(
 //   })
 // })
 
-server.post("/updateitem", (req, res) => {
-  User.findByIdAndUpdate(
-    req.body.id,
-    { $push: { favorites: req.body.name } },
-    { safe: true, upsert: true },
-    (err, doc) => {
-      if (err) console.log(err);
-    }
-  );
-});
+
+server.post(
+  "/updateitem",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const id = req.user.id;
+    console.log(req.body.restaurantName);
+    User.findByIdAndUpdate(
+      id,
+      { $push: {favorites: req.body.restaurantName } },
+      { safe: true, upsert: true },
+      (err, docs) => {
+        if (err) console.log(err);
+      }
+    );
+  }
+);
 
 server.get("/orderhistorypage", (req, res, next) => {
   if (req.query.id) {
@@ -171,6 +184,7 @@ server.post("/updateorderstatus", (req, res) => {
   );
 });
 
+/*
 server.get(
   "/saveddistributors",
   passport.authenticate("jwt", { session: false }),
@@ -197,6 +211,34 @@ server.get(
     });
   }
 );
+*/
+
+server.get(
+  "/saveddistributors",
+  passport.authenticate("jwt", { session: false }),
+  (req, res, next) => {
+    const id = req.user.id;
+    User.findById(id, (err, docs) => {
+      if (err || docs.length == 0) {
+        console.log("User not found");
+        res.status(404);
+        res.redirect("http://localhost:3000/signin");
+      } else {
+        //Restaurant.find({}, (err, docs) => { err || docs.length
+        if (docs.favorites.length == 0) {
+          console.log("No Favorites");
+          res.status(404);
+          res.redirect("http://localhost:3000/signin");
+        } else {
+          console.log(docs.favorites);
+          res.json(docs.favorites);
+        }
+        //});
+      }
+    });
+  }
+);
+
 
 // ======================================================
 //menu display for restaurant wo API

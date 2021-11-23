@@ -44,6 +44,9 @@ const jwtStrategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
     if (!user || err) {
       // we didn't find the user... fail!
       next(null, false);
+    } else {
+      // we found the user... keep going
+      next(null, user);
     }
   });
 
