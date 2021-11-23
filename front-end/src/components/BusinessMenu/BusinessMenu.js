@@ -1,14 +1,25 @@
 import HeaderTab from '../header-tab/HeaderTab';
 import Input from '../input-field/Input';
 import './BusinessMenu.css';
+import url from "url";
+import axios from "axios"
+import React, { useState, useEffect } from "react"
 
 const BusinessMenu = (props) => {
+    const jwtToken = localStorage.getItem('token')
+    const posturl = url.format({
+        pathname: 'http://localhost:3001/menu-submit',
+        headers: { Authorization: `JWT ${jwtToken}` }
+    })
+    const _id = localStorage.getItem('rest_id')
+ 
+
     return (
         <div className="Register">
+            {/* {console.log("token id",id)} */}
              <HeaderTab pageTitle="Submit a menu item" returnPath = "/business"/>
              <div className="fields">
-                <form action="http://localhost:3001/menu-submit" method="POST">
-
+                <form action={posturl} method="POST">
                     <div className="form-group form">
                         <label className='title form-label'>Category</label>
                         <div>
@@ -25,6 +36,7 @@ const BusinessMenu = (props) => {
                     </div>
 
                     <Input title="Item Name" name="item_name" type='text' placeholder='Buffalo Chicken Burger'/>
+                    <Input  name="id" type="hidden" value={_id}/>
 
                     <Input title="Price" name="price" type='text' placeholder='10'/>
                     <Input title="Quantity" name="quantity" type='text' placeholder='3'/>

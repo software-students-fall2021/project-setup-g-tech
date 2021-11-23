@@ -18,6 +18,7 @@ const MenuPage = () => {
 
   const params = new URLSearchParams(window.location.search);
   const user = params.get("id");
+  const rest_id = params.get("key");
   const returnPath = url.format({
     pathname: "/usermenu",
     query: { id: user },
@@ -53,29 +54,35 @@ const MenuPage = () => {
     sessionStorage.setItem("price", JSON.stringify(selectedItemsPrice));
   };
 
-  // Placeholder code for using data
-  // let menuItems =  Object.keys(data[0]);
-
-  // API Backend get data
-  const [data, setData] = useState([]);
-
-  const fetchData = async () => {
-    const res = await axios.get("http://localhost:3001/menu", {
-      params: {
-        id: user,
-      },
-    });
-    setData(res.data);
+    // ======================================================
+  // add restaurants menu from backend
+  // fetch data of all restaurants
+  const [docs, setResData] = useState([]);
+  const fetchResData = async () => {
+    // const res =
+    const res = await axios
+      .get("http://localhost:3001/getmenu", {
+        params: {
+          id: user,
+          key: rest_id,
+        },
+      });
+      setResData(res.data);
   };
-  useEffect(fetchData, []);
-  let menuItems = Object.keys(data);
+  useEffect(fetchResData, []);
+  let items = docs.items;
+  const menu_item_arr = []
+  items && items.map((item)=>{
+    if(!menu_item_arr.includes(item.type)) menu_item_arr.push(item.type);
+  })
+  // ======================================================
 
   return (
     <>
       <HeaderTab pageTitle="Burger King" returnPath={returnPath} />
       <ImageCont img="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-burger-tour-1-1539986612.jpg" />
       <div className="scrollmenu">
-        {menuItems.map((menuItems) => (
+        {menu_item_arr && menu_item_arr.map((menuItems) => (
           <ul className="menuItem02">
             <a className="menuItem" href={"#" + menuItems}>
               {menuItems}
@@ -84,32 +91,31 @@ const MenuPage = () => {
         ))}
         ;
       </div>
-
-      {menuItems.map((menuItem) => (
+      {menu_item_arr && menu_item_arr.map((menuItem) => ( 
         <div>
           <div className="menuItems">
-            <a id={menuItem}>{menuItem}</a>
-          </div>
-          <div>
-            {/* use this for API call: {data[menuItem].map(itemList=>{ */}
-            {/* use this for using db.json file {data[0][menuItem].map(itemList=>{ */}
-
-            {data[menuItem].map((itemList) => {
-              return (
-                <MenuCard
-                  menuCountUpdater={onItemCountChange}
-                  selectionUpdater={onItemSelect}
-                  img={itemList.img}
-                  name={itemList.name}
-                  price={itemList.price}
-                  description={itemList.description}
-                  qty_available={itemList.qty_available}
-                />
-              );
-            })}
-          </div>
+          <a id={menuItem}>{menuItem}</a>
         </div>
-      ))}
+        <div>
+      {  items && items.map((item)=>{
+          if(item.type == menuItem){
+            return (
+              <MenuCard
+                menuCountUpdater={onItemCountChange}
+                selectionUpdater={onItemSelect}
+                name={item.title}
+                price={item.price}
+                description={item.description}
+                qty_available={item.quantity}
+              />
+            );
+          }   
+        })}
+        </div>
+      </div>
+      ))}     
+ 
+
       {totalCounter > 0 && (
         <div className="floatBtn">
           <div className="floatBtnChild">
