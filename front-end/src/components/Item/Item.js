@@ -29,7 +29,7 @@ const Item = (props) => {
     
     const menuPath = url.format({
         pathname:"/menu",
-        query: { id: props.details._id}
+        query: { id: props.user, key: props.details._id}
     })
 
     // const checkUpdates = async () => {

@@ -18,6 +18,7 @@ const MenuPage = () => {
 
   const params = new URLSearchParams(window.location.search);
   const user = params.get("id");
+  const rest_id = params.get("key");
   const returnPath = url.format({
     pathname: "/usermenu",
     query: { id: user },
@@ -63,6 +64,7 @@ const MenuPage = () => {
     const res = await axios.get("http://localhost:3001/menu", {
       params: {
         id: user,
+        key: rest_id,
       },
     });
     setData(res.data);
@@ -70,8 +72,39 @@ const MenuPage = () => {
   useEffect(fetchData, []);
   let menuItems = Object.keys(data);
 
+
+    // ======================================================
+  // add restaurants menu from backend
+  // const rest_id = params.get("key");
+
+  // fetch data of all restaurants
+  const [docs, setResData] = useState([]);
+  const fetchResData = async () => {
+    // const res =
+    const res = await axios
+      .get("http://localhost:3001/menu-res", {
+        params: {
+          id: user,
+          key: rest_id,
+        },
+      });
+      setResData(res.data);
+  };
+  useEffect(fetchResData, []);
+  console.log("fetchResData", docs);
+  let items = docs.items;
+
+  // ======================================================
+
   return (
     <>
+      {
+      console.log('doc',items)
+      
+      // items.map((item)=>{
+      //     console.log(item);
+      // })
+      }
       <HeaderTab pageTitle="Burger King" returnPath={returnPath} />
       <ImageCont img="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-burger-tour-1-1539986612.jpg" />
       <div className="scrollmenu">
