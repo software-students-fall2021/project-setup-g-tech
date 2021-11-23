@@ -16,7 +16,6 @@ function SavedDistributors() {
   const user = params.get("id");
   const returnPath = url.format({
     pathname: "/usermenu",
-    query: { id: user },
   });
 
   const fetchData = async () => {
