@@ -71,7 +71,7 @@ const restaurantSchema = new mongoose.Schema({
   password: String,
   location: String,
   image: String,
-  items: [menuSchema]
+  items: [[menuSchema]]
 })
 
 const Item = mongoose.model('Item', menuSchema, 'menuitems')
@@ -163,8 +163,9 @@ server.post("/updateorderstatus", (req, res) => {
   );
 });
 
-server.get("/saveddistributors", (req, res, next) => {
-  User.findById(req.query.id, (err, docs) => {
+server.get("/saveddistributors",passport.authenticate("jwt", { session: false }), (req, res, next) => {
+  const id = req.user.id
+  User.findById(id, (err, docs) => {
     if (err || docs.length == 0) {
       console.log("User not found");
       res.status(404);
@@ -322,26 +323,32 @@ server.post("/signin-submit", function (req, res) {
 
 // Restaurant sign in authentication
 server.post("/business-signin-submit", function (req, res) {
+  // ========================================================
   if (req.body.email && req.body.password) {
-    Restaurant.find({email: req.body.email}, (err, docs) => {
-      if(err || docs.length == 0){
+    Restaurant.findOne({email: req.body.email}, (err, restaurant) => {
+      if(restaurant.length || err){
         console.log('Restaurant not found')
         res.status(400)
         res.redirect("http://localhost:3000/business-signin")
       }
-      else if(docs[0].password == req.body.password) {
-        console.log('Restaurant exists: ', docs[0].email);
+
+      else if(bcrypt.compare(req.body.password, restaurant.password)) {
+        console.log('Restaurant exists: ', restaurant.email);
         res.status(200);
-        res.redirect(url.format({
-          pathname:"http://localhost:3000/business-menu",
-          query: { id: docs[0]._id.toString()}
-        }));
+        const payload = { id: restaurant.id } // some data we'll encode into the token
+        const token = jwt.sign(payload, jwtOptions.secretOrKey) // create a signed token
+        return res.json({ success: true, email: restaurant.email, token: token }) // send the token to the client to store
       }
       else {
         console.log('Incorrect password')
+        console.log(restaurant.password)
+        console.log(req.body.password)
+        return res.status(401).json({ success: false, message: "incorrect password" })
       }
     })
-  } else {
+  } 
+  // ========================================================
+ else {
     res.status(400);
     res.redirect("http://localhost:3000/business-signin");
   }
@@ -408,15 +415,13 @@ server.post("/business-register-submit",Upload, function (req, res) {
 
 //restaurant item addition
 server.post("/menu-submit", function (req, res) {
-
   if (
     req.body.category &&
     req.body.item_name &&
     req.body.price &&
     req.body.quantity &&
     req.body.description
-
-  ) {
+  ) { 
     // Create new item
     const new_item = new Item({ 
       type: req.body.category,
@@ -425,17 +430,29 @@ server.post("/menu-submit", function (req, res) {
       quantity: req.body.quantity,
       description: req.body.description,
     })
-
+    Restaurant.findByIdAndUpdate(
+      req.body._id,
+      { $push: { items: new_item } },
+      { safe: true, upsert: true },
+      (err, doc) => {
+        if (err) console.log(err);
+      }
+    );
+    
     new_item.save(err => { if(err) console.log('Unable to add new menu item') })
     res.status(200);
+    console.log('req.body.id',req.body.id)
     res.redirect(url.format({
       pathname:"http://localhost:3000/business-menu",
-      query: { id: new_item._id.toString()}
+      query: { id: req.body._id}
     }));
   } 
   else {
     res.status(400);
-    res.redirect("http://localhost:3000/business-menu");
+    res.redirect(url.format({
+      pathname:"http://localhost:3000/business-menu",
+      query: { id: req.body._id}
+    }));
   }
 })
 
