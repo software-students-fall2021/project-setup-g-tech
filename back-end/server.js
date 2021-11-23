@@ -71,7 +71,7 @@ const restaurantSchema = new mongoose.Schema({
   password: String,
   location: String,
   image: String,
-  items: [[menuSchema]]
+  items: [menuSchema]
 })
 
 const Item = mongoose.model('Item', menuSchema, 'menuitems')
@@ -89,7 +89,8 @@ server.get("/set-cookie", (req, res) => {
 })
 
 // route handling
-server.get("/usermenu", passport.authenticate("jwt", { session: false }), (req, res) => {
+server.get("/usermenu", passport.authenticate("jwt", 
+{ session: false }), (req, res) => {
   const id = req.user.id
   User.findById(id, (err, docs) => {
     if(err || docs.length == 0){
@@ -163,7 +164,7 @@ server.post("/updateorderstatus", (req, res) => {
   );
 });
 
-server.get("/saveddistributors",passport.authenticate("jwt", { session: false }), (req, res, next) => {
+server.get("/saveddistributors", passport.authenticate("jwt", { session: false }), (req, res, next) => {
   const id = req.user.id
   User.findById(id, (err, docs) => {
     if (err || docs.length == 0) {
@@ -191,7 +192,7 @@ server.get("/saveddistributors",passport.authenticate("jwt", { session: false })
 
   // ======================================================
 //menu display for restaurant wo API
-server.get("/menu-res", (req, res, next) => {
+server.get("/getmenu", (req, res, next) => {
   Restaurant.findOne({_id : req.query.key}, (err, docs) => {
     if (err || docs.length == 0) {
       console.log("Restaurant not found");
@@ -337,7 +338,7 @@ server.post("/business-signin-submit", function (req, res) {
         res.status(200);
         const payload = { id: restaurant.id } // some data we'll encode into the token
         const token = jwt.sign(payload, jwtOptions.secretOrKey) // create a signed token
-        return res.json({ success: true, email: restaurant.email, token: token }) // send the token to the client to store
+        return res.json({ success: true, email: restaurant.email, token: token , id: restaurant.id }) // send the token to the client to store
       }
       else {
         console.log('Incorrect password')
@@ -369,7 +370,6 @@ var Upload = multer({ storage: Storage }).single('file')
 
 // Start of business restaurant registration
 server.post("/business-register-submit",Upload, function (req, res) {
-  console.log(req.body)
   if (
     req.body.name &&
     req.body.email &&
@@ -415,6 +415,7 @@ server.post("/business-register-submit",Upload, function (req, res) {
 
 //restaurant item addition
 server.post("/menu-submit", function (req, res) {
+  console.log(req.body.id)
   if (
     req.body.category &&
     req.body.item_name &&
@@ -431,12 +432,12 @@ server.post("/menu-submit", function (req, res) {
       description: req.body.description,
     })
     Restaurant.findByIdAndUpdate(
-      req.body._id,
+      req.body.id,
       { $push: { items: new_item } },
       { safe: true, upsert: true },
       (err, doc) => {
         if (err) console.log(err);
-      }
+      },
     );
     
     new_item.save(err => { if(err) console.log('Unable to add new menu item') })

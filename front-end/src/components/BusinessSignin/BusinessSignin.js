@@ -9,6 +9,7 @@ const BusinessSignin = props => {
     if (response.success && response.token) {
       console.log(`Restaurant successfully logged in: ${response.email}`)
       localStorage.setItem("token", response.token) // store the token into localStorage
+      localStorage.setItem("rest_id", response.id)
       window.location.replace("http://localhost:3000/business-menu")
     }
   }, [response])
