@@ -177,13 +177,14 @@ server.post("/updateorderstatus", (req, res) => {
   );
 });
 
-server.get("/saveddistributors", passport.authenticate("jwt", { session: false }), (req, res, next) => {
+// saved distributors token
+server.get("/saveddistributors",passport.authenticate("jwt", { session: false }), (req, res, next) => {
   const id = req.user.id
   User.findById(id, (err, docs) => {
     if (err || docs.length == 0) {
       console.log("User not found");
       res.status(404);
-      res.redirect("http://localhost:3000/signin");
+      res.redirect("http://localhost:3000/");
       
     }
     else{
@@ -191,11 +192,38 @@ server.get("/saveddistributors", passport.authenticate("jwt", { session: false }
         if(err || docs.length == 0){
           console.log('Restaurants not found')
           res.status(404);
-          res.redirect("http://localhost:3000/signin");
+          res.redirect("http://localhost:3000/");
         }
         else{
           data = restInfo.filter(e => docs.favorites.includes(e.name));
           res.json(data);
+        }
+      })
+    }
+  })
+});
+
+// checkout token
+server.get("/checkout",passport.authenticate("jwt", { session: false }), (req, res, next) => {
+  const id = req.user.id
+  User.find(id, (err, docs) => {
+    if (err || docs.length == 0) {
+      console.log("User not found");
+      res.status(404);
+      res.redirect("http://localhost:3000/");
+      
+    }
+    else{
+    //   // let restInfo ='';
+      req.user.cart.find({}, (err, cartinfo)=>{
+        if(err || docs.length == 0){
+          console.log('no items in cart')
+          res.status(404);
+          res.redirect("http://localhost:3000/");
+        }
+        else{
+          // data = cartinfo.filter(e => docs.favorites.includes(e.name));
+          res.json(cartinfo);
         }
       })
     }

@@ -22,15 +22,6 @@ const UserMenu = () => {
   };
   useEffect(fetchData, []);
 
-  const fetchSaved = async () => {
-    const res = await axios.get("http://localhost:3001/saveddistributors", {
-      headers: { Authorization: `JWT ${jwtToken}` }
-    });
-    const favorites = res.data.map(e => e.name)
-    setSaved(favorites);
-  };
-  useEffect(fetchSaved, []);
-
   const dynamicSearch = () => {
     return data.filter((e) =>
       e.name.toLowerCase().includes(search.toLowerCase())
