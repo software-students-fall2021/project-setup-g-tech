@@ -192,7 +192,8 @@ server.get("/saveddistributors", passport.authenticate("jwt", { session: false }
 
   // ======================================================
 //menu display for restaurant wo API
-server.get("/getmenu", (req, res, next) => {
+server.get("/getmenu" ,passport.authenticate("jwt", 
+{ session: false }), (req, res, next) => {
   Restaurant.findOne({_id : req.query.key}, (err, docs) => {
     if (err || docs.length == 0) {
       console.log("Restaurant not found");
@@ -204,39 +205,7 @@ server.get("/getmenu", (req, res, next) => {
     }
   });
 });
-  // ======================================================
-//register authentication
-//menu display
-server.get("/menu", (req, res, next) => {
-  Restaurant.find({_id : req.query.key}, (err, docs) => {
-    if (err || docs.length == 0) {
-      console.log("Restaurant not found");
-      res.status(404);
-      next();
-    } 
-    else {
-      axios
-        .get(
-          `https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST`
-        )
-        .then((apiRes) => res.json(apiRes.data));
-    }
-  });
-});
-  // ======================================================
-//menu display for restaurant wo API
-server.get("/menu-res", (req, res, next) => {
-  Restaurant.findOne({_id : req.query.key}, (err, docs) => {
-    if (err || docs.length == 0) {
-      console.log("Restaurant not found");
-      res.status(404);
-      next();
-    } 
-    else{
-      res.json(docs);
-    }
-  });
-});
+
   // ======================================================
 // User registration
 server.post("/register-submit", async (req, res) => {
