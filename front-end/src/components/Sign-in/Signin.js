@@ -56,11 +56,11 @@ const Signin = props => {
   // // console.log(status)
   //   if (!status.success)
   const [response, setResponse] = useState({})
+  
   useEffect(() => {
-    // if the user is logged-in, save the token to local storage
     if (response.success && response.token) {
       console.log(`User successfully logged in: ${response.email}`)
-      localStorage.setItem("token", response.token) // store the token into localStorage
+      localStorage.setItem("token", response.token)
       window.location.replace("http://localhost:3000/usermenu")
     }
   }, [response])
@@ -68,10 +68,9 @@ const Signin = props => {
   const handleSubmit = async e => {
     e.preventDefault()
     const requestData = {
-      email: e.target.email.value, // gets the value of the field in the submitted form with name='username'
-      password: e.target.password.value, // gets the value of the field in the submitted form with name='password',
+      email: e.target.email.value, 
+      password: e.target.password.value,
     }
-    // send a POST request with the data to the server api to authenticate
     const res = await axios.post(
       'http://localhost:3001/signin-submit',
       requestData

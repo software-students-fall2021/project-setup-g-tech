@@ -26,7 +26,8 @@ const UserMenu = () => {
     const res = await axios.get("http://localhost:3001/saveddistributors", {
       headers: { Authorization: `JWT ${jwtToken}` }
     });
-    setSaved(res.data);
+    const favorites = res.data.map(e => e.name)
+    setSaved(favorites);
   };
   useEffect(fetchSaved, []);
 
