@@ -69,7 +69,7 @@ const userSchema = new mongoose.Schema({
   lastName: String,
   email: String,
   password: String,
-  favorites: [{name: String,location: String}],
+  favorites: Array,
   history: [historySchema],
   cart: [menuSchema],
 });
@@ -142,19 +142,20 @@ server.get(
 //   })
 // })
 
-
 server.post(
   "/updateitem",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const id = req.user.id;
+    console.log(id);
     console.log(req.body.restaurantName);
     User.findByIdAndUpdate(
       id,
-      { $push: {favorites: req.body.restaurantName } },
+      { $push: { favorites: req.body.restaurantName } },
       { safe: true, upsert: true },
       (err, docs) => {
         if (err) console.log(err);
+        else res.json({ success: true });
       }
     );
   }
@@ -184,7 +185,7 @@ server.post("/updateorderstatus", (req, res) => {
   );
 });
 
-/*
+
 server.get(
   "/saveddistributors",
   passport.authenticate("jwt", { session: false }),
@@ -211,8 +212,9 @@ server.get(
     });
   }
 );
-*/
 
+
+/*
 server.get(
   "/saveddistributors",
   passport.authenticate("jwt", { session: false }),
@@ -238,7 +240,7 @@ server.get(
     });
   }
 );
-
+*/
 
 // ======================================================
 //menu display for restaurant wo API

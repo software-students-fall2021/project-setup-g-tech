@@ -19,12 +19,15 @@ const Item = (props) => {
     // })
   };
 
-  const handleShow = () => {
+  const header = { headers: { Authorization: `JWT ${jwtToken}` } };
+  const requestBody = { restaurantName: props.details.name };
+  const handleShow = async () => {
     setShow(true);
-    axios.post("http://localhost:3001/updateitem", {
-      restaurantName: props.details.name,
-      headers: { Authorization: `JWT ${jwtToken}` },
-    });
+    const res = await axios.post(
+      "http://localhost:3001/updateitem",
+      requestBody,
+      header
+    );
   };
 
   // const checkUpdates = async () => {
