@@ -27,9 +27,11 @@ function SavedDistributors() {
   };
 */
 
+  const favorites = data.map((e) => e.name);
+
   return (
     <div className="savedListContainer">
-      <HeaderTab pageTitle="Saved Distributors" returnPath="/usermenu" />
+      <HeaderTab pageTitle="Saved Distributors" returnPath={"/usermenu"} />
       <hr />
       <div className="searchbar">
         <div className="mt-3">
@@ -52,7 +54,7 @@ function SavedDistributors() {
       <hr />
       <div className="listContent">
         <div className="restaurants">
-          <ItemsList list={data} />
+          <ItemsList saved={favorites} list={dynamicSearch()} />
         </div>
       </div>
     </div>
