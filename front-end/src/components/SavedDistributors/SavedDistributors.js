@@ -5,18 +5,12 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import HeaderTab from "../header-tab/HeaderTab";
 import ItemsList from "../ItemsList/ItemsList";
 import axios from "axios";
-import url from "url";
 import "./SavedDistributors.css";
 
 function SavedDistributors() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const jwtToken = localStorage.getItem('token')
-  const params = new URLSearchParams(window.location.search);
-  const user = params.get("id");
-  const returnPath = url.format({
-    pathname: "/usermenu",
-  });
 
   const fetchData = async () => {
     const res = await axios.get("http://localhost:3001/saveddistributors", {
@@ -32,9 +26,11 @@ function SavedDistributors() {
     );
   };
 
+  const favorites = data.map(e => e.name)
+
   return (
     <div className="savedListContainer">
-      <HeaderTab pageTitle="Saved Distributors" returnPath={returnPath} />
+      <HeaderTab pageTitle="Saved Distributors" returnPath={'/usermenu'} />
       <hr />
       <div className="searchbar">
         <div className="mt-3">
@@ -57,7 +53,7 @@ function SavedDistributors() {
       <hr />
       <div className="listContent">
         <div className="restaurants">
-          <ItemsList user={user} list={dynamicSearch()} />
+          <ItemsList saved={favorites} list={dynamicSearch()} />
         </div>
       </div>
     </div>

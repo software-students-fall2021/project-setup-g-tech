@@ -89,9 +89,9 @@ server.get("/set-cookie", (req, res) => {
 })
 
 // route handling
-server.get("/usermenu", passport.authenticate("jwt", 
-{ session: false }), (req, res) => {
+server.get("/usermenu", passport.authenticate("jwt", { session: false }), (req, res) => {
   const id = req.user.id
+  console.log(`User ID: ${id}`)
   User.findById(id, (err, docs) => {
     if(err || docs.length == 0){
       console.log('User not found')
@@ -129,15 +129,28 @@ server.get("/usermenu", passport.authenticate("jwt",
 //   })
 // })
 
-server.post("/updateitem", (req, res) => {
-  User.findByIdAndUpdate(
-    req.body.id,
-    { $push: { favorites: req.body.name } },
-    { safe: true, upsert: true },
-    (err, doc) => {
-      if (err) console.log(err);
-    }
-  );
+server.post("/updateitem", passport.authenticate("jwt", { session: false }), (req, res) => {
+  const id = req.user.id
+  if(req.body.action == 'add'){
+    User.findByIdAndUpdate(
+      id,
+      { $push: { favorites: req.body.name } },
+      { safe: true, upsert: true },
+      (err, doc) => {
+        if (err) console.log(err);
+      }
+    );
+  }
+  else{
+    User.findByIdAndUpdate(
+      id,
+      { $pull: { favorites: req.body.name } },
+      { safe: true, upsert: true },
+      (err, doc) => {
+        if (err) console.log(err);
+      }
+    );
+  }
 });
 
 server.get("/orderhistorypage", (req, res, next) => {
@@ -174,7 +187,6 @@ server.get("/saveddistributors", passport.authenticate("jwt", { session: false }
       
     }
     else{
-      // let restInfo ='';
       Restaurant.find({}, (err,restInfo)=>{
         if(err || docs.length == 0){
           console.log('Restaurants not found')
@@ -255,7 +267,7 @@ server.post("/register-submit", async (req, res) => {
       if (docs.length || err) {
         console.log("Email taken");
         res.status(400);
-        res.redirect("http://localhost:3000/register");
+        return res.redirect("http://localhost:3000/register");
       } else {
         // Create new user
         const new_user = new User({
@@ -270,12 +282,9 @@ server.post("/register-submit", async (req, res) => {
           if (err) console.log("Unable to create new user");
         });
         res.status(200);
-        res.redirect(
-          url.format({
-            pathname: "http://localhost:3000/usermenu",
-            query: { id: new_user._id.toString() },
-          })
-        );
+        const payload = { id: new_user.id }
+        const token = jwt.sign(payload, jwtOptions.secretOrKey) 
+        return res.json({ success: true, email: new_user.email, token: token }) 
       }
     });
   } else {
