@@ -12,10 +12,11 @@ import url from "url";
 import "./menu-page.css";
 
 const MenuPage = () => {
+  const jwtToken = localStorage.getItem("token");
   const [totalCounter, setTotalCounter] = useState(0);
   const [selectedItems, setSelectedItems] = useState({});
   const [selectedItemsPrice, setSelectedItemsPrice] = useState({});
-
+/*
   const params = new URLSearchParams(window.location.search);
   const user = params.get("id");
   const rest_id = params.get("key");
@@ -28,7 +29,7 @@ const MenuPage = () => {
     pathname: "/checkout",
     query: { id: user },
   });
-
+*/
   const onItemCountChange = (val, item) => {
     setTotalCounter(totalCounter + val);
   };
@@ -62,11 +63,8 @@ const MenuPage = () => {
     // const res =
     const res = await axios
       .get("http://localhost:3001/getmenu", {
-        params: {
-          id: user,
-          key: rest_id,
-        },
-      });
+        headers: { Authorization: `JWT ${jwtToken}` },
+        });
       setResData(res.data);
   };
   useEffect(fetchResData, []);
