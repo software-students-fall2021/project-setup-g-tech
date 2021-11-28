@@ -12,6 +12,8 @@ const Checkout = (props) => {
   let cartItems = JSON.parse(sessionStorage.getItem("cart"));
   let cartItemsPrice = JSON.parse(sessionStorage.getItem("price"));
   let sum = 0;
+  const jwtToken = localStorage.getItem('token')
+  const [data, setData] = useState([]);
 
   const timerPath = url.format({
     pathname: "/pagetimer",
