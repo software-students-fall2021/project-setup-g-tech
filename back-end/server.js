@@ -208,6 +208,7 @@ server.get("/saveddistributors", passport.authenticate("jwt", { session: false }
 server.get("/getmenu" ,passport.authenticate("jwt", 
 { session: false }), (req, res, next) => {
   Restaurant.findOne({_id : req.headers.rest_id}, (err, docs) => {
+
     if (err || docs.length == 0) {
       console.log("Restaurant not found");
       res.status(404);
