@@ -12,21 +12,13 @@ const Checkout = (props) => {
   let cartItemsPrice = JSON.parse(sessionStorage.getItem("price"));
   let sum = 0;
 
-  const params = new URLSearchParams(window.location.search);
-  const user = params.get("id");
-  const returnPath = url.format({
-    pathname: "/menu",
-    query: { id: user },
-  });
-
   const timerPath = url.format({
     pathname: "/pagetimer",
-    query: { id: user },
   });
 
   return (
     <div className="Checkout">
-      <HeaderTab pageTitle="Check Out" returnPath={returnPath} />
+      <HeaderTab pageTitle="Check Out" returnPath='/menu' />
       <div className="heading">
         <h2 className="order-confirm">Order Confirmation</h2>
       </div>

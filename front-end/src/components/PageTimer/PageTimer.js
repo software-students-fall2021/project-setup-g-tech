@@ -16,7 +16,6 @@ function PageTimer() {
   const user = params.get("id");
   const returnPath = url.format({
     pathname: "/usermenu",
-    query: { id: user },
   });
 
   // when "cancel" button is clicked, do a post request to change the status of the order to canceled and go back to usermenu page

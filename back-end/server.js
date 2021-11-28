@@ -207,8 +207,8 @@ server.get("/saveddistributors", passport.authenticate("jwt", { session: false }
 //menu display for restaurant wo API
 server.get("/getmenu" ,passport.authenticate("jwt", 
 { session: false }), (req, res, next) => {
+  console.log('req body: ',req.body)
   Restaurant.findOne({_id : req.headers.rest_id}, (err, docs) => {
-
     if (err || docs.length == 0) {
       console.log("Restaurant not found");
       res.status(404);
@@ -381,7 +381,6 @@ server.post("/business-register-submit",Upload, function (req, res) {
         res.status(200);
         res.redirect(url.format({
           pathname:"http://localhost:3000/business-menu",
-          query: { id: new_restaurant._id.toString()}
         }));
       }
     })
@@ -425,14 +424,12 @@ server.post("/menu-submit", function (req, res) {
     console.log('req.body.id',req.body.id)
     res.redirect(url.format({
       pathname:"http://localhost:3000/business-menu",
-      query: { id: req.body._id}
     }));
   } 
   else {
     res.status(400);
     res.redirect(url.format({
       pathname:"http://localhost:3000/business-menu",
-      query: { id: req.body._id}
     }));
   }
 })

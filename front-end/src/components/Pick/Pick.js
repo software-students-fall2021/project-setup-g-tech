@@ -6,7 +6,6 @@ import url from "url";
 const Pick = (props) => {
   const menuPath = url.format({
     pathname: "/menu",
-    query: { id: props.user },
   });
 
   return (

@@ -35,7 +35,6 @@ const Item = (props) => {
 
     const handleClick= async () => {
         localStorage.setItem('rest_id', props.details._id);
-        document.cookie = `rest_id=${props.details._id}`
     }
 
     const inSaved = props.saved.includes(props.details.name)

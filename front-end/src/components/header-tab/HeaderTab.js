@@ -5,7 +5,7 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 const HeaderTab = (props) => {
     const handleLogOut = () => {
-         if (localStorage.getItem('rest_id')!= null){
+         if (localStorage.getItem('rest_id')!= null && props.returnPath!='/menu'){
             localStorage.removeItem('rest_id')
          }
       }

@@ -16,16 +16,12 @@ const MenuPage = () => {
   const [selectedItems, setSelectedItems] = useState({});
   const [selectedItemsPrice, setSelectedItemsPrice] = useState({});
   const jwtToken = localStorage.getItem('token')
-  const params = new URLSearchParams(window.location.search);
-  const user = params.get("id");
   const returnPath = url.format({
     pathname: "/usermenu",
-    query: { id: user },
   });
 
   const checkoutPath = url.format({
     pathname: "/checkout",
-    query: { id: user },
   });
 
   const onItemCountChange = (val, item) => {
@@ -57,9 +53,10 @@ const MenuPage = () => {
   // add restaurants menu from backend
   // fetch data of all restaurants
   const _id = localStorage.getItem('rest_id')
+  
   const [docs, setResData] = useState([]);
   const fetchResData = async () => {
-
+    
     const res = await axios
       .get("http://localhost:3001/getmenu", {
         headers: { Authorization: `JWT ${jwtToken}` ,
