@@ -15,7 +15,7 @@ const MenuPage = () => {
   const [totalCounter, setTotalCounter] = useState(0);
   const [selectedItems, setSelectedItems] = useState({});
   const [selectedItemsPrice, setSelectedItemsPrice] = useState({});
-
+  const jwtToken = localStorage.getItem('token')
   const params = new URLSearchParams(window.location.search);
   const user = params.get("id");
   const rest_id = params.get("key");
@@ -66,6 +66,7 @@ const MenuPage = () => {
           id: user,
           key: rest_id,
         },
+        headers: { Authorization: `JWT ${jwtToken}` },
       });
       setResData(res.data);
   };
