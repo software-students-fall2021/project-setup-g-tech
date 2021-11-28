@@ -5,31 +5,26 @@ import ButtonUI from "../ButtonUI/ButtonUI";
 import "./PageTimer.css";
 import CancelOrder from "../CancelOrder/CancelOrder";
 import $ from "jquery";
-import url from "url";
 import axios from "axios";
 
 function PageTimer() {
+  const jwtToken = localStorage.getItem('token')
+  if(!jwtToken){
+    window.location.replace("http://localhost:3000/")
+  }
+  
   const timer = sessionStorage.getItem("timer");
-
-  // get the User Id from the URL
-  const params = new URLSearchParams(window.location.search);
-  const user = params.get("id");
-  const returnPath = url.format({
-    pathname: "/usermenu",
-    query: { id: user },
-  });
 
   // when "cancel" button is clicked, do a post request to change the status of the order to canceled and go back to usermenu page
   const orderCancel = () => {
     axios.post("http://localhost:3001/updateorderstatus", {
       action: "change",
-      id: user,
       order_status: "Canceled",
     });
 
     $(".cancel-order-screen").css("display", "block");
     setTimeout(function () {
-      window.location.replace(returnPath);
+      window.location.replace("http://localhost:3000/usermenu");
     }, 2000);
   };
 

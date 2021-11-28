@@ -8,15 +8,13 @@ import axios from "axios";
 import "./SavedDistributors.css";
 
 function SavedDistributors() {
+  const jwtToken = localStorage.getItem('token')
+  if(!jwtToken){
+    window.location.replace("http://localhost:3000/")
+  }
+
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
-  const jwtToken = localStorage.getItem('token')
-  const params = new URLSearchParams(window.location.search);
-  const user = params.get("id");
-  // const returnPath = url.format({
-  //   pathname: "/usermenu",
-  // });
-  
 
   const fetchData = async () => {
     const res = await axios.get("http://localhost:3001/saveddistributors", {

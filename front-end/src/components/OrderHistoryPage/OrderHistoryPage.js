@@ -7,6 +7,11 @@ import axios from "axios";
 import OrderHistoryList from "../OrderHistoryList/OrderHistoryList";
 
 function OrderHistoryPage() {
+  const jwtToken = localStorage.getItem('token')
+  if(!jwtToken){
+    window.location.replace("http://localhost:3000/")
+  }
+
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
 

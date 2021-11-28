@@ -7,8 +7,6 @@ import MenuCard from "../menu-card/menu-card";
 import HeaderTab from "../header-tab/HeaderTab";
 import axios from "axios";
 import ButtonUI from "../ButtonUI/ButtonUI";
-import data from "./restaurant_menu.json";
-import url from "url";
 import "./menu-page.css";
 
 const MenuPage = () => {
@@ -16,17 +14,9 @@ const MenuPage = () => {
   const [selectedItems, setSelectedItems] = useState({});
   const [selectedItemsPrice, setSelectedItemsPrice] = useState({});
   const jwtToken = localStorage.getItem('token')
-  const params = new URLSearchParams(window.location.search);
-  const user = params.get("id");
-  const returnPath = url.format({
-    pathname: "/usermenu",
-    query: { id: user },
-  });
-
-  const checkoutPath = url.format({
-    pathname: "/checkout",
-    query: { id: user },
-  });
+  if(!jwtToken){
+    window.location.replace("http://localhost:3000/")
+  }
 
   const onItemCountChange = (val, item) => {
     setTotalCounter(totalCounter + val);
@@ -77,7 +67,7 @@ const MenuPage = () => {
 
   return (
     <>
-      <HeaderTab pageTitle="Burger King" returnPath={returnPath} />
+      <HeaderTab pageTitle="Burger King" returnPath={'/usermenu'} />
       <ImageCont img="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-burger-tour-1-1539986612.jpg" />
       <div className="scrollmenu">
         {menu_item_arr && menu_item_arr.map((menuItems) => (
@@ -117,7 +107,7 @@ const MenuPage = () => {
       {totalCounter > 0 && (
         <div className="floatBtn">
           <div className="floatBtnChild">
-            <Link to={checkoutPath}>
+            <Link to={'/checkout'}>
               <ButtonUI width="200px" radius="8px">
                 Claim
               </ButtonUI>
