@@ -5,6 +5,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import axios from 'axios'
 import './Item.css'
+// import { locals } from '../../../../back-end/app';
 
 const Item = (props) => {
     const jwtToken = localStorage.getItem('token')
@@ -32,13 +33,18 @@ const Item = (props) => {
         )
     }
 
+    const handleClick= async () => {
+        localStorage.setItem('rest_id', props.details._id);
+        document.cookie = `rest_id=${props.details._id}`
+    }
+
     const inSaved = props.saved.includes(props.details.name)
 
     return (
         <div>
             <hr />
             <div className='item'>
-                <Link className='link' to={'/menu'}>
+                <Link className='link' to={'/menu'} onClick={handleClick}> 
                     <div className='info'>
                         <img className='logo rounded' src={props.img} />
                         <div className='container'>

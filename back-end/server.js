@@ -1,10 +1,11 @@
 #!/usr/bin/env node
+const cookieParser = require('cookie-parser')
 const server = require("./app.js"); // load up the web server
 const axios = require("axios"); // middleware for making requests to APIs
 const express = require("express") // CommonJS import style!
 const url = require('url');   // process queries in url strings
 const mongoose = require('mongoose'); // module for database communication
-const cookieParser = require('cookie-parser')
+
 
 require("dotenv").config({ silent: true }); // .env
 
@@ -206,7 +207,7 @@ server.get("/saveddistributors", passport.authenticate("jwt", { session: false }
 //menu display for restaurant wo API
 server.get("/getmenu" ,passport.authenticate("jwt", 
 { session: false }), (req, res, next) => {
-  Restaurant.findOne({_id : req.query.key}, (err, docs) => {
+  Restaurant.findOne({_id : req.headers.rest_id}, (err, docs) => {
     if (err || docs.length == 0) {
       console.log("Restaurant not found");
       res.status(404);

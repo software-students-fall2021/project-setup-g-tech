@@ -18,7 +18,6 @@ const MenuPage = () => {
   const jwtToken = localStorage.getItem('token')
   const params = new URLSearchParams(window.location.search);
   const user = params.get("id");
-  const rest_id = params.get("key");
   const returnPath = url.format({
     pathname: "/usermenu",
     query: { id: user },
@@ -57,16 +56,14 @@ const MenuPage = () => {
     // ======================================================
   // add restaurants menu from backend
   // fetch data of all restaurants
+  const _id = localStorage.getItem('rest_id')
   const [docs, setResData] = useState([]);
   const fetchResData = async () => {
-    // const res =
+
     const res = await axios
       .get("http://localhost:3001/getmenu", {
-        params: {
-          id: user,
-          key: rest_id,
-        },
-        headers: { Authorization: `JWT ${jwtToken}` },
+        headers: { Authorization: `JWT ${jwtToken}` ,
+        rest_id: _id},
       });
       setResData(res.data);
   };
