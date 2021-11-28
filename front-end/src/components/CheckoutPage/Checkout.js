@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import HeaderTab from "../header-tab/HeaderTab";
 import Billitem from "../BillItem/Billitem";
 import TimerSelect from "../TimerSelect/TimerSelect";
 import ButtonUI from "../ButtonUI/ButtonUI";
 import "./Checkout.css";
+import axios from "axios";
 import url from "url";
 
 const Checkout = (props) => {
@@ -15,6 +16,14 @@ const Checkout = (props) => {
   const timerPath = url.format({
     pathname: "/pagetimer",
   });
+
+  const fetchData = async () => {
+    const res = await axios.get("http://localhost:3001/checkout", {
+      headers: { Authorization: `JWT ${jwtToken}` },
+    });
+    setData(res.data);
+  };
+  useEffect(fetchData, []);
 
   return (
     <div className="Checkout">

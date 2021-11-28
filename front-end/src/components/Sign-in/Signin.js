@@ -3,6 +3,7 @@ import HeaderTab from '../header-tab/HeaderTab';
 import Input from '../input-field/Input';
 import { Link } from 'react-router-dom'
 import React, { useState, useEffect } from "react"
+import { Navigate, useParams } from "react-router"
 import { Redirect } from "react-router-dom"
 import axios from "axios"
 import './signin.css';
@@ -55,7 +56,21 @@ const Signin = props => {
   // }
   // // console.log(status)
   //   if (!status.success)
+  
+  let {urlParams} = useParams('');
+  console.log(urlParams)
   const [response, setResponse] = useState({})
+
+   // create state variables to hold username and password
+   const [errorMessage, setErrorMessage] = useState("")
+ 
+   // if the user got here by trying to access our Protected page, there will be a query string parameter called 'error' with the value 'protected'
+   useEffect(() => {
+     const qsError = urlParams.get("error") // get any 'error' field in the URL query string
+     if (qsError === "protected")
+       setErrorMessage("Please log in to view our fabulous protected content.")
+   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+ 
   
   useEffect(() => {
     if (response.success && response.token) {
