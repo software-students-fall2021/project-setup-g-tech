@@ -95,7 +95,7 @@ server.get("/usermenu", passport.authenticate("jwt", { session: false }), (req, 
   User.findById(id, (err, docs) => {
     if(err || docs.length == 0){
       console.log('User not found')
-      res.status(404)
+      // res.status(404).redirect("urlhere")
       res.redirect("http://localhost:3000/signin")
     }
     else {

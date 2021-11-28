@@ -13,9 +13,9 @@ function SavedDistributors() {
   const jwtToken = localStorage.getItem('token')
   const params = new URLSearchParams(window.location.search);
   const user = params.get("id");
-  const returnPath = url.format({
-    pathname: "/usermenu",
-  });
+  // const returnPath = url.format({
+  //   pathname: "/usermenu",
+  // });
   
 
   const fetchData = async () => {
