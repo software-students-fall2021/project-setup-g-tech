@@ -6,6 +6,7 @@ import "./PageTimer.css";
 import CancelOrder from "../CancelOrder/CancelOrder";
 import $ from "jquery";
 import axios from "axios";
+import url from "url";
 
 function PageTimer() {
   const jwtToken = localStorage.getItem('token')
@@ -14,6 +15,13 @@ function PageTimer() {
   }
   
   const timer = sessionStorage.getItem("timer");
+
+  // get the User Id from the URL
+  const params = new URLSearchParams(window.location.search);
+  const user = params.get("id");
+  const returnPath = url.format({
+    pathname: "/usermenu",
+  });
 
   // when "cancel" button is clicked, do a post request to change the status of the order to canceled and go back to usermenu page
   const orderCancel = () => {

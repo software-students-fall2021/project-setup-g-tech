@@ -8,12 +8,20 @@ import HeaderTab from "../header-tab/HeaderTab";
 import axios from "axios";
 import ButtonUI from "../ButtonUI/ButtonUI";
 import "./menu-page.css";
+import url from "url";
 
 const MenuPage = () => {
   const [totalCounter, setTotalCounter] = useState(0);
   const [selectedItems, setSelectedItems] = useState({});
   const [selectedItemsPrice, setSelectedItemsPrice] = useState({});
   const jwtToken = localStorage.getItem('token')
+  const returnPath = url.format({
+    pathname: "/usermenu",
+  });
+
+  const checkoutPath = url.format({
+    pathname: "/checkout",
+  });
   if(!jwtToken){
     window.location.replace("http://localhost:3000/")
   }
@@ -47,9 +55,10 @@ const MenuPage = () => {
   // add restaurants menu from backend
   // fetch data of all restaurants
   const _id = localStorage.getItem('rest_id')
+  
   const [docs, setResData] = useState([]);
   const fetchResData = async () => {
-
+    
     const res = await axios
       .get("http://localhost:3001/getmenu", {
         headers: { Authorization: `JWT ${jwtToken}` ,
