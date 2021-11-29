@@ -24,12 +24,11 @@ function SavedDistributors() {
   };
   useEffect(fetchData, []);
 
-  /*const dynamicSearch = () => {
+  const dynamicSearch = () => {
     return data.filter((e) =>
       e.name.toLowerCase().includes(search.toLowerCase())
     );
   };
-*/
 
   const favorites = data.map((e) => e.name);
 

@@ -32,8 +32,6 @@ const Item = (props) => {
       header
     );
   };
-
-  const inSaved = props.saved.includes(props.details.name);
   const handleRestID = async () => {
     localStorage.setItem("rest_id", props.details._id);
   };

@@ -59,9 +59,8 @@ const Signin = (props) => {
 
   const [response, setResponse] = useState({});
 
-  let { urlParams } = useParams("");
-  console.log(urlParams);
-  const [response, setResponse] = useState({});
+  // let { urlParams } = useParams("");
+  // console.log(urlParams);
 
   // create state variables to hold username and password
   const [errorMessage, setErrorMessage] = useState("");
