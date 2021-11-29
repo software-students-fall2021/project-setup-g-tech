@@ -34,7 +34,7 @@ const Avatar = (props) => {
               variant="secondary"
               onClick={handleClose}
             >
-              Restaurants
+              Saved
             </Button>
           </Link>
           <Link to={'/orderhistorypage'}>

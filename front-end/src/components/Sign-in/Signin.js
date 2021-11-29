@@ -3,6 +3,7 @@ import HeaderTab from "../header-tab/HeaderTab";
 import Input from "../input-field/Input";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { Navigate, useParams } from "react-router";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "./signin.css";
@@ -55,39 +56,37 @@ const Signin = (props) => {
   // }
   // // console.log(status)
   //   if (!status.success)
-<<<<<<< HEAD
+
   const [response, setResponse] = useState({});
-=======
-  const [response, setResponse] = useState({})
-  
->>>>>>> master
+
+  let { urlParams } = useParams("");
+  console.log(urlParams);
+  const [response, setResponse] = useState({});
+
+  // create state variables to hold username and password
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // if the user got here by trying to access our Protected page, there will be a query string parameter called 'error' with the value 'protected'
+  //  useEffect(() => {
+  //    const qsError = urlParams.get("error") // get any 'error' field in the URL query string
+  //    if (qsError === "protected")
+  //      setErrorMessage("Please log in to view our fabulous protected content.")
+  //  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (response.success && response.token) {
-<<<<<<< HEAD
       console.log(`User successfully logged in: ${response.email}`);
-      localStorage.setItem("token", response.token); // store the token into localStorage
+      localStorage.setItem("token", response.token);
       window.location.replace("http://localhost:3000/usermenu");
-=======
-      console.log(`User successfully logged in: ${response.email}`)
-      localStorage.setItem("token", response.token)
-      window.location.replace("http://localhost:3000/usermenu")
->>>>>>> master
     }
   }, [response]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const requestData = {
-<<<<<<< HEAD
-      email: e.target.email.value, // gets the value of the field in the submitted form with name='username'
-      password: e.target.password.value, // gets the value of the field in the submitted form with name='password',
-    };
-    // send a POST request with the data to the server api to authenticate
-=======
-      email: e.target.email.value, 
+      email: e.target.email.value,
       password: e.target.password.value,
-    }
->>>>>>> master
+    };
     const res = await axios.post(
       "http://localhost:3001/signin-submit",
       requestData

@@ -1,32 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import HeaderTab from "../header-tab/HeaderTab";
 import Billitem from "../BillItem/Billitem";
 import TimerSelect from "../TimerSelect/TimerSelect";
 import ButtonUI from "../ButtonUI/ButtonUI";
 import "./Checkout.css";
-import url from "url";
+import axios from "axios";
 
 const Checkout = (props) => {
+  const jwtToken = localStorage.getItem('token')
+  if(!jwtToken){
+    window.location.replace("http://localhost:3000/")
+  }
+
   let cartItems = JSON.parse(sessionStorage.getItem("cart"));
   let cartItemsPrice = JSON.parse(sessionStorage.getItem("price"));
   let sum = 0;
+  const [data, setData] = useState([]);
 
-  const params = new URLSearchParams(window.location.search);
-  const user = params.get("id");
-  const returnPath = url.format({
-    pathname: "/menu",
-    query: { id: user },
-  });
-
-  const timerPath = url.format({
-    pathname: "/pagetimer",
-    query: { id: user },
-  });
+  const fetchData = async () => {
+    const res = await axios.get("http://localhost:3001/checkout", {
+      headers: { Authorization: `JWT ${jwtToken}` },
+    });
+    setData(res.data);
+  };
+  useEffect(fetchData, []);
 
   return (
     <div className="Checkout">
-      <HeaderTab pageTitle="Check Out" returnPath={returnPath} />
+      <HeaderTab pageTitle="Check Out" returnPath='/menu' />
       <div className="heading">
         <h2 className="order-confirm">Order Confirmation</h2>
       </div>
@@ -50,7 +52,7 @@ const Checkout = (props) => {
       <TimerSelect />
       {/* <div className='floatBtn'> */}
       <div className="checkoutbutt">
-        <Link to={timerPath}>
+        <Link to={'/pagetimer'}>
           <ButtonUI radius="8px" width="230px">
             {" "}
             Checkout{" "}

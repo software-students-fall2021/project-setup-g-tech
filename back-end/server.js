@@ -1,10 +1,10 @@
 #!/usr/bin/env node
+const cookieParser = require("cookie-parser");
 const server = require("./app.js"); // load up the web server
 const axios = require("axios"); // middleware for making requests to APIs
 const express = require("express"); // CommonJS import style!
 const url = require("url"); // process queries in url strings
 const mongoose = require("mongoose"); // module for database communication
-const cookieParser = require("cookie-parser");
 
 require("dotenv").config({ silent: true }); // .env
 
@@ -70,7 +70,7 @@ const userSchema = new mongoose.Schema({
   email: String,
   password: String,
   favorites: Array,
-  history: [historySchema],
+  history: Array,
   cart: [menuSchema],
 });
 const restaurantSchema = new mongoose.Schema({
@@ -112,16 +112,18 @@ server.get(
     User.findById(id, (err, docs) => {
       if (err || docs.length == 0) {
         console.log("User not found");
-        res.status(404);
-        res.redirect("http://localhost:3000/signin");
+        return res.json({ success: false, message: "User not found" });
       } else {
         Restaurant.find({}, (err, docs) => {
           if (err || docs.length == 0) {
             console.log("Restaurants not found");
             res.status(404);
-            res.redirect("http://localhost:3000/signin");
+            return res.json({
+              success: false,
+              message: "Restaurant not found",
+            });
           } else {
-            res.json(docs);
+            return res.json(docs);
           }
         });
       }
@@ -170,23 +172,32 @@ server.post(
   }
 );
 
-server.get("/orderhistorypage", (req, res, next) => {
-  if (req.query.id) {
-    axios
-      .get(
-        `https://my.api.mockaroo.com/mock_user_order_history.json?key=0b54f900`
-      )
-      .then((apiRes) => res.json(apiRes.data));
-  } else {
-    res.status(404);
-    next();
+server.get(
+  "/orderhistorypage",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const id = req.user.id;
+    User.findById(id, (err, docs) => {
+      if (err || docs.length == 0) {
+        console.log("User not found");
+        res.status(404);
+        res.redirect("http://localhost:3000/");
+      } else {
+        if (err || docs.history.length == 0) {
+          console.log("No order history");
+        } else {
+          res.json(docs.history);
+        }
+      }
+    });
   }
-});
+);
 
 server.post("/updateorderstatus", (req, res) => {
+  const id = req.user.id;
   User.findByIdAndUpdate(
-    req.body.id,
-    { $push: { favorites: req.body.order_status } },
+    id,
+    { $push: { history: req.body.order_status } },
     { safe: true, upsert: true },
     (err, doc) => {
       if (err) console.log(err);
@@ -194,6 +205,7 @@ server.post("/updateorderstatus", (req, res) => {
   );
 });
 
+// saved distributors token
 server.get(
   "/saveddistributors",
   passport.authenticate("jwt", { session: false }),
@@ -203,17 +215,44 @@ server.get(
       if (err || docs.length == 0) {
         console.log("User not found");
         res.status(404);
-        res.redirect("http://localhost:3000/signin");
+        res.redirect("http://localhost:3000/");
       } else {
         Restaurant.find({}, (err, restInfo) => {
           if (err || docs.length == 0) {
             console.log("Restaurants not found");
             res.status(404);
-            res.redirect("http://localhost:3000/signin");
+            res.redirect("http://localhost:3000/");
           } else {
             data = restInfo.filter((e) => docs.favorites.includes(e.name));
             res.json(data);
-            //});
+          }
+        });
+      }
+    });
+  }
+);
+
+// checkout token
+server.get(
+  "/checkout",
+  passport.authenticate("jwt", { session: false }),
+  (req, res, next) => {
+    const id = req.user.id;
+    User.findById(id, (err, docs) => {
+      if (err || docs.length == 0) {
+        console.log("User not found");
+        res.status(404);
+        res.redirect("http://localhost:3000/");
+      } else {
+        //   // let restInfo ='';
+        req.user.cart.find({}, (err, cartinfo) => {
+          if (err || docs.length == 0) {
+            console.log("no items in cart");
+            res.status(404);
+            res.redirect("http://localhost:3000/");
+          } else {
+            // data = cartinfo.filter(e => docs.favorites.includes(e.name));
+            res.json(cartinfo);
           }
         });
       }
@@ -223,48 +262,23 @@ server.get(
 
 // ======================================================
 //menu display for restaurant wo API
-server.get("/getmenu", (req, res, next) => {
-  Restaurant.findOne({ _id: req.query.key }, (err, docs) => {
-    if (err || docs.length == 0) {
-      console.log("Restaurant not found");
-      res.status(404);
-      next();
-    } else {
-      res.json(docs);
-    }
-  });
-});
-// ======================================================
-//register authentication
-//menu display
-server.get("/menu", (req, res, next) => {
-  Restaurant.find({ _id: req.query.key }, (err, docs) => {
-    if (err || docs.length == 0) {
-      console.log("Restaurant not found");
-      res.status(404);
-      next();
-    } else {
-      axios
-        .get(
-          `https://my.api.mockaroo.com/restaurant_menu.json?key=84c7cbc0&__method=POST`
-        )
-        .then((apiRes) => res.json(apiRes.data));
-    }
-  });
-});
-// ======================================================
-//menu display for restaurant wo API
-server.get("/menu-res", (req, res, next) => {
-  Restaurant.findOne({ _id: req.query.key }, (err, docs) => {
-    if (err || docs.length == 0) {
-      console.log("Restaurant not found");
-      res.status(404);
-      next();
-    } else {
-      res.json(docs);
-    }
-  });
-});
+server.get(
+  "/getmenu",
+  passport.authenticate("jwt", { session: false }),
+  (req, res, next) => {
+    console.log("req body: ", req.body);
+    Restaurant.findOne({ _id: req.headers.rest_id }, (err, docs) => {
+      if (err || docs.length == 0) {
+        console.log("Restaurant not found");
+        res.status(404);
+        next();
+      } else {
+        res.json(docs);
+      }
+    });
+  }
+);
+
 // ======================================================
 // User registration
 server.post("/register-submit", async (req, res) => {
@@ -312,37 +326,38 @@ server.post("/register-submit", async (req, res) => {
 server.post("/signin-submit", function (req, res) {
   if (req.body.email && req.body.password) {
     User.findOne({ email: req.body.email }, (err, user) => {
-      if (user.length || err) {
+      if (!user || err) {
         console.log("User not found");
         res.status(400);
-        // res.json({ success: false, message: `user not found: ${req.body.email}.` })
-        return res.redirect("http://localhost:3000/signin");
-      } else if (bcrypt.compare(req.body.password, user.password)) {
-        console.log("User exists: ", user.email);
-        res.status(200);
-        const payload = { id: user.id }; // some data we'll encode into the token
-        const token = jwt.sign(payload, jwtOptions.secretOrKey); // create a signed token
-        return res.json({ success: true, email: user.email, token: token }); // send the token to the client to store
-
-        // res.json({ success: true, email: user.email, token: token }) // send the token to the client to store
-        // res.redirect(url.format({
-        //   pathname:"http://localhost:3000/usermenu",
-        //   query: { id: docs[0]._id.toString()}
-        // }));
+        return res.json({
+          success: false,
+          message: "No username or password supplied",
+        });
       } else {
-        console.log("Incorrect password");
-        console.log(user.password);
-        console.log(req.body.password);
-        return res
-          .status(401)
-          .json({ success: false, message: "incorrect password" });
+        console.log("User exists: ", user.email);
+        bcrypt.compare(req.body.password, user.password, (err, ret) => {
+          if (ret) {
+            res.status(200);
+            const payload = { id: user.id }; // some data we'll encode into the token
+            const token = jwt.sign(payload, jwtOptions.secretOrKey); // create a signed token
+            return res.json({ success: true, email: user.email, token: token }); // send the token to the client to store
+          } else {
+            console.log("Incorrect password");
+            res.status(400);
+            return res.json({
+              success: false,
+              message: "No username or password supplied",
+            });
+          }
+        });
       }
     });
   } else {
+    console.log("No username or password supplied");
     res.status(400);
     return res.json({
       success: false,
-      message: `no username or password supplied.`,
+      message: "No username or password supplied",
     });
   }
 });
@@ -434,7 +449,6 @@ server.post("/business-register-submit", Upload, function (req, res) {
         res.redirect(
           url.format({
             pathname: "http://localhost:3000/business-menu",
-            query: { id: new_restaurant._id.toString() },
           })
         );
       }
@@ -482,7 +496,6 @@ server.post("/menu-submit", function (req, res) {
     res.redirect(
       url.format({
         pathname: "http://localhost:3000/business-menu",
-        query: { id: req.body._id },
       })
     );
   } else {
@@ -490,7 +503,6 @@ server.post("/menu-submit", function (req, res) {
     res.redirect(
       url.format({
         pathname: "http://localhost:3000/business-menu",
-        query: { id: req.body._id },
       })
     );
   }
@@ -511,7 +523,4 @@ const close = () => {
   listener.close();
 };
 
-module.exports = {
-  server,
-  User,
-};
+module.exports = server;
