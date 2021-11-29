@@ -6,6 +6,7 @@ import "./PageTimer.css";
 import CancelOrder from "../CancelOrder/CancelOrder";
 import $ from "jquery";
 import axios from "axios";
+import url from "url";
 
 function PageTimer() {
   const jwtToken = localStorage.getItem('token')

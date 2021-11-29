@@ -8,6 +8,7 @@ import HeaderTab from "../header-tab/HeaderTab";
 import axios from "axios";
 import ButtonUI from "../ButtonUI/ButtonUI";
 import "./menu-page.css";
+import url from "url";
 
 const MenuPage = () => {
   const [totalCounter, setTotalCounter] = useState(0);
