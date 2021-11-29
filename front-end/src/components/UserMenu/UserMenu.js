@@ -9,9 +9,9 @@ import Avatar from "../Avatar/Avatar";
 import "./UserMenu.css";
 
 const UserMenu = () => {
-  const jwtToken = localStorage.getItem('token')
-  if(!jwtToken){
-    window.location.replace("http://localhost:3000/")
+  const jwtToken = localStorage.getItem("token");
+  if (!jwtToken) {
+    window.location.replace("http://localhost:3000/");
   }
 
   const [data, setData] = useState([]);
@@ -20,9 +20,9 @@ const UserMenu = () => {
 
   const fetchData = async () => {
     const res = await axios.get("http://localhost:3001/usermenu", {
-      headers: { Authorization: `JWT ${jwtToken}` }
+      headers: { Authorization: `JWT ${jwtToken}` },
     });
-    setData(res.data)
+    setData(res.data);
   };
   useEffect(fetchData, []);
 
@@ -40,7 +40,7 @@ const UserMenu = () => {
     );
   };
 
-  const favorites = saved.map(e => e.name)
+  const favorites = saved.map((e) => e.name);
 
   return (
     <div>
