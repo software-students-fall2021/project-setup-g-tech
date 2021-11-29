@@ -65,11 +65,11 @@ const Signin = props => {
    const [errorMessage, setErrorMessage] = useState("")
  
    // if the user got here by trying to access our Protected page, there will be a query string parameter called 'error' with the value 'protected'
-   useEffect(() => {
-     const qsError = urlParams.get("error") // get any 'error' field in the URL query string
-     if (qsError === "protected")
-       setErrorMessage("Please log in to view our fabulous protected content.")
-   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  //  useEffect(() => {
+  //    const qsError = urlParams.get("error") // get any 'error' field in the URL query string
+  //    if (qsError === "protected")
+  //      setErrorMessage("Please log in to view our fabulous protected content.")
+  //  }, []) // eslint-disable-line react-hooks/exhaustive-deps
  
   
   useEffect(() => {

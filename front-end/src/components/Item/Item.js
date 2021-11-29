@@ -33,7 +33,7 @@ const Item = (props) => {
         )
     }
 
-    const handleClick= async () => {
+    const handleRestID = async () => {
         localStorage.setItem('rest_id', props.details._id);
         document.cookie = `rest_id=${props.details._id}`
     }
@@ -44,7 +44,7 @@ const Item = (props) => {
         <div>
             <hr />
             <div className='item'>
-                <Link className='link' to={'/menu'} onClick={handleClick}> 
+                <Link className='link' to={'/menu'} onClick={handleRestID}> 
                     <div className='info'>
                         <img className='logo rounded' src={props.img} />
                         <div className='container'>
