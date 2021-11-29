@@ -96,18 +96,17 @@ server.get("/usermenu", passport.authenticate("jwt", { session: false }), (req, 
   User.findById(id, (err, docs) => {
     if(err || docs.length == 0){
       console.log('User not found')
-      // res.status(404).redirect("urlhere")
-      res.redirect("http://localhost:3000/signin")
+      return res.json({ success: false, message: 'User not found' })
     }
     else {
       Restaurant.find({}, (err,docs)=>{
         if(err || docs.length == 0){
           console.log('Restaurants not found')
           res.status(404);
-          res.redirect("http://localhost:3000/signin");
+          return res.json({ success: false, message: 'Restaurant not found' })
         }
         else{
-          res.json(docs);
+          return res.json(docs);
         }
       })
     }
@@ -168,9 +167,10 @@ server.get("/orderhistorypage", (req, res, next) => {
 });
 
 server.post("/updateorderstatus", (req, res) => {
+  const id = req.user.id
   User.findByIdAndUpdate(
-    req.body.id,
-    { $push: { favorites: req.body.order_status } },
+    id,
+    { $push: { history: req.body.order_status } },
     { safe: true, upsert: true },
     (err, doc) => {
       if (err) console.log(err);
@@ -207,7 +207,7 @@ server.get("/saveddistributors",passport.authenticate("jwt", { session: false })
 // checkout token
 server.get("/checkout",passport.authenticate("jwt", { session: false }), (req, res, next) => {
   const id = req.user.id
-  User.find(id, (err, docs) => {
+  User.findById(id, (err, docs) => {
     if (err || docs.length == 0) {
       console.log("User not found");
       res.status(404);
@@ -296,37 +296,33 @@ server.post("/register-submit", async (req, res) => {
 server.post("/signin-submit", function (req, res) {
   if (req.body.email && req.body.password) {
     User.findOne({email: req.body.email}, (err, user) => {
-      if(user.length || err){
+      if(!user || err){
         console.log('User not found')
         res.status(400)
-        // res.json({ success: false, message: `user not found: ${req.body.email}.` })
-        return res.redirect("http://localhost:3000/signin")
-      }
-
-      else if(bcrypt.compare(req.body.password, user.password)) {
-        console.log('User exists: ', user.email);
-        res.status(200);
-        const payload = { id: user.id } // some data we'll encode into the token
-        const token = jwt.sign(payload, jwtOptions.secretOrKey) // create a signed token
-        return res.json({ success: true, email: user.email, token: token }) // send the token to the client to store
-
-        // res.json({ success: true, email: user.email, token: token }) // send the token to the client to store
-        // res.redirect(url.format({
-        //   pathname:"http://localhost:3000/usermenu",
-        //   query: { id: docs[0]._id.toString()}
-        // }));
+        return res.json({ success: false, message: 'No username or password supplied' })
       }
       else {
-        console.log('Incorrect password')
-        console.log(user.password)
-        console.log(req.body.password)
-        return res.status(401).json({ success: false, message: "incorrect password" })
+        console.log('User exists: ', user.email);
+        bcrypt.compare(req.body.password, user.password, (err, ret) => {
+          if(ret){
+            res.status(200);
+            const payload = { id: user.id } // some data we'll encode into the token
+            const token = jwt.sign(payload, jwtOptions.secretOrKey) // create a signed token
+            return res.json({ success: true, email: user.email, token: token }) // send the token to the client to store
+          }
+          else{
+            console.log('Incorrect password')
+            res.status(400)
+            return res.json({ success: false, message: 'No username or password supplied' })
+          }
+        })
       }
     })
   } 
   else {
-    res.status(400);
-    return res.json({ success: false, message: `no username or password supplied.` });
+    console.log('No username or password supplied')
+    res.status(400)
+    return res.json({ success: false, message: 'No username or password supplied' });
   }
 })
 
@@ -479,8 +475,4 @@ const close = () => {
 
 
 
-module.exports = {
-  server,
-  User
-}
-
+module.exports = server

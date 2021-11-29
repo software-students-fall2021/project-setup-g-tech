@@ -5,10 +5,14 @@ import ButtonUI from "../ButtonUI/ButtonUI";
 import "./PageTimer.css";
 import CancelOrder from "../CancelOrder/CancelOrder";
 import $ from "jquery";
-import url from "url";
 import axios from "axios";
 
 function PageTimer() {
+  const jwtToken = localStorage.getItem('token')
+  if(!jwtToken){
+    window.location.replace("http://localhost:3000/")
+  }
+  
   const timer = sessionStorage.getItem("timer");
 
   // get the User Id from the URL
@@ -22,13 +26,12 @@ function PageTimer() {
   const orderCancel = () => {
     axios.post("http://localhost:3001/updateorderstatus", {
       action: "change",
-      id: user,
       order_status: "Canceled",
     });
 
     $(".cancel-order-screen").css("display", "block");
     setTimeout(function () {
-      window.location.replace(returnPath);
+      window.location.replace("http://localhost:3000/usermenu");
     }, 2000);
   };
 

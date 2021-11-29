@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import "./Pick.css";
-import url from "url";
 
 const Pick = (props) => {
-  const menuPath = url.format({
-    pathname: "/menu",
-  });
+  const handleRestID = async () => {
+    localStorage.setItem('rest_id', props.details._id);
+    document.cookie = `rest_id=${props.details._id}`
+  }
 
   return (
-    <Link className="link" to={menuPath}>
+    <Link className="link" to={'/menu'} onClick={handleRestID}>
       <div className="container mt-3">
         <Card className="card" style={{ width: "7em" }}>
           <Card.Img className="image rounded" variant="top" src={props.img} />

@@ -8,9 +8,13 @@ import axios from "axios";
 import "./SavedDistributors.css";
 
 function SavedDistributors() {
+  const jwtToken = localStorage.getItem('token')
+  if(!jwtToken){
+    window.location.replace("http://localhost:3000/")
+  }
+
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
-  const jwtToken = localStorage.getItem('token')
 
   const fetchData = async () => {
     const res = await axios.get("http://localhost:3001/saveddistributors", {
