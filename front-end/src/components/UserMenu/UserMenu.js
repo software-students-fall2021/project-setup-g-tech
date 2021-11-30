@@ -40,7 +40,7 @@ const UserMenu = () => {
     );
   };
 
-  const favorites = saved.map((e) => e.name);
+  const favorites = saved.map(e => e._id)
 
   return (
     <div>
