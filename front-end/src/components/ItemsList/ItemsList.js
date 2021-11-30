@@ -7,7 +7,8 @@ const ItemsList = (props) => {
       <Item
         saved={props.saved}
         details={item}
-        img="https://picsum.photos/200"
+        // img="https://picsum.photos/200"
+        img = {require("../../uploads/" + item.image).default}
       />
     ));
   return <div>{items}</div>;
