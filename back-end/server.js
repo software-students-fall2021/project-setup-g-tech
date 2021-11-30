@@ -233,32 +233,33 @@ server.get(
 );
 
 // checkout token
-server.get(
-  "/checkout",
-  passport.authenticate("jwt", { session: false }),
-  (req, res, next) => {
-    const id = req.user.id;
-    User.findById(id, (err, docs) => {
-      if (err || docs.length == 0) {
-        console.log("User not found");
-        res.status(404);
-        res.redirect("http://localhost:3000/");
-      } else {
-        //   // let restInfo ='';
-        req.user.cart.find({}, (err, cartinfo) => {
-          if (err || docs.length == 0) {
-            console.log("no items in cart");
-            res.status(404);
-            res.redirect("http://localhost:3000/");
-          } else {
-            // data = cartinfo.filter(e => docs.favorites.includes(e.name));
-            res.json(cartinfo);
-          }
-        });
-      }
-    });
-  }
-);
+
+server.get("/checkout",passport.authenticate("jwt", { session: false }), (req, res, next) => {
+  const id = req.user.id
+  User.findById(id, (err, docs) => {
+    if (err || docs.length == 0) {
+      console.log("User not found");
+      res.status(404);
+      res.redirect("http://localhost:3000/");
+      
+    }
+    // else{
+    // //   // let restInfo ='';
+    //   req.user.cart.find({}, (err, cartinfo)=>{
+    //     if(err || docs.length == 0){
+    //       console.log('no items in cart')
+    //       res.status(404);
+    //       res.redirect("http://localhost:3000/");
+    //     }
+    //     else{
+    //       // data = cartinfo.filter(e => docs.favorites.includes(e.name));
+    //       res.json(cartinfo);
+    //     }
+    //   })
+    // }
+  })
+});
+
 
 // ======================================================
 //menu display for restaurant wo API
