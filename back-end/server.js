@@ -113,28 +113,12 @@ server.get("/usermenu", passport.authenticate("jwt", { session: false }), (req, 
   });
 });
 
-
-
-// // a route that looks for a Cookie header in the request and sends back whatever data was found in it.
-// app.get("/get-cookie", (req, res) => {
-//   const numCookies = Object.keys(req.cookies).length // how many cookies were passed to the server
-
-//   console.log(`Incoming cookie data: ${JSON.stringify(req.cookies, null, 0)}`)
-//   res.send({
-//     success: numCookies ? true : false,
-//     message: numCookies
-//       ? "thanks for sending cookies to the server :)"
-//       : "no cookies sent to server :(",
-//     cookieData: req.cookies,
-//   })
-// })
-
 server.post("/updateitem", passport.authenticate("jwt", { session: false }), (req, res) => {
-  const id = req.user.id
+  const user_id = req.user.id
   if(req.body.action == 'add'){
     User.findByIdAndUpdate(
-      id,
-      { $push: { favorites: req.body.name } },
+      user_id,
+      { $push: { favorites: req.body.rest_id } },
       { safe: true, upsert: true },
       (err, doc) => {
         if (err) console.log(err);
@@ -143,8 +127,8 @@ server.post("/updateitem", passport.authenticate("jwt", { session: false }), (re
   }
   else{
     User.findByIdAndUpdate(
-      id,
-      { $pull: { favorites: req.body.name } },
+      user_id,
+      { $pull: { favorites: req.body.rest_id } },
       { safe: true, upsert: true },
       (err, doc) => {
         if (err) console.log(err);
@@ -196,7 +180,7 @@ server.get("/saveddistributors",passport.authenticate("jwt", { session: false })
           res.redirect("http://localhost:3000/");
         }
         else{
-          data = restInfo.filter(e => docs.favorites.includes(e.name));
+          data = restInfo.filter(e => docs.favorites.includes(e._id));
           res.json(data);
         }
       })
