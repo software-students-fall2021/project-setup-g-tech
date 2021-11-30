@@ -10,12 +10,12 @@ const OrderHistoryItem = (props) => {
         <div className="order">
           <img className="logo rounded" src={props.img} />
           <div className="container">
-            <p className="title">{props.details.orderRestaurant}</p>
+            <p className="title">{props.details.restaurant}</p>
             <p style={{ fontSize: "13px" }} className="desc">
-              {props.details.orderTotal}
+              Order Total: ${props.details.order_total}
             </p>
             <p style={{ fontSize: "13px" }} className="desc">
-              {props.details.orderDate}: {props.details.orderStatus}
+              {props.details.date}: {props.details.status}
             </p>
           </div>
         </div>

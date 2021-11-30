@@ -1,14 +1,14 @@
 // import HeaderTab from './components/header-tab/HeaderTab.js';
-import HeaderTab from '../header-tab/HeaderTab';
-import Input from '../input-field/Input';
-import { Link } from 'react-router-dom'
-import React, { useState, useEffect } from "react"
-import { Navigate, useParams } from "react-router"
-import { Redirect } from "react-router-dom"
-import axios from "axios"
-import './signin.css';
+import HeaderTab from "../header-tab/HeaderTab";
+import Input from "../input-field/Input";
+import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Navigate, useParams } from "react-router";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
+import "./signin.css";
 
-const Signin = props => {
+const Signin = (props) => {
   // create state variables to hold username and password
   // const [status, setStatus] = useState({}) // the API will return an object indicating the login status in a success field of the response object
 
@@ -34,7 +34,7 @@ const Signin = props => {
   //   formData.append("email", email)
   //   formData.append("password", password)
   //   console.log(formData)
-  //   try 
+  //   try
   //   {
   //     // send the request to the server api to authenticate
   //     const response = await axios({
@@ -47,7 +47,7 @@ const Signin = props => {
   //     setStatus(response.data)
   //     // console.log(status)
   //     // console.log(status)
-  //   } 
+  //   }
   //   catch (err) {
   //     // throw an error
   //     // console.log("shit hro")
@@ -56,75 +56,85 @@ const Signin = props => {
   // }
   // // console.log(status)
   //   if (!status.success)
-  
-  let {urlParams} = useParams('');
-  console.log(urlParams)
-  const [response, setResponse] = useState({})
 
-   // create state variables to hold username and password
-   const [errorMessage, setErrorMessage] = useState("")
- 
-   // if the user got here by trying to access our Protected page, there will be a query string parameter called 'error' with the value 'protected'
+  const [response, setResponse] = useState({});
+
+  // let { urlParams } = useParams("");
+  // console.log(urlParams);
+
+  // create state variables to hold username and password
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // if the user got here by trying to access our Protected page, there will be a query string parameter called 'error' with the value 'protected'
   //  useEffect(() => {
   //    const qsError = urlParams.get("error") // get any 'error' field in the URL query string
   //    if (qsError === "protected")
   //      setErrorMessage("Please log in to view our fabulous protected content.")
   //  }, []) // eslint-disable-line react-hooks/exhaustive-deps
- 
-  
+
   useEffect(() => {
     if (response.success && response.token) {
-      console.log(`User successfully logged in: ${response.email}`)
-      localStorage.setItem("token", response.token)
-      window.location.replace("http://localhost:3000/usermenu")
+      console.log(`User successfully logged in: ${response.email}`);
+      localStorage.setItem("token", response.token);
+      window.location.replace("http://localhost:3000/usermenu");
     }
-  }, [response])
+  }, [response]);
 
-  const handleSubmit = async e => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const requestData = {
-      email: e.target.email.value, 
+      email: e.target.email.value,
       password: e.target.password.value,
-    }
+    };
     const res = await axios.post(
-      'http://localhost:3001/signin-submit',
+      "http://localhost:3001/signin-submit",
       requestData
-    )
-    setResponse(res.data)
-  }
+    );
+    setResponse(res.data);
+  };
 
-      return (
-        <div className="Signin">
-          <HeaderTab pageTitle="Sign in" returnPath = "/"/>
-          {/* onSubmit={handleSubmit} */}
-          <form className="fields" onSubmit={handleSubmit} method="POST">
-            {
-                //handle error condition
-            }
-            <Input title="Email" name="email" type='email' placeholder='name@example.com'/>
-            <Input title="Password" name="password" type='password' placeholder='*******'/>
-            <div className='button'>
-            {/* <Submit type="submit" value="SIGN IN"/> */}
-            {/* <Link to='/usermenu'> */}
-                <Input className="submitButton" type="submit" value="SIGN IN"></Input>
-            {/* </Link> */}
-            </div>
-          </form>
-          {/* <div>
+  return (
+    <div className="Signin">
+      <HeaderTab pageTitle="Sign in" returnPath="/" />
+      {/* onSubmit={handleSubmit} */}
+      <form className="fields" onSubmit={handleSubmit} method="POST">
+        {
+          //handle error condition
+        }
+        <Input
+          title="Email"
+          name="email"
+          type="email"
+          placeholder="name@example.com"
+        />
+        <Input
+          title="Password"
+          name="password"
+          type="password"
+          placeholder="*******"
+        />
+        <div className="button">
+          {/* <Submit type="submit" value="SIGN IN"/> */}
+          {/* <Link to='/usermenu'> */}
+          <Input className="submitButton" type="submit" value="SIGN IN"></Input>
+          {/* </Link> */}
+        </div>
+      </form>
+      {/* <div>
               <p>Don't have an account? </p>
               <p>Register</p>
           </div> */}
-          {/* <p>
+      {/* <p>
             Server response (for debugging purposes):
             <br />
             <br />
             {JSON.stringify(status, null, 2)}
           </p> */}
-        </div>
-      );
-    // otherwise, if the user has successfully logged-in, redirect them to a different page
-    // in this example, we simply redirect to the home page, but a real app would redirect to a page that shows content only available to logged-in users
-    // else return <Redirect to="/usermenu" />
-}
+    </div>
+  );
+  // otherwise, if the user has successfully logged-in, redirect them to a different page
+  // in this example, we simply redirect to the home page, but a real app would redirect to a page that shows content only available to logged-in users
+  // else return <Redirect to="/usermenu" />
+};
 
-export default Signin
+export default Signin;
