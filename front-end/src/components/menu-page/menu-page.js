@@ -20,7 +20,7 @@ const MenuPage = () => {
   const checkoutPath = url.format({
     pathname: "/checkout",
   });
-*/
+
   if (!jwtToken) {
     window.location.replace("http://localhost:3000/");
   }
