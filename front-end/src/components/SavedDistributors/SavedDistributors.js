@@ -8,9 +8,9 @@ import axios from "axios";
 import "./SavedDistributors.css";
 
 function SavedDistributors() {
-  const jwtToken = localStorage.getItem('token')
-  if(!jwtToken){
-    window.location.replace("http://localhost:3000/")
+  const jwtToken = localStorage.getItem("token");
+  if (!jwtToken) {
+    window.location.replace("http://localhost:3000/");
   }
 
   const [data, setData] = useState([]);
@@ -30,11 +30,15 @@ function SavedDistributors() {
     );
   };
 
+<<<<<<< HEAD
   const favorites = data.map(e => e._id)
+=======
+  const favorites = data.map((e) => e.name);
+>>>>>>> master
 
   return (
     <div className="savedListContainer">
-      <HeaderTab pageTitle="Saved Distributors" returnPath={'/usermenu'} />
+      <HeaderTab pageTitle="Saved Distributors" returnPath={"/usermenu"} />
       <hr />
       <div className="searchbar">
         <div className="mt-3">

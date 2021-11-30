@@ -4,12 +4,12 @@ import "./Pick.css";
 
 const Pick = (props) => {
   const handleRestID = async () => {
-    localStorage.setItem('rest_id', props.details._id);
-    document.cookie = `rest_id=${props.details._id}`
-  }
+    localStorage.setItem("rest_id", props.details._id);
+    document.cookie = `rest_id=${props.details._id}`;
+  };
 
   return (
-    <Link className="link" to={'/menu'} onClick={handleRestID}>
+    <Link className="link" to={"/menu"} onClick={handleRestID}>
       <div className="container mt-3">
         <Card className="card" style={{ width: "7em" }}>
           <Card.Img className="image rounded" variant="top" src={props.img} />

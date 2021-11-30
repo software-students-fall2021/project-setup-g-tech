@@ -7,9 +7,9 @@ import axios from "axios";
 import OrderHistoryList from "../OrderHistoryList/OrderHistoryList";
 
 function OrderHistoryPage() {
-  const jwtToken = localStorage.getItem('token')
-  if(!jwtToken){
-    window.location.replace("http://localhost:3000/")
+  const jwtToken = localStorage.getItem("token");
+  if (!jwtToken) {
+    window.location.replace("http://localhost:3000/");
   }
 
   const [data, setData] = useState([]);
@@ -17,6 +17,7 @@ function OrderHistoryPage() {
 
   const fetchData = async () => {
     const res = await axios.get("http://localhost:3001/orderhistorypage", {
+      headers: { Authorization: `JWT ${jwtToken}` },
     });
     setData(res.data);
   };
@@ -24,13 +25,13 @@ function OrderHistoryPage() {
 
   const dynamicSearch = () => {
     return data.filter((e) =>
-      e.orderRestaurant.toLowerCase().includes(search.toLowerCase())
+      e.restaurant.toLowerCase().includes(search.toLowerCase())
     );
   };
 
   return (
     <div className="orderHistoryContainer">
-      <HeaderTab pageTitle="Past Orders" returnPath={'/usermenu'} />
+      <HeaderTab pageTitle="Past Orders" returnPath={"/usermenu"} />
       <hr />
       <div className="searchbar">
         <div className="mt-3">

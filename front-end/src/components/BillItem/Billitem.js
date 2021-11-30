@@ -1,9 +1,6 @@
 import './Billitem.css';
 
 const Billitem = (props) => {
-    let pretotal = parseFloat(props.price);
-    // console.log(pretotal);
-    // pretotal = toString(pretotal);
     return (
 
         <>
