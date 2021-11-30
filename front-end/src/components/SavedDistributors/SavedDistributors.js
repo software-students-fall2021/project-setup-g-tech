@@ -30,7 +30,7 @@ function SavedDistributors() {
     );
   };
 
-  const favorites = data.map(e => e.name)
+  const favorites = data.map(e => e._id)
 
   return (
     <div className="savedListContainer">

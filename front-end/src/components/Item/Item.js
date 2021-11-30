@@ -11,8 +11,8 @@ const Item = (props) => {
     const jwtToken = localStorage.getItem('token')
     const [show, setShow] = useState(false)
 
-    const reqAdd = { action: 'add', name: props.details.name }
-    const reqDel = { action: 'del', name: props.details.name }
+    const reqAdd = { action: 'add', rest_id: props.details._id }
+    const reqDel = { action: 'del', rest_id: props.details._id }
     const header =  { headers: { Authorization: `JWT ${jwtToken}` } }
 
     const handleShow = async () => {
@@ -37,7 +37,7 @@ const Item = (props) => {
         localStorage.setItem('rest_id', props.details._id);
     }
 
-    const inSaved = props.saved.includes(props.details.name)
+    const inSaved = props.saved.includes(props.details._id)
 
     return (
         <div>
