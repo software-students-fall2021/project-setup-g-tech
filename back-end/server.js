@@ -356,11 +356,9 @@ server.post("/business-signin-submit", function (req, res) {
 });
 
 server.use(express.static(__dirname + "./public/"));
-// destination: "../public/uploads/",
-
 // Handling Image Uploads
 var Storage = multer.diskStorage({
-  destination: "./public/uploads/",
+  destination: "../front-end/src/uploads/",
   filename: function (req, file, cb) {
     cb(
       null,
@@ -379,7 +377,8 @@ server.post("/business-register-submit", Upload, function (req, res) {
     req.body.location &&
     req.body.password &&
     req.body.repassword &&
-    req.body.password == req.body.repassword
+    req.body.password == req.body.repassword &&
+    req.body.file
   ) {
     // Check if restaurant exists
     Restaurant.find({ email: req.body.email }, (err, docs) => {
