@@ -10,12 +10,14 @@ import { useState } from "react";
 const MenuCard = (props) => {
   let itName = props.name;
   let itPrice = props.price;
+  let qty_available = props.qty_available
 
   const counterUpdater = (val) => {
     if (props.menuCountUpdater) {
       //to update item selected and its amount
       const item = {};
       item["name"] = itName;
+      item["qty_available"] = qty_available;
       item["qty"] = val;
       item["price"] = itPrice;
       props.menuCountUpdater(val, item); //to update count of total selected items
@@ -48,6 +50,7 @@ const MenuCard = (props) => {
               </Col>
               <Col>
                 <Counter
+                  item={props.name}
                   counterUpdate={counterUpdater}
                   qty_available={props.qty_available}
                   qty={props.qty}

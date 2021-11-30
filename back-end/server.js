@@ -214,20 +214,20 @@ server.get("/checkout",passport.authenticate("jwt", { session: false }), (req, r
       res.redirect("http://localhost:3000/");
       
     }
-    else{
-    //   // let restInfo ='';
-      req.user.cart.find({}, (err, cartinfo)=>{
-        if(err || docs.length == 0){
-          console.log('no items in cart')
-          res.status(404);
-          res.redirect("http://localhost:3000/");
-        }
-        else{
-          // data = cartinfo.filter(e => docs.favorites.includes(e.name));
-          res.json(cartinfo);
-        }
-      })
-    }
+    // else{
+    // //   // let restInfo ='';
+    //   req.user.cart.find({}, (err, cartinfo)=>{
+    //     if(err || docs.length == 0){
+    //       console.log('no items in cart')
+    //       res.status(404);
+    //       res.redirect("http://localhost:3000/");
+    //     }
+    //     else{
+    //       // data = cartinfo.filter(e => docs.favorites.includes(e.name));
+    //       res.json(cartinfo);
+    //     }
+    //   })
+    // }
   })
 });
 

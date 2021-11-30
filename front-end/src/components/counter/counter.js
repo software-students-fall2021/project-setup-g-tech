@@ -1,10 +1,12 @@
 import "./counter.css";
 import { FaPlus, FaMinus } from "react-icons/fa";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 let count = false;
 const Counter = (props) => {
-  const [counter, setCounter] = useState(0);
+  const item = props.item;
+  const cart = JSON.parse(sessionStorage.getItem("cart"));
+  const [counter, setCounter] = useState(cart && cart[item] ? cart[item] : 0);
 
   const handleClick1 = () => {
     if (counter < props.qty_available) {

@@ -12,13 +12,10 @@ import url from "url";
 
 const MenuPage = () => {
   const [totalCounter, setTotalCounter] = useState(0);
-  const [selectedItems, setSelectedItems] = useState({});
-  const [selectedItemsPrice, setSelectedItemsPrice] = useState({});
   const jwtToken = localStorage.getItem('token')
   const returnPath = url.format({
     pathname: "/usermenu",
   });
-
   const checkoutPath = url.format({
     pathname: "/checkout",
   });
@@ -27,31 +24,35 @@ const MenuPage = () => {
   }
 
   const onItemCountChange = (val, item) => {
-    setTotalCounter(totalCounter + val);
+      setTotalCounter(totalCounter + val);
   };
 
   const onItemSelect = (item) => {
-    let prevItems = selectedItems;
-    let previtemPrice = selectedItemsPrice;
-
+    let prevItems = sessionStorage.getItem("cart")? JSON.parse(sessionStorage.getItem("cart")): {};
+    let previtemPrice =  sessionStorage.getItem("cart") ? JSON.parse(sessionStorage.getItem("price")):{};
+    console.log('prevItems Before',prevItems)
     if (Object.keys(prevItems).includes(item["name"])) {
       if (prevItems[item["name"]] === 1 && item["qty"] === -1) {
         delete prevItems[item["name"]];
         delete previtemPrice[item["name"]];
       } else {
-        prevItems[item["name"]] += parseInt(item["qty"]);
+        if(prevItems[item["name"]] < item['qty_available']){
+          prevItems[item["name"]] += parseInt(item["qty"]);
+        }
+        else{
+          console.log('Added Max items to cart')
+        }
+        
       }
     } else {
       prevItems[item["name"]] = 1;
       previtemPrice[item["name"]] = item["price"];
     }
-    setSelectedItems(prevItems);
-    setSelectedItemsPrice(previtemPrice);
-    sessionStorage.setItem("cart", JSON.stringify(selectedItems));
-    sessionStorage.setItem("price", JSON.stringify(selectedItemsPrice));
+    sessionStorage.setItem("cart", JSON.stringify(prevItems));
+    sessionStorage.setItem("price", JSON.stringify(previtemPrice));
   };
-
-    // ======================================================
+  
+  // ======================================================
   // add restaurants menu from backend
   // fetch data of all restaurants
   const _id = localStorage.getItem('rest_id')
