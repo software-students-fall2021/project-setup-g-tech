@@ -103,95 +103,51 @@ server.get("/set-cookie", (req, res) => {
 */
 
 // route handling
-server.get(
-  "/usermenu",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const id = req.user.id;
-    console.log(`User ID: ${id}`);
-    User.findById(id, (err, docs) => {
-      if (err || docs.length == 0) {
-        console.log("User not found");
-        return res.json({ success: false, message: "User not found" });
-      } else {
-        Restaurant.find({}, (err, docs) => {
-          if (err || docs.length == 0) {
-            console.log("Restaurants not found");
-            res.status(404);
-            return res.json({
-              success: false,
-              message: "Restaurant not found",
-            });
-          } else {
-            return res.json(docs);
-          }
-        });
-      }
-    });
-  }
-);
-
-// // a route that looks for a Cookie header in the request and sends back whatever data was found in it.
-// app.get("/get-cookie", (req, res) => {
-//   const numCookies = Object.keys(req.cookies).length // how many cookies were passed to the server
-
-//   console.log(`Incoming cookie data: ${JSON.stringify(req.cookies, null, 0)}`)
-//   res.send({
-//     success: numCookies ? true : false,
-//     message: numCookies
-//       ? "thanks for sending cookies to the server :)"
-//       : "no cookies sent to server :(",
-//     cookieData: req.cookies,
-//   })
-// })
-
-server.post(
-  "/updateitem",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const id = req.user.id;
-    if (req.body.action == "add") {
-      User.findByIdAndUpdate(
-        id,
-        { $push: { favorites: req.body.name } },
-        { safe: true, upsert: true },
-        (err, doc) => {
-          if (err) console.log(err);
-        }
-      );
-    } else {
-      User.findByIdAndUpdate(
-        id,
-        { $pull: { favorites: req.body.name } },
-        { safe: true, upsert: true },
-        (err, doc) => {
-          if (err) console.log(err);
-        }
-      );
+server.get("/usermenu", passport.authenticate("jwt", { session: false }), (req, res) => {
+  const id = req.user.id
+  console.log(`User ID: ${id}`)
+  User.findById(id, (err, docs) => {
+    if(err || docs.length == 0){
+      console.log('User not found')
+      return res.json({ success: false, message: 'User not found' })
     }
-  }
-);
-
-server.get(
-  "/orderhistorypage",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const id = req.user.id;
-    User.findById(id, (err, docs) => {
-      if (err || docs.length == 0) {
-        console.log("User not found");
-        res.status(404);
-        res.redirect("http://localhost:3000/");
-      } else {
-        if (err || docs.history.length == 0) {
-          console.log("No order history");
-        } else {
-          res.json(docs.history);
+    else {
+      Restaurant.find({}, (err,docs)=>{
+        if(err || docs.length == 0){
+          console.log('Restaurants not found')
+          res.status(404);
+          return res.json({ success: false, message: 'Restaurant not found' })
         }
+        else{
+          return res.json(docs);
+        }
+      })
+    }
+  });
+});
+
+server.post("/updateitem", passport.authenticate("jwt", { session: false }), (req, res) => {
+  const user_id = req.user.id
+  if(req.body.action == 'add'){
+    User.findByIdAndUpdate(
+      user_id,
+      { $push: { favorites: req.body.rest_id } },
+      { safe: true, upsert: true },
+      (err, doc) => {
+        if (err) console.log(err);
       }
-    });
+    );
   }
-);
+  else{
+    User.findByIdAndUpdate(
+      user_id,
+      { $pull: { favorites: req.body.rest_id } },
+      { safe: true, upsert: true },
+      (err, doc) => {
+        if (err) console.log(err);
+      });
+  }
+});
 
 server.post("/updateorderstatus", (req, res) => {
   const id = req.user.id;
@@ -206,31 +162,30 @@ server.post("/updateorderstatus", (req, res) => {
 });
 
 // saved distributors token
-server.get(
-  "/saveddistributors",
-  passport.authenticate("jwt", { session: false }),
-  (req, res, next) => {
-    const id = req.user.id;
-    User.findById(id, (err, docs) => {
-      if (err || docs.length == 0) {
-        console.log("User not found");
-        res.status(404);
-        res.redirect("http://localhost:3000/");
-      } else {
-        Restaurant.find({}, (err, restInfo) => {
-          if (err || docs.length == 0) {
-            console.log("Restaurants not found");
-            res.status(404);
-            res.redirect("http://localhost:3000/");
-          } else {
-            data = restInfo.filter((e) => docs.favorites.includes(e.name));
-            res.json(data);
-          }
-        });
-      }
-    });
-  }
-);
+server.get("/saveddistributors",passport.authenticate("jwt", { session: false }), (req, res, next) => {
+  const id = req.user.id
+  User.findById(id, (err, docs) => {
+    if (err || docs.length == 0) {
+      console.log("User not found");
+      res.status(404);
+      res.redirect("http://localhost:3000/");
+      
+    }
+    else{
+      Restaurant.find({}, (err,restInfo)=>{
+        if(err || docs.length == 0){
+          console.log('Restaurants not found')
+          res.status(404);
+          res.redirect("http://localhost:3000/");
+        }
+        else{
+          data = restInfo.filter(e => docs.favorites.includes(e._id));
+          res.json(data);
+        }
+      })
+    }
+  })
+});
 
 // checkout token
 
