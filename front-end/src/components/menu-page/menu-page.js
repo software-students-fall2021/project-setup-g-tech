@@ -8,19 +8,11 @@ import HeaderTab from "../header-tab/HeaderTab";
 import axios from "axios";
 import ButtonUI from "../ButtonUI/ButtonUI";
 import "./menu-page.css";
-import url from "url";
 
 const MenuPage = () => {
-  const jwtToken = localStorage.getItem("token");
   const [totalCounter, setTotalCounter] = useState(0);
   const jwtToken = localStorage.getItem('token')
-  const returnPath = url.format({
-    pathname: "/usermenu",
-  });
-  const checkoutPath = url.format({
-    pathname: "/checkout",
-  });
-*/
+
   if (!jwtToken) {
     window.location.replace("http://localhost:3000/");
   }
@@ -53,7 +45,6 @@ const MenuPage = () => {
     sessionStorage.setItem("cart", JSON.stringify(prevItems));
     sessionStorage.setItem("price", JSON.stringify(previtemPrice));
   };
-master
   // ======================================================
   // add restaurants menu from backend
   // fetch data of all restaurants

@@ -4,11 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./menu-card.css";
 // import './cardflip.css';
-<<<<<<< HEAD
 import Counter from "../Counter/counter";
-=======
-import Counter from "../counter/counter.js";
->>>>>>> master
 import { useState } from "react";
 
 const MenuCard = (props) => {
