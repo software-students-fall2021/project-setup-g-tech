@@ -499,8 +499,7 @@ server.post("/business-register-submit", Upload, function (req, res) {
     req.body.location &&
     req.body.password &&
     req.body.repassword &&
-    req.body.password == req.body.repassword &&
-    req.body.file
+    req.body.password == req.body.repassword
   ) {
     // Check if restaurant exists
     Restaurant.find({ email: req.body.email }, (err, docs) => {
