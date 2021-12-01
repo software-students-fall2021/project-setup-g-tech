@@ -32,6 +32,7 @@ const Item = (props) => {
       header
     );
   };
+
   const handleRestID = async () => {
     localStorage.setItem("rest_id", props.details._id);
   };

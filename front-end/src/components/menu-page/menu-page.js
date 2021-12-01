@@ -12,7 +12,6 @@ import "./menu-page.css";
 const MenuPage = () => {
   const [totalCounter, setTotalCounter] = useState(0);
   const jwtToken = localStorage.getItem('token')
-
   if (!jwtToken) {
     window.location.replace("http://localhost:3000/");
   }
@@ -56,6 +55,7 @@ const MenuPage = () => {
       headers: { Authorization: `JWT ${jwtToken}`, rest_id: _id },
     });
     setResData(res.data);
+    sessionStorage.setItem("rest_name", JSON.stringify(res.data.name))
   };
   useEffect(fetchResData, []);
   let items = docs.items;
