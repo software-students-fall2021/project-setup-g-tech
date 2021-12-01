@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Timer from "../Timer/Timer";
 import HeaderTab from "../header-tab/HeaderTab";
 import ButtonUI from "../ButtonUI/ButtonUI";
@@ -6,30 +6,29 @@ import "./PageTimer.css";
 import CancelOrder from "../CancelOrder/CancelOrder";
 import $ from "jquery";
 import axios from "axios";
-import url from "url";
 
 function PageTimer() {
-  const jwtToken = localStorage.getItem('token')
-  if(!jwtToken){
-    window.location.replace("http://localhost:3000/")
+  const jwtToken = localStorage.getItem("token");
+  if (!jwtToken) {
+    window.location.replace("http://localhost:3000/");
   }
-  
+
   const timer = sessionStorage.getItem("timer");
 
-  // get the User Id from the URL
-  const params = new URLSearchParams(window.location.search);
-  const user = params.get("id");
-  const returnPath = url.format({
-    pathname: "/usermenu",
-  });
+  const reqCancel = { action: "cancel" };
+  const header = { headers: { Authorization: `JWT ${jwtToken}` } };
 
   // when "cancel" button is clicked, do a post request to change the status of the order to canceled and go back to usermenu page
-  const orderCancel = () => {
-    axios.post("http://localhost:3001/updateorderstatus", {
-      action: "change",
-      order_status: "Canceled",
-    });
+  const updateHistory = async () => {
+    const res = await axios.post(
+      "http://localhost:3001/updateorderstatus",
+      reqCancel,
+      header
+    );
+  };
 
+  const orderCancel = () => {
+    updateHistory();
     $(".cancel-order-screen").css("display", "block");
     setTimeout(function () {
       window.location.replace("http://localhost:3000/usermenu");

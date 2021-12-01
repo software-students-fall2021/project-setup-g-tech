@@ -8,9 +8,9 @@ import "./Checkout.css";
 import axios from "axios";
 
 const Checkout = (props) => {
-  const jwtToken = localStorage.getItem('token')
-  if(!jwtToken){
-    window.location.replace("http://localhost:3000/")
+  const jwtToken = localStorage.getItem("token");
+  if (!jwtToken) {
+    window.location.replace("http://localhost:3000/");
   }
 
   let cartItems = JSON.parse(sessionStorage.getItem("cart"));
@@ -19,22 +19,31 @@ const Checkout = (props) => {
   const [data, setData] = useState([]);
 
   // Send request to server
-  const rest_name = JSON.parse(sessionStorage.getItem("rest_name"))
-  const rest_id = localStorage.getItem("rest_id")
-  const header = { headers: { Authorization: `JWT ${jwtToken}` } }
-  const cartInfo = { itemNum: cartItems, itemPrices: cartItemsPrice, name: rest_name, rest_id: rest_id }
+  const rest_name = JSON.parse(sessionStorage.getItem("rest_name"));
+  const rest_id = localStorage.getItem("rest_id");
+  const header = { headers: { Authorization: `JWT ${jwtToken}` } };
+  const cartInfo = {
+    itemNum: cartItems,
+    itemPrices: cartItemsPrice,
+    name: rest_name,
+    rest_id: rest_id,
+  };
   const fetchData = async () => {
-    const res = await axios.post("http://localhost:3001/checkout",
-    cartInfo,
-    header
+    const res = await axios.post(
+      "http://localhost:3001/checkout",
+      cartInfo,
+      header
     );
     setData(res.data);
   };
-  useEffect(fetchData, []);
+
+  const handleCheckout = async () => {
+    fetchData();
+  };
 
   return (
     <div className="Checkout">
-      <HeaderTab pageTitle="Check Out" returnPath='/menu' />
+      <HeaderTab pageTitle="Check Out" returnPath="/menu" />
       <div className="heading">
         <h2 className="order-confirm">Order Confirmation</h2>
       </div>
@@ -58,8 +67,8 @@ const Checkout = (props) => {
       <TimerSelect />
       {/* <div className='floatBtn'> */}
       <div className="checkoutbutt">
-        <Link to='/pagetimer'>
-          <ButtonUI radius="8px" width="230px">
+        <Link to="/pagetimer">
+          <ButtonUI radius="8px" width="230px" onClick={handleCheckout}>
             {" "}
             Checkout{" "}
           </ButtonUI>
