@@ -1,6 +1,27 @@
 import "./OrderHistoryItem.css";
 
 const OrderHistoryItem = (props) => {
+  const dateString = JSON.stringify(props.details.date);
+  let convertedDate = "";
+
+  for (let i = 0; i < dateString.length; i++) {
+    if (i >= 1 && i <= 10) {
+      convertedDate += dateString.charAt(i);
+    }
+
+    if (i >= 12 && i <= 16) {
+      convertedDate += dateString.charAt(i);
+    }
+
+    if (i == 10) {
+      convertedDate += "   ";
+    }
+
+    if (i == 16) {
+      convertedDate += "   ";
+    }
+  }
+
   return (
     <div>
       <hr />
@@ -15,7 +36,7 @@ const OrderHistoryItem = (props) => {
               Order Total: ${props.details.order_total}
             </p>
             <p style={{ fontSize: "13px" }} className="desc">
-              {props.details.date}: {props.details.status}
+              {convertedDate} Status: {props.details.status}
             </p>
           </div>
         </div>
