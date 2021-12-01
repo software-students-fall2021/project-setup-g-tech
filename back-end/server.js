@@ -46,6 +46,7 @@ mongoose.connect(db_url, () => {
 const historySchema = new mongoose.Schema({
   date: Date,
   name: String,
+  rest_id: String,
   items: Object,
   order_total: Number,
   status: String,
@@ -181,6 +182,28 @@ server.get(
   }
 );
 
+/* to be done by jj: access restaurant image from order history page
+server.post(
+  "/findrestaurantimg",
+  passport.authenticate("jwt", { session: false }),
+  (req, res, next) => {
+    console.log(req.body.rest_id); 
+    Restaurant.findById(req.body.rest_id, (err, docs) => {
+      if (err || docs.length == 0) {
+        console.log("Restaurant not found");
+        res.status(404);
+      } else {
+        if (docs.image.length == 0){
+          res.json({ success: false, img: "https://picsum.photos/200"}); 
+        }else {
+          res.json( {success: true, img: docs.image }); 
+        }
+      }
+    }); 
+  }
+);
+*/
+
 //order history page: retrive data from history schema
 server.get(
   "/orderhistorypage",
@@ -258,6 +281,7 @@ server.post(
     let sum = 0;
     let items = req.body.itemNum;
     delete items["undefined"];
+    console.log(req.body.rest_id); 
 
     Object.entries(items).map(([key, value]) =>
       Object.entries(req.body.itemPrices).map(([name, price]) => {
@@ -271,6 +295,7 @@ server.post(
     const new_history = new History({
       date: Date.now(),
       name: req.body.name,
+      rest_id: req.body.rest_id,
       items: items,
       order_total: sum,
       status: "Processed",
