@@ -218,6 +218,7 @@ server.get(
       } else {
         if (err || docs.history.length == 0) {
           console.log("No order history");
+          res.json(docs.history);
         } else {
           res.json(docs.history);
         }
@@ -254,6 +255,8 @@ server.post(
             console.log(latestDate);
             for (const order of docs.history) {
               if (
+                order.date.getFullYear() === latestDate.getFullYear() &&
+                order.date.getMonth() === latestDate.getMonth() &&
                 order.date.getDate() === latestDate.getDate() &&
                 order.date.getTime() === latestDate.getTime()
               ) {
