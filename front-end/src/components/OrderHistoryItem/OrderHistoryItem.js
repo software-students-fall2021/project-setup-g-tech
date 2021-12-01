@@ -10,7 +10,7 @@ const OrderHistoryItem = (props) => {
         <div className="order">
           <img className="logo rounded" src={props.img} />
           <div className="container">
-            <p className="title">{props.details.restaurant}</p>
+            <p className="title">{props.details.name}</p>
             <p style={{ fontSize: "13px" }} className="desc">
               Order Total: ${props.details.order_total}
             </p>

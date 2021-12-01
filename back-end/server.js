@@ -56,7 +56,7 @@ const userSchema = new mongoose.Schema({
   email: String,
   password: String,
   favorites: Array,
-  history: [historySchema]
+  history: [historySchema],
 });
 
 // Restaurant schemas
@@ -99,147 +99,216 @@ server.get("/set-cookie", (req, res) => {
 */
 
 // route handling
-server.get("/usermenu", passport.authenticate("jwt", { session: false }), (req, res) => {
-  const id = req.user.id
-  console.log(`User ID: ${id}`)
-  User.findById(id, (err, docs) => {
-    if(err || docs.length == 0){
-      console.log('User not found')
-      return res.json({ success: false, message: 'User not found' })
-    }
-    else {
-      Restaurant.find({}, (err,docs)=>{
-        if(err || docs.length == 0){
-          console.log('Restaurants not found')
-          res.status(404);
-          return res.json({ success: false, message: 'Restaurant not found' })
-        }
-        else{
-          return res.json(docs);
-        }
-      })
-    }
-  });
-});
-
-server.post("/updateitem", passport.authenticate("jwt", { session: false }), (req, res) => {
-  const user_id = req.user.id
-  if(req.body.action == 'add'){
-    User.findByIdAndUpdate(
-      user_id,
-      { $push: { favorites: req.body.rest_id } },
-      { safe: true, upsert: true },
-      (err, doc) => {
-        if (err) console.log(err);
+server.get(
+  "/usermenu",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const id = req.user.id;
+    console.log(`User ID: ${id}`);
+    User.findById(id, (err, docs) => {
+      if (err || docs.length == 0) {
+        console.log("User not found");
+        return res.json({ success: false, message: "User not found" });
+      } else {
+        Restaurant.find({}, (err, docs) => {
+          if (err || docs.length == 0) {
+            console.log("Restaurants not found");
+            res.status(404);
+            return res.json({
+              success: false,
+              message: "Restaurant not found",
+            });
+          } else {
+            return res.json(docs);
+          }
+        });
       }
-    );
+    });
   }
-  else{
-    User.findByIdAndUpdate(
-      user_id,
-      { $pull: { favorites: req.body.rest_id } },
-      { safe: true, upsert: true },
-      (err, doc) => {
-        if (err) console.log(err);
-      });
+);
+
+server.post(
+  "/updateitem",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const user_id = req.user.id;
+    if (req.body.action == "add") {
+      User.findByIdAndUpdate(
+        user_id,
+        { $push: { favorites: req.body.rest_id } },
+        { safe: true, upsert: true },
+        (err, doc) => {
+          if (err) console.log(err);
+        }
+      );
+    } else {
+      User.findByIdAndUpdate(
+        user_id,
+        { $pull: { favorites: req.body.rest_id } },
+        { safe: true, upsert: true },
+        (err, doc) => {
+          if (err) console.log(err);
+        }
+      );
+    }
   }
-});
+);
 
-server.post("/updateorderstatus", (req, res) => {
-  const id = req.user.id;
-  User.findByIdAndUpdate(
-    id,
-    { $push: { history: req.body.order_status } },
-    { safe: true, upsert: true },
-    (err, doc) => {
-      if (err) console.log(err);
-    }
-  );
-});
+// saved distributors: retrive data from user's saved restaurants
+server.get(
+  "/saveddistributors",
+  passport.authenticate("jwt", { session: false }),
+  (req, res, next) => {
+    const id = req.user.id;
+    User.findById(id, (err, docs) => {
+      if (err || docs.length == 0) {
+        console.log("User not found");
+        res.status(404);
+        res.redirect("http://localhost:3000/");
+      } else {
+        Restaurant.find({}, (err, restInfo) => {
+          if (err || docs.length == 0) {
+            console.log("Restaurants not found");
+            res.status(404);
+            res.redirect("http://localhost:3000/");
+          } else {
+            data = restInfo.filter((e) => docs.favorites.includes(e._id));
+            res.json(data);
+          }
+        });
+      }
+    });
+  }
+);
 
-// saved distributors token
-server.get("/saveddistributors", passport.authenticate("jwt", { session: false }), (req, res, next) => {
-  const id = req.user.id
-  User.findById(id, (err, docs) => {
-    if (err || docs.length == 0) {
-      console.log("User not found");
-      res.status(404);
-      res.redirect("http://localhost:3000/");
-      
-    }
-    else{
-      Restaurant.find({}, (err,restInfo)=>{
-        if(err || docs.length == 0){
-          console.log('Restaurants not found')
+//order history page: retrive data from history schema
+server.get(
+  "/orderhistorypage",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const id = req.user.id;
+    User.findById(id, (err, docs) => {
+      if (err || docs.length == 0) {
+        console.log("User not found");
+        res.status(404);
+        res.redirect("http://localhost:3000/");
+      } else {
+        if (err || docs.history.length == 0) {
+          console.log("No order history");
+        } else {
+          res.json(docs.history);
+        }
+      }
+    });
+  }
+);
+
+// change order status to "canceled" when user cancel order
+server.post(
+  "/updateorderstatus",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const id = req.user.id;
+    if (req.body.action == "cancel") {
+      User.findById(id, (err, docs) => {
+        if (err || docs.length == 0) {
+          console.log("User not found");
           res.status(404);
           res.redirect("http://localhost:3000/");
+        } else {
+          if (docs.history.length == 0) {
+            console.log("No order history found to update");
+          } else {
+            //let pastOrders = JSON.parse(docs.history);
+            let latestDate = new Date(
+              Math.max.apply(
+                null,
+                docs.history.map(function (e) {
+                  return new Date(e.date);
+                })
+              )
+            );
+            console.log(latestDate);
+            for (const order of docs.history) {
+              if (
+                order.date.getDate() === latestDate.getDate() &&
+                order.date.getTime() === latestDate.getTime()
+              ) {
+                order.status = "Canceled"; 
+                docs.save()
+                console.log("Order Status is successfully updated to Canceled!")
+                break;
+              }
+              continue;
+            }
+          }
         }
-        else{
-          data = restInfo.filter(e => docs.favorites.includes(e._id));
-          res.json(data);
-        }
-      })
+      });
+    } else {
+      console.log("Request Action is not cancel");
     }
-  })
-});
+  }
+);
 
 // checkout token
-server.post("/checkout", passport.authenticate("jwt", { session: false }), (req, res) => {
-  let sum = 0
-  let items = req.body.itemNum
-  delete items['undefined']
+server.post(
+  "/checkout",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    let sum = 0;
+    let items = req.body.itemNum;
+    delete items["undefined"];
 
-  Object.entries(items).map(([key, value]) =>
-    Object.entries(req.body.itemPrices).map(([name, price]) => {
-      let test = key === name;
-      if (test) {
-        sum += value * price;
+    Object.entries(items).map(([key, value]) =>
+      Object.entries(req.body.itemPrices).map(([name, price]) => {
+        let test = key === name;
+        if (test) {
+          sum += value * price;
+        }
+      })
+    );
+
+    const new_history = new History({
+      date: Date.now(),
+      name: req.body.name,
+      items: items,
+      order_total: sum,
+      status: "Processed",
+    });
+
+    // Update user history
+    const user_id = req.user.id;
+    User.findByIdAndUpdate(
+      user_id,
+      { $push: { history: new_history } },
+      { safe: true, upsert: true },
+      (err, doc) => {
+        if (err) {
+          console.log("User not found");
+          res.status(404);
+          return res.redirect("http://localhost:3000/");
+        } else {
+          console.log("Item history successfully updated!");
+        }
       }
-    })
-  )
+    );
 
-  const new_history = new History({
-    date: Date.now(),
-    name: req.body.name,
-    items: items,
-    order_total: sum,
-    status: 'Processed',
-  });
-
-  // Update user history
-  const user_id = req.user.id
-  User.findByIdAndUpdate(
-    user_id,
-    { $push: { history: new_history } },
-    { safe: true, upsert: true },
-    (err, doc) => {
-      if (err){
-        console.log("User not found")
-        res.status(404);
-        return res.redirect("http://localhost:3000/");
-      }
-      else{
-        console.log('Item history successfully updated!')
-      }
-    }
-  )
-
-  // // Update item quantity
-  // for(let key of Object.keys(items)){
-  //   Restaurant.findById(req.body.rest_id).then(doc => {
-  //     for(let i = 0; i < doc.items.length; i++){
-  //       if(doc[i].title == key){
-  //         let item = doc.items[i]
-  //         console.log(item)
-  //         item.quantity -= items[key]
-  //         break
-  //       }
-  //     }
-  //     doc.save()
-  //   }).catch(err => { console.log('Error updating quantities') })
-  // }
-});
-
+    // // Update item quantity
+    // for(let key of Object.keys(items)){
+    //   Restaurant.findById(req.body.rest_id).then(doc => {
+    //     for(let i = 0; i < doc.items.length; i++){
+    //       if(doc[i].title == key){
+    //         let item = doc.items[i]
+    //         console.log(item)
+    //         item.quantity -= items[key]
+    //         break
+    //       }
+    //     }
+    //     doc.save()
+    //   }).catch(err => { console.log('Error updating quantities') })
+    // }
+  }
+);
 
 // ======================================================
 //menu display for restaurant wo API
@@ -446,7 +515,7 @@ server.post("/menu-submit", function (req, res) {
   console.log(req.body.id);
   if (
     req.body.category &&
-    req.body.item_name && 
+    req.body.item_name &&
     req.body.price &&
     req.body.quantity &&
     req.body.description

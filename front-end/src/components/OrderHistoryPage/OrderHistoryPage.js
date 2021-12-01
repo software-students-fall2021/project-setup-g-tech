@@ -25,7 +25,7 @@ function OrderHistoryPage() {
 
   const dynamicSearch = () => {
     return data.filter((e) =>
-      e.restaurant.toLowerCase().includes(search.toLowerCase())
+      e.name.toLowerCase().includes(search.toLowerCase())
     );
   };
 

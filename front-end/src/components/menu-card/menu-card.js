@@ -4,13 +4,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./menu-card.css";
 // import './cardflip.css';
-import Counter from "../Counter/counter";
+import Counter from "../counter/counter";
 import { useState } from "react";
 
 const MenuCard = (props) => {
   let itName = props.name;
   let itPrice = props.price;
-  let qty_available = props.qty_available
+  let qty_available = props.qty_available;
 
   const counterUpdater = (val) => {
     if (props.menuCountUpdater) {
