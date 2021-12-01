@@ -37,7 +37,7 @@ function PageTimer() {
 
   return (
     <div className="pageTimerContainer">
-      <HeaderTab pageTitle="Order Confirmed" returnPath="/checkout" />
+      <HeaderTab pageTitle="Order Confirmed" returnPath="/usermenu" />
 
       <div className="timerContent">
         <p className="successMsg">
