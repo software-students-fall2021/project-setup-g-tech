@@ -70,7 +70,7 @@ const UserMenu = () => {
         <PicksList list={data} />
         <div className="news-title mt-3">
           <h4>Newsfeed</h4>
-          <Dropdown>
+          {/* <Dropdown>
             <Dropdown.Toggle className="toggle" variant="secondary" align="end">
               Sort
             </Dropdown.Toggle>
@@ -78,7 +78,7 @@ const UserMenu = () => {
               <Dropdown.Item href="#/action-1">Most Recent</Dropdown.Item>
               <Dropdown.Item href="#/action-2">Most Popular</Dropdown.Item>
             </Dropdown.Menu>
-          </Dropdown>
+          </Dropdown> */}
         </div>
         <ItemsList saved={favorites} list={dynamicSearch()} />
       </div>

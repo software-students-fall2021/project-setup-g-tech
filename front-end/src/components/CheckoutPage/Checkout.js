@@ -18,10 +18,16 @@ const Checkout = (props) => {
   let sum = 0;
   const [data, setData] = useState([]);
 
+  // Send request to server
+  const rest_name = JSON.parse(sessionStorage.getItem("rest_name"))
+  const rest_id = localStorage.getItem("rest_id")
+  const header = { headers: { Authorization: `JWT ${jwtToken}` } }
+  const cartInfo = { itemNum: cartItems, itemPrices: cartItemsPrice, name: rest_name, rest_id: rest_id }
   const fetchData = async () => {
-    const res = await axios.get("http://localhost:3001/checkout", {
-      headers: { Authorization: `JWT ${jwtToken}` },
-    });
+    const res = await axios.post("http://localhost:3001/checkout",
+    cartInfo,
+    header
+    );
     setData(res.data);
   };
   useEffect(fetchData, []);
@@ -52,7 +58,7 @@ const Checkout = (props) => {
       <TimerSelect />
       {/* <div className='floatBtn'> */}
       <div className="checkoutbutt">
-        <Link to={'/pagetimer'}>
+        <Link to='/pagetimer'>
           <ButtonUI radius="8px" width="230px">
             {" "}
             Checkout{" "}

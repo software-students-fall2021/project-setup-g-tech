@@ -42,6 +42,24 @@ mongoose.connect(db_url, () => {
   console.log("Db connection state: " + mongoose.connection.readyState);
 });
 
+// User schemas
+const historySchema = new mongoose.Schema({
+  date: Date,
+  name: String,
+  items: Object,
+  order_total: Number,
+  status: String,
+});
+const userSchema = new mongoose.Schema({
+  firstName: String,
+  lastName: String,
+  email: String,
+  password: String,
+  favorites: Array,
+  history: [historySchema]
+});
+
+// Restaurant schemas
 const menuSchema = new mongoose.Schema({
   type: String,
   title: String,
@@ -49,29 +67,6 @@ const menuSchema = new mongoose.Schema({
   quantity: Number,
   description: String,
   // image: String
-});
-const historySchema = new mongoose.Schema({
-  date: Date,
-  name: String,
-  items: [menuSchema],
-  order_total: Number,
-  status: String,
-});
-
-/*
-const favoriteSchema = new mongoose.Schema({
-  name: String,
-  location: String,
-});
-*/
-const userSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  email: String,
-  password: String,
-  favorites: Array,
-  history: Array,
-  cart: [menuSchema],
 });
 const restaurantSchema = new mongoose.Schema({
   name: String,
@@ -83,6 +78,7 @@ const restaurantSchema = new mongoose.Schema({
 });
 
 const Item = mongoose.model("Item", menuSchema, "menuitems");
+const History = mongoose.model("History", historySchema);
 const Restaurant = mongoose.model(
   "Restaurant",
   restaurantSchema,
@@ -162,7 +158,7 @@ server.post("/updateorderstatus", (req, res) => {
 });
 
 // saved distributors token
-server.get("/saveddistributors",passport.authenticate("jwt", { session: false }), (req, res, next) => {
+server.get("/saveddistributors", passport.authenticate("jwt", { session: false }), (req, res, next) => {
   const id = req.user.id
   User.findById(id, (err, docs) => {
     if (err || docs.length == 0) {
@@ -188,31 +184,60 @@ server.get("/saveddistributors",passport.authenticate("jwt", { session: false })
 });
 
 // checkout token
+server.post("/checkout", passport.authenticate("jwt", { session: false }), (req, res) => {
+  let sum = 0
+  let items = req.body.itemNum
+  delete items['undefined']
 
-server.get("/checkout",passport.authenticate("jwt", { session: false }), (req, res, next) => {
-  const id = req.user.id
-  User.findById(id, (err, docs) => {
-    if (err || docs.length == 0) {
-      console.log("User not found");
-      res.status(404);
-      res.redirect("http://localhost:3000/");
-      
+  Object.entries(items).map(([key, value]) =>
+    Object.entries(req.body.itemPrices).map(([name, price]) => {
+      let test = key === name;
+      if (test) {
+        sum += value * price;
+      }
+    })
+  )
+
+  const new_history = new History({
+    date: Date.now(),
+    name: req.body.name,
+    items: items,
+    order_total: sum,
+    status: 'Processed',
+  });
+
+  // Update user history
+  const user_id = req.user.id
+  User.findByIdAndUpdate(
+    user_id,
+    { $push: { history: new_history } },
+    { safe: true, upsert: true },
+    (err, doc) => {
+      if (err){
+        console.log("User not found")
+        res.status(404);
+        return res.redirect("http://localhost:3000/");
+      }
+      else{
+        console.log('Item history successfully updated!')
+      }
     }
-    // else{
-    // //   // let restInfo ='';
-    //   req.user.cart.find({}, (err, cartinfo)=>{
-    //     if(err || docs.length == 0){
-    //       console.log('no items in cart')
-    //       res.status(404);
-    //       res.redirect("http://localhost:3000/");
-    //     }
-    //     else{
-    //       // data = cartinfo.filter(e => docs.favorites.includes(e.name));
-    //       res.json(cartinfo);
-    //     }
-    //   })
-    // }
-  })
+  )
+
+  // // Update item quantity
+  // for(let key of Object.keys(items)){
+  //   Restaurant.findById(req.body.rest_id).then(doc => {
+  //     for(let i = 0; i < doc.items.length; i++){
+  //       if(doc[i].title == key){
+  //         let item = doc.items[i]
+  //         console.log(item)
+  //         item.quantity -= items[key]
+  //         break
+  //       }
+  //     }
+  //     doc.save()
+  //   }).catch(err => { console.log('Error updating quantities') })
+  // }
 });
 
 
@@ -394,7 +419,7 @@ server.post("/business-register-submit", Upload, function (req, res) {
           location: req.body.location,
           password: req.body.password,
           image: req.file.filename,
-          items: {},
+          items: [],
         });
         console.log("Restaurant created");
         new_restaurant.save((err) => {
@@ -421,7 +446,7 @@ server.post("/menu-submit", function (req, res) {
   console.log(req.body.id);
   if (
     req.body.category &&
-    req.body.item_name &&
+    req.body.item_name && 
     req.body.price &&
     req.body.quantity &&
     req.body.description
