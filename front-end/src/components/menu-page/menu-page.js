@@ -10,7 +10,10 @@ import ButtonUI from "../ButtonUI/ButtonUI";
 import "./menu-page.css";
 
 const MenuPage = () => {
-  const [totalCounter, setTotalCounter] = useState(0);
+  const countToken = sessionStorage.getItem('totalCount')
+  let stateNum = countToken ? JSON.parse(countToken) : 0
+  const [totalCounter, setTotalCounter] = useState(stateNum);
+  
   const jwtToken = localStorage.getItem('token')
   if (!jwtToken) {
     window.location.replace("http://localhost:3000/");
@@ -66,6 +69,10 @@ const MenuPage = () => {
     });
   // ======================================================
 
+  const handleClick = () => {
+    sessionStorage.setItem("totalCount", JSON.stringify(totalCounter))
+  }
+
   return (
     <>
       <HeaderTab pageTitle={docs.name} returnPath={'/usermenu'} />
@@ -111,7 +118,7 @@ const MenuPage = () => {
         <div className="floatBtn">
           <div className="floatBtnChild">
             <Link to={"/checkout"}>
-              <ButtonUI width="200px" radius="8px">
+              <ButtonUI width="200px" radius="8px" onClick={handleClick}>
                 Claim
               </ButtonUI>
             </Link>

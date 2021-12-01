@@ -383,7 +383,7 @@ server.post("/register-submit", async (req, res) => {
           email: req.body.email,
           password: encryptedPassword,
           favorites: [],
-          history: {},
+          history: [],
         });
         new_user.save((err) => {
           if (err) console.log("Unable to create new user");
