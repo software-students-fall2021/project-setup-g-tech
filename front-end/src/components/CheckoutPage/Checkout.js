@@ -37,7 +37,7 @@ const Checkout = (props) => {
     setData(res.data);
   };
 
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     fetchData();
   };
 

@@ -1,4 +1,4 @@
-import "./counter.css";
+import "./Counter.css";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import React, { useState, useEffect } from "react";
 

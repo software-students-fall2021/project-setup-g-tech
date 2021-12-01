@@ -13,6 +13,9 @@ const UserMenu = () => {
   if (!jwtToken) {
     window.location.replace("http://localhost:3000/");
   }
+  sessionStorage.removeItem("cart")
+  sessionStorage.removeItem("price")
+  sessionStorage.removeItem("totalCount")
 
   const [data, setData] = useState([]);
   const [saved, setSaved] = useState([]);
