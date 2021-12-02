@@ -449,25 +449,29 @@ server.post("/business-signin-submit", function (req, res) {
         console.log("Restaurant not found");
         res.status(400);
         res.redirect("http://localhost:3000/business-signin");
-      } else if (bcrypt.compare(req.body.password, restaurant.password)) {
-        console.log("Restaurant exists: ", restaurant.email);
-        res.status(200);
-        const payload = { id: restaurant.id }; // some data we'll encode into the token
-        const token = jwt.sign(payload, jwtOptions.secretOrKey); // create a signed token
-        return res.json({
-          success: true,
-          email: restaurant.email,
-          token: token,
-          id: restaurant.id,
-        }); // send the token to the client to store
       } else {
-        console.log("Incorrect password");
-        console.log(restaurant.password);
-        console.log(req.body.password);
-        return res
-          .status(401)
-          .json({ success: false, message: "incorrect password" });
-      }
+        console.log("Restaurant exists: ", restaurant.email);
+        bcrypt.compare(req.body.password, restaurant.password, (err, ret) => {
+          if (ret) {
+            res.status(200);
+            const payload = { id: restaurant.id }; // some data we'll encode into the token
+            const token = jwt.sign(payload, jwtOptions.secretOrKey); // create a signed token
+            return res.json({
+              success: true,
+              email: restaurant.email,
+              token: token,
+              id: restaurant.id,
+            }); // send the token to the client to store
+          } else {
+              console.log("Incorrect password");
+              console.log(restaurant.password);
+              console.log(req.body.password);
+              return res
+                .status(401)
+                .json({ success: false, message: "incorrect password" });
+          }
+        });
+      }  
     });
   }
   // ========================================================
@@ -492,7 +496,7 @@ var Upload = multer({ storage: Storage }).single("file");
 // End of Handling Image File Uploads
 
 // Start of business restaurant registration
-server.post("/business-register-submit", Upload, function (req, res) {
+server.post("/business-register-submit", Upload, async (req, res) => {
   if (
     req.body.name &&
     req.body.email &&
@@ -501,6 +505,7 @@ server.post("/business-register-submit", Upload, function (req, res) {
     req.body.repassword &&
     req.body.password == req.body.repassword
   ) {
+    encryptedPassword = await bcrypt.hash(req.body.password, 10);
     // Check if restaurant exists
     Restaurant.find({ email: req.body.email }, (err, docs) => {
       if (docs.length || err) {
@@ -513,7 +518,7 @@ server.post("/business-register-submit", Upload, function (req, res) {
           name: req.body.name,
           email: req.body.email,
           location: req.body.location,
-          password: req.body.password,
+          password: encryptedPassword,
           image: req.file.filename,
           items: [],
         });
