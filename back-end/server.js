@@ -524,7 +524,7 @@ server.post("/business-register-submit", Upload, function (req, res) {
         res.status(200);
         res.redirect(
           url.format({
-            pathname: "http://localhost:3000/business-menu",
+            pathname: "http://localhost:3000/business-signin",
           })
         );
       }
