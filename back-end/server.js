@@ -128,6 +128,18 @@ server.get(
   }
 );
 
+//access user name
+server.get(
+  "/getuser",
+  passport.authenticate("jwt", { session: false}),
+  (req, res) => {
+    const restid = req.user.id;
+    User.findById(restid, (err, docs) => {
+      res.json(docs);
+    });
+  }
+);
+
 server.post(
   "/updateitem",
   passport.authenticate("jwt", { session: false }),
