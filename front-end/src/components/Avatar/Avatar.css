@@ -6,18 +6,40 @@
 }
 
 .avatar-modal {
-  width: 48%;
-  top: 12%;
-  left: 48%;
+  width: 64%;
+  top: 8%;
+  left: 32%;
 }
 
-.avatar-footer {
-  height: 13em;
-  margin-bottom: 2em;
+h4 {
+  margin-left: 0%;
+  margin-bottom: 0%;
+  margin-right: 50%;
 }
+
+/* .avatar-footer {
+  height: 10em;
+  margin-bottom: 2em;
+} */
 
 .modal-item {
-  width: 8em;
-  height: 2.5em;
-  justify-content: center;
+  width: 10em;
+  /* height: 2.5em; */
+  color: black;
+  margin: 0%;
+}
+
+.logout-button {
+  margin-top: 30%;
+}
+
+.user-name {
+  margin-top: 10%;
+  margin-bottom: 0%;
+  margin-left: 10%;
+  font-size: 110%;
+}
+
+.user-avatar {
+  margin-top: 7%;
 }
