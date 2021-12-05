@@ -23,7 +23,7 @@ const Signin = (props) => {
   }, [response]);
 
   const handleSubmit = async (e) => {
-    
+    e.preventDefault()
     if (e.target.email.value == ''){
       setError("Please enter your email.");
     }
