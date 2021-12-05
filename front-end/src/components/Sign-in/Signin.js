@@ -23,13 +23,13 @@ const Signin = (props) => {
   }, [response]);
 
   const handleSubmit = async (e) => {
+    
     if (e.target.email.value == ''){
       setError("Please enter your email.");
     }
     if (e.target.password.value == ''){
       setError("Please enter your password.");
     }
-    e.preventDefault();
     const requestData = {
       email: e.target.email.value,
       password: e.target.password.value,
@@ -61,6 +61,7 @@ const Signin = (props) => {
           type="password"
           placeholder="*******"
         />
+        <div class="errorMessage">{error}</div>
 
         <div className="button">
           {/* <Submit type="submit" value="SIGN IN"/> */}

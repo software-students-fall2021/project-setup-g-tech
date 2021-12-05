@@ -8,16 +8,16 @@ const BusinessRegister = (props) => {
     const [error, setError] = useState(' ');
 
     useEffect(() => {
-      if (response.success && response.token) {
+      if (response.success) {
         console.log(`Business successfully registered: ${response.email}`)
-        localStorage.setItem("token", response.token)
+        // localStorage.setItem("token", response.token)
         window.location.replace("http://localhost:3000/business-signin")
       }
     }, [response])
   
     const handleSubmit = async e => {
       e.preventDefault()
-      setError(" ")
+      
       if (e.target.repassword.value != e.target.password.value){
         setError("*Passwords do not match.");
       }

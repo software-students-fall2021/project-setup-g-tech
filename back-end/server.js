@@ -541,14 +541,14 @@ server.post("/business-register-submit", Upload, async (req, res) => {
           if (err) console.log("Unable to register new restaurant");
         });
         res.status(200);
-        const payload = { id: new_user.id };
-        const token = jwt.sign(payload, jwtOptions.secretOrKey);
-        return res.json({ success: true, email: new_user.email, token: token });
-        // res.redirect(
-        //   url.format({
-        //     pathname: "http://localhost:3000/business-signin",
-        //   })
-        // );
+        // const payload = { id: new_user.id };
+        // const token = jwt.sign(payload, jwtOptions.secretOrKey);
+        // return res.json({ success: true, email: new_user.email, token: token });
+        res.redirect(
+          url.format({
+            pathname: "http://localhost:3000/business-signin",
+          })
+        );
       }
     });
   } else {
