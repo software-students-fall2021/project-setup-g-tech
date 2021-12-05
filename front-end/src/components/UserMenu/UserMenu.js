@@ -59,10 +59,12 @@ const UserMenu = () => {
                 id="searchtext"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                style={{borderRadius: "20px"}}
               />
-              <InputGroup.Text id="searchicon">
+              {/* <InputGroup.Text id="searchicon">
                 <FontAwesomeIcon icon={faSearch} />
-              </InputGroup.Text>
+              </InputGroup.Text> */}
+              <FontAwesomeIcon icon={faSearch} className="search-icon" style={{ marginLeft: "-30px", color: "#6c757d" }}/>
             </InputGroup>
           </div>
         </div>

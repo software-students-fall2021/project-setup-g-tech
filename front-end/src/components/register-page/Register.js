@@ -27,6 +27,7 @@ const Register = (props) => {
       if (e.target.password.value == ''){
         setError("Please enter your password.");
       }
+      
       if (e.target.email.value == ''){
         setError("Please enter your email.");
       }
@@ -36,7 +37,6 @@ const Register = (props) => {
       if (e.target.first_name.value == ''){
         setError("Please enter your first name.");
       }
-
       // else {
         const requestData = {
           first_name: e.target.first_name.value,
