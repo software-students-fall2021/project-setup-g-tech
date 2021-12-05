@@ -34,3 +34,8 @@
     color: red;
     font-size: large;
 } */
+
+.errorMessage {
+    color: red;
+    text-align: center;
+}

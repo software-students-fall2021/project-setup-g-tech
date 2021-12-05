@@ -6,6 +6,7 @@ import './Register.css';
 
 const Register = (props) => {
     const [response, setResponse] = useState({})
+    const [error, setError] = useState(' ');
 
     useEffect(() => {
       if (response.success && response.token) {
@@ -17,18 +18,38 @@ const Register = (props) => {
   
     const handleSubmit = async e => {
       e.preventDefault()
-      const requestData = {
-        first_name: e.target.first_name.value,
-        last_name: e.target.last_name.value,
-        email: e.target.email.value,
-        password: e.target.password.value,
-        repassword: e.target.repassword.value
+      if (e.target.first_name.value == ''){
+        setError("Please enter your first name.");
       }
-      const res = await axios.post(
-        'http://localhost:3001/register-submit',
-        requestData
-      )
-      setResponse(res.data)
+      if (e.target.last_name.value == ''){
+        setError("Please enter your last name.");
+      }
+      if (e.target.email.value == ''){
+        setError("Please enter your email.");
+      }
+      if (e.target.password.value == ''){
+        setError("Please enter your password.");
+      }
+      if (e.target.repassword.value == ''){
+        setError("Please re-enter your password.");
+      }
+      if (e.target.repassword.value != e.target.password.value){
+        setError("Passwords do not match.");
+      }
+      // else {
+        const requestData = {
+          first_name: e.target.first_name.value,
+          last_name: e.target.last_name.value,
+          email: e.target.email.value,
+          password: e.target.password.value,
+          repassword: e.target.repassword.value
+        }
+        const res = await axios.post(
+          'http://localhost:3001/register-submit',
+          requestData
+        )
+        setResponse(res.data)
+      // }
     }
 
     return (
@@ -43,6 +64,7 @@ const Register = (props) => {
                 <Input title="Re-enter Password"  name="repassword" type='password' placeholder='*******'/>
                 {/* <p className="pmatch" >Passwords do not match</p> */}
              {/* <Input title="Password" type='password' placeholder='*******'/> */}
+             <div class="errorMessage">{error}</div>
              <div className='button'>
              {/* <Link to='/signin'> */}
                 <Input className="submitButton" type="submit" value="CREATE ACCOUNT"></Input>
