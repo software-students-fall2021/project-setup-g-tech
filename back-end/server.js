@@ -507,6 +507,8 @@ var Storage = multer.diskStorage({
 var Upload = multer({ storage: Storage }).single("file");
 // End of Handling Image File Uploads
 
+
+
 // Start of business restaurant registration
 server.post("/business-register-submit", Upload, async (req, res) => {
   if (
@@ -539,11 +541,14 @@ server.post("/business-register-submit", Upload, async (req, res) => {
           if (err) console.log("Unable to register new restaurant");
         });
         res.status(200);
-        res.redirect(
-          url.format({
-            pathname: "http://localhost:3000/business-signin",
-          })
-        );
+        const payload = { id: new_user.id };
+        const token = jwt.sign(payload, jwtOptions.secretOrKey);
+        return res.json({ success: true, email: new_user.email, token: token });
+        // res.redirect(
+        //   url.format({
+        //     pathname: "http://localhost:3000/business-signin",
+        //   })
+        // );
       }
     });
   } else {
