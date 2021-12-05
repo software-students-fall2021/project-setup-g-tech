@@ -426,6 +426,9 @@ server.post("/signin-submit", function (req, res) {
       } else {
         console.log("User exists: ", user.email);
         bcrypt.compare(req.body.password, user.password, (err, ret) => {
+          console.log(req.body.password);
+          console.log(user.password);
+          console.log(ret);
           if (ret) {
             res.status(200);
             const payload = { id: user.id }; // some data we'll encode into the token
