@@ -57,7 +57,7 @@ const Item = (props) => {
         {show || inSaved ? (
           <FontAwesomeIcon
             className="heart"
-            style={{ width: "1.3em", height: "auto" }}
+            style={{ width: "1.3em", height: "auto", color: "#dc3545"}}
             icon={faHeart}
             onClick={handleClose}
           />

@@ -36,7 +36,7 @@ const Avatar = (props) => {
         className="user border rounded-circle mt-3"
         onClick={handleShow}
       /> */}
-      <FontAwesomeIcon icon={faUserCircle}  className='user border rounded-circle mt-3'  onClick={handleShow} size='3x' color='#21a376' />
+      <FontAwesomeIcon icon={faUserCircle}  className='user rounded-circle mt-3'  onClick={handleShow} size='3x' color='#21a376' />
 
       <Modal dialogClassName="avatar-modal" show={show} onHide={handleClose}>
         <Modal.Header className="avatar-header" style={{ display: "block" }}>
