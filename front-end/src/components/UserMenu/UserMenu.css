@@ -18,6 +18,7 @@
 .searchbar {
     width: 75%;
     margin: auto;
+    display: inline;
 }
 
 #searchtext {
@@ -55,4 +56,10 @@ div {
 
 h4 {
     font-weight: bold;
+}
+
+.search-icon {
+    z-index: 100;
+    margin-top: 3.5%;
+    display: inline;
 }
