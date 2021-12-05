@@ -10,9 +10,9 @@ const Pick = (props) => {
 
   return (
     <Link className="link" to={"/menu"} onClick={handleRestID}>
-      <div className="container mt-3">
+      <div className="mt-3 pick-card">
         <Card className="card" style={{ width: "7em" }}>
-          <Card.Img className="image rounded" variant="top" src={props.img} />
+          <Card.Img className="image rounded img-size" variant="top" src={props.img} />
           <p className="card-title mt-2">{props.details.name}</p>
         </Card>
       </div>

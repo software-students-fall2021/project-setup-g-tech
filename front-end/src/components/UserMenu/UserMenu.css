@@ -7,12 +7,14 @@
     left: 0;
     right: 0;
     z-index: 1;
-    background-color: white;
+    background-color: #333;
+    padding-bottom: 4%;
+    
 }
 
 .content {
     z-index: -1;
-    margin-top: 80px;
+    margin-top: 27%;
 }
 
 .searchbar {
@@ -37,7 +39,7 @@
 .news-title {
     display: flex;
     justify-content: space-between;
-    margin-left: 2px;
+    margin-left: 5%;
     margin-bottom: -10px;
 }
 
@@ -62,4 +64,8 @@ h4 {
     z-index: 100;
     margin-top: 3.5%;
     display: inline;
+}
+
+.fix-position {
+    position: fixed;
 }
