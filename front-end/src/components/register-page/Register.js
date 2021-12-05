@@ -18,23 +18,24 @@ const Register = (props) => {
   
     const handleSubmit = async e => {
       e.preventDefault()
-      if (e.target.first_name.value == ''){
-        setError("Please enter your first name.");
-      }
-      if (e.target.last_name.value == ''){
-        setError("Please enter your last name.");
-      }
-      if (e.target.email.value == ''){
-        setError("Please enter your email.");
-      }
-      if (e.target.password.value == ''){
-        setError("Please enter your password.");
+      if (e.target.repassword.value != e.target.password.value){
+        setError("Passwords do not match.");
       }
       if (e.target.repassword.value == ''){
         setError("Please re-enter your password.");
       }
-      if (e.target.repassword.value != e.target.password.value){
-        setError("Passwords do not match.");
+      if (e.target.password.value == ''){
+        setError("Please enter your password.");
+      }
+      
+      if (e.target.email.value == ''){
+        setError("Please enter your email.");
+      }
+      if (e.target.last_name.value == ''){
+        setError("Please enter your last name.");
+      }
+      if (e.target.first_name.value == ''){
+        setError("Please enter your first name.");
       }
       // else {
         const requestData = {
