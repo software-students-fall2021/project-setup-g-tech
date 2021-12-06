@@ -31,6 +31,8 @@ const multer = require("multer");
 // the port to listen to for incoming requests
 const port = 3001;
 
+const front_path = process.env.FRONT_PATH;
+
 // call express's listen function to start listening to the port
 const listener = server.listen(port, function () {
   console.log(`Server running on port: ${port}`);
@@ -177,13 +179,13 @@ server.get(
       if (err || docs.length == 0) {
         console.log("User not found");
         res.status(404);
-        res.redirect("http://localhost:3000/");
+        res.redirect(`${front_path}/`);
       } else {
         Restaurant.find({}, (err, restInfo) => {
           if (err || docs.length == 0) {
             console.log("Restaurants not found");
             res.status(404);
-            res.redirect("http://localhost:3000/");
+            res.redirect(`${front_path}/`);
           } else {
             data = restInfo.filter((e) => docs.favorites.includes(e._id));
             res.json(data);
@@ -226,7 +228,7 @@ server.get(
       if (err || docs.length == 0) {
         console.log("User not found");
         res.status(404);
-        res.redirect("http://localhost:3000/");
+        res.redirect(`${front_path}/`);
       } else {
         if (err || docs.history.length == 0) {
           console.log("No order history");
@@ -251,7 +253,7 @@ server.post(
         if (err || docs.length == 0) {
           console.log("User not found");
           res.status(404);
-          res.redirect("http://localhost:3000/");
+          res.redirect(`${front_path}/`);
         } else {
           if (docs.history.length == 0) {
             console.log("No order history found to update");
@@ -363,7 +365,7 @@ server.post(
         if (err) {
           console.log("User not found");
           res.status(404);
-          return res.redirect("http://localhost:3000/");
+          return res.redirect(`${front_path}/`);
         } else {
           console.log("Item history successfully updated!");
         }
@@ -458,7 +460,9 @@ server.post("/register-submit", async (req, res) => {
       if (docs.length || err) {
         console.log("Email taken");
         res.status(400);
-        return res.redirect("http://localhost:3000/register");
+        console.log("YES")
+        return res.redirect(`${front_path}/register`);
+        // `${front_path}/register`
       } else {
         // Create new user
         const new_user = new User({
@@ -480,7 +484,7 @@ server.post("/register-submit", async (req, res) => {
     });
   } else {
     res.status(400).send("All fields not entered/passwords do not match.");
-    res.redirect("http://localhost:3000/register");
+    res.redirect(`${front_path}/register`);
   }
 });
 
@@ -535,7 +539,7 @@ server.post("/business-signin-submit", function (req, res) {
       if (restaurant.length || err) {
         console.log("Restaurant not found");
         res.status(400);
-        res.redirect("http://localhost:3000/business-signin");
+        res.redirect(`${front_path}/business-signin`);
       } else {
         console.log("Restaurant exists: ", restaurant.email);
         bcrypt.compare(req.body.password, restaurant.password, (err, ret) => {
@@ -564,7 +568,7 @@ server.post("/business-signin-submit", function (req, res) {
   // ========================================================
   else {
     res.status(400);
-    res.redirect("http://localhost:3000/business-signin");
+    res.redirect(`${front_path}/business-signin`);
   }
 });
 
@@ -600,7 +604,7 @@ server.post("/business-register-submit", Upload, async (req, res) => {
       if (docs.length || err) {
         console.log("Email taken");
         res.status(400);
-        res.redirect("http://localhost:3000/business-register");
+        res.redirect(`${front_path}/business-register`);
       } else {
         // Create new restaurant
         const new_restaurant = new Restaurant({
@@ -621,7 +625,8 @@ server.post("/business-register-submit", Upload, async (req, res) => {
         // return res.json({ success: true, email: new_user.email, token: token });
         res.redirect(
           url.format({
-            pathname: "http://localhost:3000/business-signin",
+            pathname: `${front_path}/business-signin`,
+            
           })
         );
       }
@@ -629,7 +634,7 @@ server.post("/business-register-submit", Upload, async (req, res) => {
   } else {
     console.log("Not all fields entered.");
     res.status(400);
-    res.redirect("http://localhost:3000/business-register");
+    res.redirect(`${front_path}/business-register`);
   }
 });
 // End of business restaurant registration
@@ -668,14 +673,14 @@ server.post("/menu-submit", function (req, res) {
     console.log("req.body.id", req.body.id);
     res.redirect(
       url.format({
-        pathname: "http://localhost:3000/business-menu",
+        pathname: `${front_path}/business-menu`,
       })
     );
   } else {
     res.status(400);
     res.redirect(
       url.format({
-        pathname: "http://localhost:3000/business-menu",
+        pathname: `${front_path}/business-menu`,
       })
     );
   }
