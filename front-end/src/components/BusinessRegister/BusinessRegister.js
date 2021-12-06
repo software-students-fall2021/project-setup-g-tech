@@ -11,7 +11,7 @@ const BusinessRegister = (props) => {
       if (response.success) {
         console.log(`Business successfully registered: ${response.email}`)
         // localStorage.setItem("token", response.token)
-        window.location.replace("http://localhost:3000/business-signin")
+        window.location.replace("/business-signin")
       }
     }, [response])
   
@@ -46,7 +46,7 @@ const BusinessRegister = (props) => {
           repassword: e.target.repassword.value
         }
         const res = await axios.post(
-          'http://localhost:3001/business-register-submit',
+          `${process.env.REACT_APP_URL}/business-register-submit`,
           requestData
         )
         setResponse(res.data)
@@ -58,7 +58,7 @@ const BusinessRegister = (props) => {
              <HeaderTab pageTitle="Business Registration" returnPath = "/business"/>
              <div className="fields">
                 {/* <form onSubmit={handleSubmit} method="POST" enctype="multipart/form-data" role = "form"> */}
-                <form action="http://localhost:3001/business-register-submit" method="POST" enctype="multipart/form-data" role = "form">
+                <form action={`${process.env.REACT_APP_URL}/business-register-submit`} method="POST" enctype="multipart/form-data" role = "form">
                     <Input title="Name" name="name" type='text' placeholder='Top Thai'/>
                     <Input title="Email" name="email" type='email' placeholder='name@example.com'/>
                     <Input title="Location" name="location" type='text' placeholder='310, 23rd St, 3rd Ave'/>
