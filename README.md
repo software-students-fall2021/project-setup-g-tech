@@ -1,4 +1,5 @@
 # Project: Saverie by G-Tech
+_Deployed_: http://137.184.77.128:3000/
 
 ## Assigned roles for Sprint 1
 
@@ -70,7 +71,10 @@ Since React.js, the tool used in building the front-end of the project, is built
 
 Some dependencies used in the front-end of the project include: Boostrap for React, Material UI, Font Awesome, Axios, etc. By runing "npm install," all dependencies used in the project will be installed. <br/>
 
-### Step 4: Run "npm start" on terminal within the front-end folder to run the front-end
+### Step 4: Create .env file
+Make sure to have the necessary .env file to communicate with the back-end properly. <br/>
+
+### Step 5: Run "npm start" on terminal within the front-end folder to run the front-end
 
 Run "npm start" on terminal within the front-end folder to run the front-end of the project. <br/>
 <br/>
@@ -94,7 +98,10 @@ Since Express JS is the tool used in coding the back-end of the project one must
 
 Some dependencies used in the front-end of the project include: Express.js, Mocha & Chai for unit testing, as well as Istanbul NYC. <br/>
 
-### Step 4: Run "npm start" on terminal within the back-end folder to run the front-end
+### Step 4: Create .env file
+Make sure to have the necessary .env file to communicate with the database and to verify tokens. <br/>
+
+### Step 5: Run "npm start" on terminal within the back-end folder to run the front-end
 
 Run "npm start" on terminal within the front-end folder to run the front-end of the project. <br/>
 <br/>
