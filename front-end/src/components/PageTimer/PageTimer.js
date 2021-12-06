@@ -14,15 +14,23 @@ function PageTimer() {
   }
 
   const timer = sessionStorage.getItem("timer");
+  const rest_id = localStorage.getItem("rest_id");
 
-  const reqCancel = { action: "cancel" };
+  let cartItems = JSON.parse(sessionStorage.getItem("cart"));
+  const cartInfo = {
+    action: "cancel" ,
+    itemNum: cartItems,
+    rest_id: rest_id,
+  }
+  // const reqCancel = { } .;
   const header = { headers: { Authorization: `JWT ${jwtToken}` } };
 
   // when "cancel" button is clicked, do a post request to change the status of the order to canceled and go back to usermenu page
   const updateHistory = async () => {
     const res = await axios.post(
+
       `${process.env.REACT_APP_URL}/updateorderstatus`,
-      reqCancel,
+       cartInfo,
       header
     );
   };

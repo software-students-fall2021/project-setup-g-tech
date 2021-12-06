@@ -244,6 +244,7 @@ server.post(
   "/updateorderstatus",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log('req.body: ',req.body)
     const id = req.user.id;
     if (req.body.action == "cancel") {
       User.findById(id, (err, docs) => {
@@ -285,6 +286,41 @@ server.post(
     } else {
       console.log("Request Action is not cancel");
     }
+    Restaurant.findById(
+      req.body.rest_id,(err, doc) => {
+      for(let item of doc.items ){
+        if(Object.keys(req.body.itemNum).includes(item.title)){
+          console.log('item: ',item)
+          Restaurant.findByIdAndUpdate(
+            req.body.rest_id,
+            { $pull: { items: item} },
+            { safe: true, upsert: true },
+            (err, doc) => {
+              if (err) console.log(err);
+              else{console.log('pulled')}
+            }
+          );
+          const new_item = new Item({
+            type: item.type,
+            title: item.title,
+            price: item.price,
+            quantity: item.quantity + req.body.itemNum[item.title],
+            description: item.description,
+          });
+          Restaurant.findByIdAndUpdate(
+            req.body.rest_id,
+            { $push: { items: new_item} },
+            { safe: true, upsert: true },
+            (err, doc) => {
+              if (err) console.log(err);
+              else{console.log('pushed')}
+            }
+          );
+            
+        }
+      }
+    }
+    )
   }
 );
 
@@ -293,6 +329,7 @@ server.post(
   "/checkout",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+
     let sum = 0;
     let items = req.body.itemNum;
     delete items["undefined"];
