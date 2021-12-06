@@ -18,7 +18,7 @@ const Item = (props) => {
   const handleShow = async () => {
     setShow(true);
     const res = await axios.post(
-      "http://localhost:3001/updateitem",
+      `${process.env.REACT_APP_URL}/updateitem`,
       reqAdd,
       header
     );
@@ -27,7 +27,7 @@ const Item = (props) => {
   const handleClose = async () => {
     setShow(false);
     const res = await axios.post(
-      "http://localhost:3001/updateitem",
+      `${process.env.REACT_APP_URL}/updateitem`,
       reqDel,
       header
     );
