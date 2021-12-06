@@ -1,20 +1,31 @@
 # Project: Saverie by G-Tech
+#### You can access the running version of this application at the following link:
 _Deployed_: http://137.184.77.128:3000/
 
-## Assigned roles for Sprint 1
+### **Assigned roles for Sprint 0 (UX-Design)**
+
+Scrum Master: Jingjing Liu <br/>
+Product Owner: Ayesha Zafar
+
+### **Assigned roles for Sprint 1 (Front-end)**
 
 Scrum Master: Ayesha Zafar <br/>
 Product Owner: Ishmal Khalid
 
-## Assigned roles for Sprint 2
+### **Assigned roles for Sprint 2 (Back-end)**
 
 Scrum Master: Zunair Viqar <br/>
 Product Owner: David Iosilevich
 
-## Assigned roles for Sprint 3
+### **Assigned roles for Sprint 3 (Database)**
 
-Scrum Master: Yusra Khan  <br/>
-Product Owner: Zunair Viqar
+Scrum Master: Ishmal Khalid & David Iosilevich <br/>
+Product Owner: Yusra Khan & Jingjing Liu
+
+### **Assigned roles for Sprint 4 (Deployment)**
+
+Scrum Master: Jingjing Liu  <br/>
+Product Owner: Zunair Viqar 
 
 
 ## Description of the Project
@@ -72,7 +83,7 @@ Since React.js, the tool used in building the front-end of the project, is built
 Some dependencies used in the front-end of the project include: Boostrap for React, Material UI, Font Awesome, Axios, etc. By runing "npm install," all dependencies used in the project will be installed. <br/>
 
 ### Step 4: Create .env file
-Make sure to have the necessary .env file to communicate with the back-end properly. <br/>
+Make sure to have the necessary .env file to communicate with the back-end properly. The .env file should have the REACT_APP_URL (where the back-end is running.<br/>
 
 ### Step 5: Run "npm start" on terminal within the front-end folder to run the front-end
 
@@ -99,15 +110,18 @@ Since Express JS is the tool used in coding the back-end of the project one must
 Some dependencies used in the front-end of the project include: Express.js, Mocha & Chai for unit testing, as well as Istanbul NYC. <br/>
 
 ### Step 4: Create .env file
-Make sure to have the necessary .env file to communicate with the database and to verify tokens. <br/>
+Make sure to have the necessary .env file to communicate with the database and to verify tokens. The .env file should have DB_DOMAIN, JWT_SECRET and FRONT_PATH (which is the address on which the front-end is running).<br/>
 
 ### Step 5: Run "npm start" on terminal within the back-end folder to run the front-end
 
 Run "npm start" on terminal within the front-end folder to run the front-end of the project. <br/>
 <br/>
 
+### **Details of deployment:**
+The application has been deployed using the free version of Digital Ocean. The access to the to Digital Ocean is primarily maintained by Jingjing Liu ([heyitsjj](https://github.com/heyitsjj)), while Zunair Viqar ([Zunairviqar](https://github.com/Zunairviqar)), David Iosilevich ([DavidLevich](https://github.com/DavidLevich)), Ishmal Khalid ([ishmalkhalid](https://github.com/ishmalkhalid)), Ayesha Zafar ([AyeshaZfr](https://github.com/AyeshaZfr)), Yusra Khan ([yusra-khan](https://github.com/yusra-khan)) also are regular users on the server.
 
-
+### **Steps of deployment:**
+The process for deployment particulary required the usage of pm2 to initiate the running of front-end and back-end separately. In each directory, run the 'npm install command' followed by 'pm2 start npm --name {*Any Name*} -- start'. One thing to ensure is that the pm2, node and all other packages are installed on the server.
 
 
 ## Other Relevant Markdown Documents or Web Pages
@@ -119,7 +133,7 @@ Run "npm start" on terminal within the front-end folder to run the front-end of 
 <br/>
 
 ## Any Other Notes
-Note: On a local machine, the front-end generally runs on the localhost port 3000, whereas the back-end is set to listen any updates on the localhost port 3001. Make sure that at least port 3001 does not have anything else running before running this project, otherwise modify the line with 'const port = 3001;' to any relevant port that you wish the back-end to run on.
+Note: On a local machine, the front-end generally runs on the localhost port 3000, whereas the back-end is set to listen any updates on the localhost port 3001. Make sure that at least port 3001 does not have anything else running before running this project, otherwise modify the line with 'const port = 3001;' to any relevant port that you wish the back-end to run on. Additionally, the front-end should possibly be running on port:3000, otherwise it results it does not run appropriately.
 <br/>
 <br/>
 
