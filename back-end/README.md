@@ -25,12 +25,12 @@ Since Express JS is the tool used in coding the back-end of the project one must
 
 Some dependencies used in the front-end of the project include: Express.js, Mocha & Chai for unit testing, as well as Istanbul NYC. <br/>
 
-### Step 4: Run "npm start" on terminal within the back-end folder to run the front-end
+### Step 4: Create .env file
+Make sure to have the necessary .env file to communicate with the database and to verify tokens. The .env file should have DB_DOMAIN, JWT_SECRET and FRONT_PATH (which is the address on which the front-end is running).<br/>
+
+### Step 5: Run "npm start" on terminal within the back-end folder to run the front-end
 
 Run "npm start" on terminal within the front-end folder to run the front-end of the project. <br/>
 <br/>
-
-Note: On a local machine, the front-end generally runs on the localhost port 3000, whereas the back-end is set to listen any updates on the localhost port 3001. Make sure that at least port 3001 does not have anything else running before running this project, otherwise modify the line with 'const port = 3001;' to any relevant port that you wish the back-end to run on.
-
 
 
