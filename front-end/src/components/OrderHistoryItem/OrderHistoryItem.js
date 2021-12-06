@@ -5,7 +5,7 @@ import axios from "axios";
 const OrderHistoryItem = (props) => {
   const jwtToken = localStorage.getItem("token");
   if (!jwtToken) {
-    window.location.replace("http://localhost:3000/");
+    window.location.replace("/");
   }
 
   // formate the date

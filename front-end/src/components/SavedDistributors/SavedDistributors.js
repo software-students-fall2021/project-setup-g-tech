@@ -10,14 +10,14 @@ import "./SavedDistributors.css";
 function SavedDistributors() {
   const jwtToken = localStorage.getItem("token");
   if (!jwtToken) {
-    window.location.replace("http://localhost:3000/");
+    window.location.replace("/");
   }
 
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
 
   const fetchData = async () => {
-    const res = await axios.get("http://localhost:3001/saveddistributors", {
+    const res = await axios.get(`${process.env.REACT_APP_URL}/saveddistributors`, {
       headers: { Authorization: `JWT ${jwtToken}` },
     });
     setData(res.data);

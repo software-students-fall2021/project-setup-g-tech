@@ -18,7 +18,7 @@ const Signin = (props) => {
     if (response.success && response.token) {
       console.log(`User successfully logged in: ${response.email}`);
       localStorage.setItem("token", response.token);
-      window.location.replace("http://localhost:3000/usermenu");
+      window.location.replace("/usermenu");
     }
   }, [response]);
 
@@ -35,7 +35,7 @@ const Signin = (props) => {
       password: e.target.password.value,
     };
     const res = await axios.post(
-      "http://localhost:3001/signin-submit",
+      `${process.env.REACT_APP_URL}/signin-submit`,
       requestData
     );
     setResponse(res.data);
