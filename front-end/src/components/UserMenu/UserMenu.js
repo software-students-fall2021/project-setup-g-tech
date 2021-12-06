@@ -11,7 +11,7 @@ import "./UserMenu.css";
 const UserMenu = () => {
   const jwtToken = localStorage.getItem("token");
   if (!jwtToken) {
-    window.location.replace("http://localhost:3000/");
+    window.location.replace("/");
   }
   sessionStorage.removeItem("cart")
   sessionStorage.removeItem("price")
@@ -22,7 +22,7 @@ const UserMenu = () => {
   const [search, setSearch] = useState("");
 
   const fetchData = async () => {
-    const res = await axios.get("http://localhost:3001/usermenu", {
+    const res = await axios.get(`${process.env.REACT_APP_URL}/usermenu`, {
       headers: { Authorization: `JWT ${jwtToken}` },
     });
     setData(res.data);
@@ -30,7 +30,7 @@ const UserMenu = () => {
   useEffect(fetchData, []);
 
   const fetchSaved = async () => {
-    const res = await axios.get("http://localhost:3001/saveddistributors", {
+    const res = await axios.get(`${process.env.REACT_APP_URL}/saveddistributors`, {
       headers: { Authorization: `JWT ${jwtToken}` },
     });
     setSaved(res.data);

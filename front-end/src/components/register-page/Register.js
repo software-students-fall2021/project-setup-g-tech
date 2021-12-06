@@ -12,7 +12,7 @@ const Register = (props) => {
       if (response.success && response.token) {
         console.log(`User successfully registered: ${response.email}`)
         localStorage.setItem("token", response.token)
-        window.location.replace("http://localhost:3000/usermenu")
+        window.location.replace('/usermenu')
       }
     }, [response])
   
@@ -46,7 +46,7 @@ const Register = (props) => {
           repassword: e.target.repassword.value
         }
         const res = await axios.post(
-          'http://localhost:3001/register-submit',
+          `${process.env.REACT_APP_URL}/register-submit`,
           requestData
         )
         setResponse(res.data)
