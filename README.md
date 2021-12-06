@@ -1,4 +1,5 @@
 # Project: Saverie by G-Tech
+_Deployed_: http://137.184.77.128:3000/
 
 ## Assigned roles for Sprint 1
 
