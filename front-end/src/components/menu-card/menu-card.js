@@ -52,7 +52,7 @@ const MenuCard = (props) => {
                 <Counter
                   item={props.name}
                   counterUpdate={counterUpdater}
-                  qty_available={props.qty_available}
+                  qty_available={props.qty_available>0?props.qty_available:0}
                   qty={props.qty}
                 />
               </Col>
