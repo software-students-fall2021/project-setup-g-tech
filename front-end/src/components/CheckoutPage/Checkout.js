@@ -10,7 +10,7 @@ import axios from "axios";
 const Checkout = (props) => {
   const jwtToken = localStorage.getItem("token");
   if (!jwtToken) {
-    window.location.replace("http://localhost:3000/");
+    window.location.replace("/");
   }
 
   let cartItems = JSON.parse(sessionStorage.getItem("cart"));
@@ -30,7 +30,7 @@ const Checkout = (props) => {
   };
   const fetchData = async () => {
     const res = await axios.post(
-      "http://localhost:3001/checkout",
+      `${process.env.REACT_APP_URL}/checkout`,
       cartInfo,
       header
     );
