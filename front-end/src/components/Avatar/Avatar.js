@@ -21,7 +21,7 @@ const Avatar = (props) => {
   const [data, setData] = useState([]);
 
   const fetchUser = async () => {
-    const res = await axios.get("http://localhost:3001/getuser", {
+    const res = await axios.get(`${process.env.REACT_APP_URL}/getuser`, {
       headers: { Authorization: `JWT ${jwtToken}` },
     });
     setData(res.data);

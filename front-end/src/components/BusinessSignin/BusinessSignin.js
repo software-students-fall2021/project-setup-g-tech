@@ -12,7 +12,7 @@ const BusinessSignin = props => {
       console.log(`Restaurant successfully logged in: ${response.email}`)
       localStorage.setItem("token", response.token) // store the token into localStorage
       localStorage.setItem("rest_id", response.id)
-      window.location.replace("http://localhost:3000/business-menu")
+      window.location.replace("/business-menu")
     }
   }, [response])
 
@@ -31,7 +31,7 @@ const BusinessSignin = props => {
     }
     // send a POST request with the data to the server api to authenticate
     const res = await axios.post(
-      'http://localhost:3001/business-signin-submit',
+      `${process.env.REACT_APP_URL}/business-signin-submit`,
       requestData
     )
     setResponse(res.data)

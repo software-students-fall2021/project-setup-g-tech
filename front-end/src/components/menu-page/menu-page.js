@@ -16,7 +16,7 @@ const MenuPage = () => {
   
   const jwtToken = localStorage.getItem('token')
   if (!jwtToken) {
-    window.location.replace("http://localhost:3000/");
+    window.location.replace("/");
   }
 
   const onItemCountChange = (val, item) => {
@@ -54,7 +54,7 @@ const MenuPage = () => {
 
   const [docs, setResData] = useState([]);
   const fetchResData = async () => {
-    const res = await axios.get("http://localhost:3001/getmenu", {
+    const res = await axios.get(`${process.env.REACT_APP_URL}/getmenu`, {
       headers: { Authorization: `JWT ${jwtToken}`, rest_id: _id },
     });
     setResData(res.data);

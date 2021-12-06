@@ -10,7 +10,7 @@ import axios from "axios";
 function PageTimer() {
   const jwtToken = localStorage.getItem("token");
   if (!jwtToken) {
-    window.location.replace("http://localhost:3000/");
+    window.location.replace("/");
   }
 
   const timer = sessionStorage.getItem("timer");
@@ -28,10 +28,10 @@ function PageTimer() {
   // when "cancel" button is clicked, do a post request to change the status of the order to canceled and go back to usermenu page
   const updateHistory = async () => {
     const res = await axios.post(
-      "http://localhost:3001/updateorderstatus",
-      cartInfo,
-      header, 
-      
+
+      `${process.env.REACT_APP_URL}/updateorderstatus`,
+       cartInfo,
+      header
     );
   };
 
@@ -39,7 +39,7 @@ function PageTimer() {
     updateHistory();
     $(".cancel-order-screen").css("display", "block");
     setTimeout(function () {
-      window.location.replace("http://localhost:3000/usermenu");
+      window.location.replace("/usermenu");
     }, 2000);
   };
 

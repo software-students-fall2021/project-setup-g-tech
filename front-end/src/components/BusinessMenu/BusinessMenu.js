@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react"
 const BusinessMenu = (props) => {
     const jwtToken = localStorage.getItem('token')
     const posturl = url.format({
-        pathname: 'http://localhost:3001/menu-submit',
+        pathname: `${process.env.REACT_APP_URL}/menu-submit`,
         headers: { Authorization: `JWT ${jwtToken}` }
     })
     const _id = localStorage.getItem('rest_id')
