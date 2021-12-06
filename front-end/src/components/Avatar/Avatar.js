@@ -42,7 +42,7 @@ const Avatar = (props) => {
         <Modal.Header className="avatar-header" style={{ display: "block" }}>
           <div style={{ display: "flex" }}>
             <h4>Account</h4>
-            <Link to="/">
+            <Link to="/" onClick={handleLogOut}>
               <FontAwesomeIcon icon={faPowerOff} className="logout-button" onClick={handleShow} color='#21a376' />
             </Link>
           </div>
