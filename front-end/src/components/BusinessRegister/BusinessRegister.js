@@ -46,7 +46,7 @@ const BusinessRegister = (props) => {
           repassword: e.target.repassword.value
         }
         const res = await axios.post(
-          'http://localhost:3001//business-register-submit',
+          'http://localhost:3001/business-register-submit',
           requestData
         )
         setResponse(res.data)
@@ -57,7 +57,8 @@ const BusinessRegister = (props) => {
         <div className="Register">
              <HeaderTab pageTitle="Business Registration" returnPath = "/business"/>
              <div className="fields">
-                <form onSubmit={handleSubmit} method="POST">
+                {/* <form onSubmit={handleSubmit} method="POST" enctype="multipart/form-data" role = "form"> */}
+                <form action="http://localhost:3001/business-register-submit" method="POST" enctype="multipart/form-data" role = "form">
                     <Input title="Name" name="name" type='text' placeholder='Top Thai'/>
                     <Input title="Email" name="email" type='email' placeholder='name@example.com'/>
                     <Input title="Location" name="location" type='text' placeholder='310, 23rd St, 3rd Ave'/>
