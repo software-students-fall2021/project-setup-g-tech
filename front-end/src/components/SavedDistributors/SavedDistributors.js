@@ -17,9 +17,12 @@ function SavedDistributors() {
   const [search, setSearch] = useState("");
 
   const fetchData = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_URL}/saveddistributors`, {
-      headers: { Authorization: `JWT ${jwtToken}` },
-    });
+    const res = await axios.get(
+      `${process.env.REACT_APP_URL}/saveddistributors`,
+      {
+        headers: { Authorization: `JWT ${jwtToken}` },
+      }
+    );
     setData(res.data);
   };
   useEffect(fetchData, []);
@@ -30,13 +33,13 @@ function SavedDistributors() {
     );
   };
 
-  const favorites = data.map(e => e._id)
+  const favorites = data.map((e) => e._id);
 
   return (
     <div className="savedListContainer">
       <HeaderTab pageTitle="Saved Distributors" returnPath={"/usermenu"} />
-      <hr />
-      <div className="searchbar">
+
+      <div className="searchHere">
         <div className="mt-3">
           <InputGroup>
             <FormControl
@@ -44,7 +47,7 @@ function SavedDistributors() {
               type="text"
               placeholder="Search"
               aria-label="Search"
-              id="searchtext"
+              id="sText"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -54,7 +57,7 @@ function SavedDistributors() {
           </InputGroup>
         </div>
       </div>
-      <hr />
+
       <div className="listContent">
         <div className="restaurants">
           <ItemsList saved={favorites} list={dynamicSearch()} />

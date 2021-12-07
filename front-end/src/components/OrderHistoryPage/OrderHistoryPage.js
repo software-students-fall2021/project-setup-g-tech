@@ -16,9 +16,12 @@ function OrderHistoryPage() {
   const [search, setSearch] = useState("");
 
   const fetchData = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_URL}/orderhistorypage`, {
-      headers: { Authorization: `JWT ${jwtToken}` },
-    });
+    const res = await axios.get(
+      `${process.env.REACT_APP_URL}/orderhistorypage`,
+      {
+        headers: { Authorization: `JWT ${jwtToken}` },
+      }
+    );
     setData(res.data);
   };
   useEffect(fetchData, []);
@@ -32,8 +35,7 @@ function OrderHistoryPage() {
   return (
     <div className="orderHistoryContainer">
       <HeaderTab pageTitle="Past Orders" returnPath={"/usermenu"} />
-      <hr />
-      <div className="searchbar">
+      <div className="searchHere">
         <div className="mt-3">
           <InputGroup>
             <FormControl
@@ -41,7 +43,7 @@ function OrderHistoryPage() {
               type="text"
               placeholder="Search"
               aria-label="Search"
-              id="searchtext"
+              id="sText"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
