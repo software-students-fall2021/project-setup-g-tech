@@ -37,6 +37,14 @@ const Item = (props) => {
     localStorage.setItem("rest_id", props.details._id);
   };
 
+  let img_src = ''
+  try{
+    img_src = (require("../../uploads/" + props.img).default)
+    }
+    catch(err){
+      img_src = (require("../../images/not_found.jpeg").default);
+    }
+
   const inSaved = props.saved.includes(props.details._id)
 
   return (
@@ -45,7 +53,7 @@ const Item = (props) => {
       <div className="item">
         <Link className="link" to={"/menu"} onClick={handleRestID}>
           <div className="info">
-            <img className="logo rounded" src={props.img} />
+            <img className="logo rounded" src={img_src} />
             <div className="container">
               <p className="title">{props.details.name}</p>
               <p style={{ fontSize: "13px" }} className="desc">

@@ -1,5 +1,4 @@
 import Item from "../Item/Item";
-
 const ItemsList = (props) => {
   const items = props.list
     .sort((a, b) => a.name.localeCompare(b.name))
@@ -7,8 +6,7 @@ const ItemsList = (props) => {
       <Item
         saved={props.saved}
         details={item}
-        // img="https://picsum.photos/200"
-        img = {require("../../uploads/" + item.image).default}
+        img = {item.image}
       />
     ));
   return <div>{items}</div>;
