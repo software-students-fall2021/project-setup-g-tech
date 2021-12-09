@@ -7,8 +7,9 @@ const PicksList = (props) => {
         key={item.id}
         details={item}
         user={props.user}
+        img = {item.image}
         // img="https://picsum.photos/200"
-        img = {require("../../uploads/" + item.image).default}
+        // img = {require("../../uploads/" + item.image).default}
       />
     ))
     .slice(0, 8);
