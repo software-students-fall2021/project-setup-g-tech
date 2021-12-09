@@ -33,7 +33,7 @@ const MenuPage = () => {
         delete prevItems[item["name"]];
         delete previtemPrice[item["name"]];
       } else {
-        if(prevItems[item["name"]] <= item['qty_available']){
+        if(prevItems[item["name"]] <= item['qty_available'] && item['qty_available']>0){
           prevItems[item["name"]] += parseInt(item["qty"]);
         }
         else{
