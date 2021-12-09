@@ -68,8 +68,8 @@ const menuSchema = new mongoose.Schema({
   title: String,
   price: Number,
   quantity: Number,
+  image: String,
   description: String,
-  // image: String
 });
 const restaurantSchema = new mongoose.Schema({
   name: String,
@@ -573,7 +573,7 @@ server.post("/business-signin-submit", function (req, res) {
 });
 
 server.use(express.static(__dirname + "./public/"));
-// Handling Image Uploads
+// Handling Image Uploads for Business Registeration
 var Storage = multer.diskStorage({
   destination: "../front-end/src/uploads/",
   filename: function (req, file, cb) {
@@ -585,7 +585,6 @@ var Storage = multer.diskStorage({
 });
 var Upload = multer({ storage: Storage }).single("file");
 // End of Handling Image File Uploads
-
 
 
 // Start of business restaurant registration
@@ -639,8 +638,21 @@ server.post("/business-register-submit", Upload, async (req, res) => {
 });
 // End of business restaurant registration
 
+// Handling Image Uploads for Business Menu Submission
+var Storage2 = multer.diskStorage({
+  destination: "../front-end/src/uploads/menuImages/",
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+var Upload2 = multer({ storage: Storage2 }).single("file");
+// End of Handling Image File Uploads
+
 //restaurant item addition
-server.post("/menu-submit", function (req, res) {
+server.post("/menu-submit", Upload2 ,async (req, res) => {
   console.log(req.body.id);
   if (
     req.body.category &&
@@ -655,6 +667,7 @@ server.post("/menu-submit", function (req, res) {
       title: req.body.item_name,
       price: req.body.price,
       quantity: req.body.quantity,
+      image: req.file.filename,
       description: req.body.description,
     });
     Restaurant.findByIdAndUpdate(

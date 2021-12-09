@@ -39,7 +39,7 @@ const MenuCard = (props) => {
           <Container>
             <Row className="card-row">
               <Col onClick={handleClick}>
-                <img className="round-img" src={props.img}></img>
+                <img className="round-img" src={props.image}></img>
               </Col>
               <Col onClick={handleClick}>
                 <h5 className="cardtitle">{props.name}</h5>
