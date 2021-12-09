@@ -65,6 +65,7 @@ const BusinessRegister = (props) => {
                     <Input title="Password" name="password" type='password' placeholder='*******'/>
                     <Input title="Re-enter Password"  name="repassword" type='password' placeholder='*******'/>
                     <Input title = "Upload Business Logo" type="file" name="file" />
+                    <Input title = "Upload Cover Photo" type="file" name="file2" />
                     <div class="errorMessage">{error}</div>
                     <div className='button'>
                         <Input className="submitButton" type="submit" value="CREATE ACCOUNT"></Input>

@@ -10,6 +10,7 @@ import ButtonUI from "../ButtonUI/ButtonUI";
 import "./menu-page.css";
 
 const MenuPage = () => {
+  var cover_img = ''
   const countToken = sessionStorage.getItem('totalCount')
   let stateNum = countToken ? JSON.parse(countToken) : 0
   const [totalCounter, setTotalCounter] = useState(stateNum);
@@ -51,7 +52,6 @@ const MenuPage = () => {
   // add restaurants menu from backend
   // fetch data of all restaurants
   const _id = localStorage.getItem("rest_id");
-
   const [docs, setResData] = useState([]);
   const fetchResData = async () => {
     const res = await axios.get(`${process.env.REACT_APP_URL}/getmenu`, {
@@ -73,10 +73,21 @@ const MenuPage = () => {
     sessionStorage.setItem("totalCount", JSON.stringify(totalCounter))
   }
 
+  let cover_photo = ''
+  try{
+    cover_photo = (require("../../uploads/"+ docs.cover_image).default)
+    console.log(docs.cover_image)
+  }
+  catch(err){
+    cover_photo = (require("../../images/not_found.jpeg").default)
+  }
+
   return (
     <>
       <HeaderTab pageTitle={docs.name} returnPath={'/usermenu'} />
-      <ImageCont img="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-burger-tour-1-1539986612.jpg" />
+      {/* <ImageCont img="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-burger-tour-1-1539986612.jpg" /> */}
+      <ImageCont img={cover_photo} />
+
       <div className="scrollmenu">
         {menu_item_arr &&
           menu_item_arr.map((menuItems) => (

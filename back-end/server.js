@@ -77,6 +77,7 @@ const restaurantSchema = new mongoose.Schema({
   password: String,
   location: String,
   image: String,
+  cover_image: String,
   items: [menuSchema],
 });
 
@@ -583,12 +584,18 @@ var Storage = multer.diskStorage({
     );
   },
 });
-var Upload = multer({ storage: Storage }).single("file");
+// var Upload = multer({ storage: Storage }).single("file");
+var upload = multer({ storage: Storage });
+var uploadMultiple = upload.fields([{name: 'file1', maxCount:10},{name: 'file2', maxCount: 10}]);
+
 // End of Handling Image File Uploads
 
 
 // Start of business restaurant registration
-server.post("/business-register-submit", Upload, async (req, res) => {
+server.post("/business-register-submit", uploadMultiple, async (req, res) => {
+  if(req.files){
+    console.log("files uploaded")
+  }
   if (
     req.body.name &&
     req.body.email &&
@@ -611,7 +618,8 @@ server.post("/business-register-submit", Upload, async (req, res) => {
           email: req.body.email,
           location: req.body.location,
           password: encryptedPassword,
-          image: req.file.filename,
+          image: req.files.file1[0].filename,
+          cover_image: req.files.file2[0].filename,
           items: [],
         });
         console.log("Restaurant created");
