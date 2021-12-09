@@ -19,7 +19,7 @@ const BusinessMenu = (props) => {
             {/* {console.log("token id",id)} */}
              <HeaderTab pageTitle="Submit a menu item" returnPath = "/business"/>
              <div className="fields">
-                <form action={posturl} method="POST">
+                <form action={posturl} method="POST" enctype="multipart/form-data" role = "form">
                     <div className="form-group form">
                         <label className='title form-label'>Category</label>
                         <div>
@@ -36,10 +36,10 @@ const BusinessMenu = (props) => {
                     </div>
 
                     <Input title="Item Name" name="item_name" type='text' placeholder='Buffalo Chicken Burger'/>
-                    <Input  name="id" type="hidden" value={_id}/>
-
+                    <Input name="id" type="hidden" value={_id}/>
                     <Input title="Price" name="price" type='text' placeholder='10'/>
                     <Input title="Quantity" name="quantity" type='text' placeholder='3'/>
+                    <Input title = "Upload Item Image" type="file" name="file" />
 
                     <div className="form-group form">
                         <label className='title form-label'>Description</label>

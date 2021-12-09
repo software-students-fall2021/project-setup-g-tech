@@ -13,7 +13,7 @@ const MenuPage = () => {
   const countToken = sessionStorage.getItem('totalCount')
   let stateNum = countToken ? JSON.parse(countToken) : 0
   const [totalCounter, setTotalCounter] = useState(stateNum);
-  
+  let src = ''
   const jwtToken = localStorage.getItem('token')
   if (!jwtToken) {
     window.location.replace("/");
@@ -98,6 +98,12 @@ const MenuPage = () => {
               {items &&
                 items.map((item) => {
                   if (item.type == menuItem) {
+                    try{
+                      src = (require("../../uploads/menuImages/" + item.image).default)
+                      }
+                      catch(err){
+                        src = ((require("../../images/not_found.jpeg").default));
+                      }
                     return (
                       <MenuCard
                         menuCountUpdater={onItemCountChange}
@@ -106,6 +112,9 @@ const MenuPage = () => {
                         price={item.price}
                         description={item.description}
                         qty_available={item.quantity}
+                        image = {src}
+                        // image = {"https://picsum.photos/200"}
+                        // image = {require("../../uploads/menuImages/" + item.image).default}
                       />
                     );
                   }
