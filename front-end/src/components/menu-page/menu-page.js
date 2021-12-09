@@ -33,7 +33,7 @@ const MenuPage = () => {
         delete prevItems[item["name"]];
         delete previtemPrice[item["name"]];
       } else {
-        if(prevItems[item["name"]] < item['qty_available']){
+        if(prevItems[item["name"]] <= item['qty_available']){
           prevItems[item["name"]] += parseInt(item["qty"]);
         }
         else{
@@ -42,8 +42,13 @@ const MenuPage = () => {
         
       }
     } else {
-      prevItems[item["name"]] = 1;
-      previtemPrice[item["name"]] = item["price"];
+      if(item['qty_available']>0){
+        prevItems[item["name"]] = 1;
+        previtemPrice[item["name"]] = item["price"];
+    }
+    else{
+      console.log('Added Max items to cart')
+    }
     }
     sessionStorage.setItem("cart", JSON.stringify(prevItems));
     sessionStorage.setItem("price", JSON.stringify(previtemPrice));
