@@ -11,9 +11,7 @@ import "./menu-page.css";
 
 const MenuPage = () => {
   var cover_img = ''
-  const countToken = sessionStorage.getItem('totalCount')
-  let stateNum = countToken ? JSON.parse(countToken) : 0
-  const [totalCounter, setTotalCounter] = useState(stateNum);
+  const [totalCounter, setTotalCounter] = useState(0);
   let src = ''
   const jwtToken = localStorage.getItem('token')
   if (!jwtToken) {
@@ -33,7 +31,7 @@ const MenuPage = () => {
         delete prevItems[item["name"]];
         delete previtemPrice[item["name"]];
       } else {
-        if(prevItems[item["name"]] <= item['qty_available'] && item['qty_available']>0){
+        if(prevItems[item["name"]] < item['qty_available'] && item['qty_available']>0){
           prevItems[item["name"]] += parseInt(item["qty"]);
         }
         else{
@@ -74,9 +72,7 @@ const MenuPage = () => {
     });
   // ======================================================
 
-  const handleClick = () => {
-    sessionStorage.setItem("totalCount", JSON.stringify(totalCounter))
-  }
+ 
 
   let cover_photo = ''
   try{
@@ -89,7 +85,9 @@ const MenuPage = () => {
 
   return (
     <>
-      <HeaderTab className='HeaderTab' pageTitle={docs.name} returnPath={'/usermenu'} />
+
+      <HeaderTab pageTitle={docs.name} returnPath={'/usermenu'} />
+
       {/* <ImageCont img="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-burger-tour-1-1539986612.jpg" /> */}
       <ImageCont img={cover_photo} />
 
@@ -139,11 +137,11 @@ const MenuPage = () => {
           </div>
         ))}
 
-      {totalCounter > 0 && (
+        { sessionStorage.getItem("cart") && Object.keys(JSON.parse(sessionStorage.getItem("cart"))).length > 0 &&(
         <div className="floatBtn">
           <div className="floatBtnChild">
             <Link to={"/checkout"}>
-              <ButtonUI width="200px" radius="8px" onClick={handleClick}>
+              <ButtonUI width="200px" radius="8px">
                 Claim
               </ButtonUI>
             </Link>
