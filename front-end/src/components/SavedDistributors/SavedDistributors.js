@@ -35,31 +35,33 @@ function SavedDistributors() {
   return (
     <div className="savedListContainer">
       <HeaderTab pageTitle="Saved Distributors" returnPath={"/usermenu"} />
-      <hr />
-      <div className="searchbar">
-        <div className="mt-3 searchbg">
-          <InputGroup>
-            <FormControl
-              as="input"
-              type="text"
-              placeholder="Search"
-              aria-label="Search"
-              id="searchtext"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              style={{borderRadius: "20px", marginLeft: "7%", marginRight: "7%"}}
-            />
-            {/* <InputGroup.Text id="searchicon">
-              <FontAwesomeIcon icon={faSearch} />
-            </InputGroup.Text> */}
-              <FontAwesomeIcon icon={faSearch} className="search--icon" style={{color: "#6c757d" }}/>
-          </InputGroup>
+      <div className='below-header'>
+        <hr />
+        <div className="searchbar">
+          <div className="mt-3 searchbg">
+            <InputGroup>
+              <FormControl
+                as="input"
+                type="text"
+                placeholder="Search"
+                aria-label="Search"
+                id="searchtext"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                style={{borderRadius: "20px", marginLeft: "7%", marginRight: "7%"}}
+              />
+              {/* <InputGroup.Text id="searchicon">
+                <FontAwesomeIcon icon={faSearch} />
+              </InputGroup.Text> */}
+                <FontAwesomeIcon icon={faSearch} className="search--icon" style={{color: "#6c757d" }}/>
+            </InputGroup>
+          </div>
         </div>
-      </div>
-      {/* <hr /> */}
-      <div className="listContent">
-        <div className="restaurants">
-          <ItemsList saved={favorites} list={dynamicSearch()} />
+        {/* <hr /> */}
+        <div className="listContent">
+          <div className="restaurants">
+            <ItemsList saved={favorites} list={dynamicSearch()} />
+          </div>
         </div>
       </div>
     </div>

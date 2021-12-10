@@ -89,7 +89,7 @@ const MenuPage = () => {
 
   return (
     <>
-      <HeaderTab pageTitle={docs.name} returnPath={'/usermenu'} />
+      <HeaderTab className='HeaderTab' pageTitle={docs.name} returnPath={'/usermenu'} />
       {/* <ImageCont img="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-burger-tour-1-1539986612.jpg" /> */}
       <ImageCont img={cover_photo} />
 
