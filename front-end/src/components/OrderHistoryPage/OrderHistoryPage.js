@@ -44,10 +44,13 @@ function OrderHistoryPage() {
               id="searchtext"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              style={{borderRadius: "20px", marginLeft: "7%", marginRight: "7%"}}
+
             />
-            <InputGroup.Text id="searchicon">
+            {/* <InputGroup.Text id="searchicon">
               <FontAwesomeIcon icon={faSearch} />
-            </InputGroup.Text>
+            </InputGroup.Text> */}
+              <FontAwesomeIcon icon={faSearch} className="search--icon" style={{color: "#6c757d" }}/>
           </InputGroup>
         </div>
       </div>
