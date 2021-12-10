@@ -30,33 +30,35 @@ function OrderHistoryPage() {
   };
 
   return (
-    <div className="orderHistoryContainer">
+    <div className="orderHistoryContainer" style={{display: 'flow-root'}}>
       <HeaderTab pageTitle="Past Orders" returnPath={"/usermenu"} />
-      <hr />
-      <div className="searchbar">
-        <div className="mt-3">
-          <InputGroup>
-            <FormControl
-              as="input"
-              type="text"
-              placeholder="Search"
-              aria-label="Search"
-              id="searchtext"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              style={{borderRadius: "20px", marginLeft: "7%", marginRight: "7%"}}
+      <div style={{ marginTop: '16%' }}>
+        <hr />
+        <div className="searchbar">
+          <div className="mt-3">
+            <InputGroup>
+              <FormControl
+                as="input"
+                type="text"
+                placeholder="Search"
+                aria-label="Search"
+                id="searchtext"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                style={{borderRadius: "20px", marginLeft: "7%", marginRight: "7%"}}
 
-            />
-            {/* <InputGroup.Text id="searchicon">
-              <FontAwesomeIcon icon={faSearch} />
-            </InputGroup.Text> */}
-              <FontAwesomeIcon icon={faSearch} className="search--icon" style={{color: "#6c757d" }}/>
-          </InputGroup>
-        </div>
-      </div>
-      <div className="pastOrderList">
-        <div className="orders">
-          <OrderHistoryList list={dynamicSearch()} />
+              />
+              {/* <InputGroup.Text id="searchicon">
+                <FontAwesomeIcon icon={faSearch} />
+              </InputGroup.Text> */}
+                <FontAwesomeIcon icon={faSearch} className="search--icon" style={{color: "#6c757d" }}/>
+            </InputGroup>
+          </div>
+          <div className="pastOrderList">
+            <div className="orders">
+              <OrderHistoryList list={dynamicSearch()} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
