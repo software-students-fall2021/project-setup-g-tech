@@ -37,7 +37,7 @@ function SavedDistributors() {
       <HeaderTab pageTitle="Saved Distributors" returnPath={"/usermenu"} />
       <hr />
       <div className="searchbar">
-        <div className="mt-3">
+        <div className="mt-3 searchbg">
           <InputGroup>
             <FormControl
               as="input"
@@ -47,14 +47,16 @@ function SavedDistributors() {
               id="searchtext"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              style={{borderRadius: "20px", marginLeft: "7%", marginRight: "7%"}}
             />
-            <InputGroup.Text id="searchicon">
+            {/* <InputGroup.Text id="searchicon">
               <FontAwesomeIcon icon={faSearch} />
-            </InputGroup.Text>
+            </InputGroup.Text> */}
+              <FontAwesomeIcon icon={faSearch} className="search--icon" style={{color: "#6c757d" }}/>
           </InputGroup>
         </div>
       </div>
-      <hr />
+      {/* <hr /> */}
       <div className="listContent">
         <div className="restaurants">
           <ItemsList saved={favorites} list={dynamicSearch()} />
