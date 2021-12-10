@@ -9,7 +9,7 @@ const Counter = (props) => {
   const [counter, setCounter] = useState(cart && cart[item] ? cart[item] : 0);
 
   const handleClick1 = () => {
-    if (counter < props.qty_available) {
+    if (props.qty_available>0 && counter < props.qty_available) {
       setCounter(counter + 1);
       count += 1;
     }

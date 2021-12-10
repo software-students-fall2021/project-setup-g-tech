@@ -20,8 +20,9 @@ const MenuCard = (props) => {
       item["qty_available"] = qty_available;
       item["qty"] = val;
       item["price"] = itPrice;
-      props.menuCountUpdater(val, item); //to update count of total selected items
-
+      if(item["qty_available"]>0){
+        props.menuCountUpdater(val, item); //to update count of total selected items
+      }
       props.selectionUpdater(item);
     }
   };
