@@ -306,6 +306,7 @@ server.post(
             title: item.title,
             price: item.price,
             quantity: item.quantity + req.body.itemNum[item.title],
+            image: item.image,
             description: item.description,
           });
           Restaurant.findByIdAndUpdate(
@@ -392,6 +393,7 @@ server.post(
             title: item.title,
             price: item.price,
             quantity: item.quantity - items[item.title],
+            image: item.image,
             description: item.description,
           });
           Restaurant.findByIdAndUpdate(
