@@ -346,8 +346,11 @@ server.post(
       })
     );
 
+    const utcNow = new Date(Date.now()); 
+    const nyTime = new Date(utcNow.valueOf()-18000000); 
+    
     const new_history = new History({
-      date: Date.now(),
+      date: nyTime,
       name: req.body.name,
       rest_id: req.body.rest_id,
       items: items,
