@@ -1,12 +1,35 @@
-import "./OrderHistoryItem.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./OrderHistoryItem.css";
 
 const OrderHistoryItem = (props) => {
   const jwtToken = localStorage.getItem("token");
   if (!jwtToken) {
     window.location.replace("/");
   }
+
+  // get request to get the restaurant image
+  const [thisImg, setImg] = useState([]);
+  const restaurantId = props.details.rest_id;
+  const reqData = { rest_id: restaurantId };
+  const header = { headers: { Authorization: `JWT ${jwtToken}` } };
+  let img_src = "";
+
+  const fetchImg = async () => {
+    const res = await axios.post(
+      `${process.env.REACT_APP_URL}/findrestaurantimg`,
+      reqData,
+      header
+    );
+
+    try {
+      img_src = require("../../uploads/" + res.data.img).default;
+    } catch (err) {
+      img_src = require("../../images/not_found.jpeg").default;
+    }
+    setImg(img_src);
+  };
+  useEffect(fetchImg, []);
 
   // formate the date
   const dateString = JSON.stringify(props.details.date);
@@ -29,39 +52,12 @@ const OrderHistoryItem = (props) => {
     }
   }
 
-  /* To be done by jj: 
-  // get request to get the restaurant image
-    const [data, setData] = useState([]);
-  const [thisImg, setImg] = useState([]);
-  const restaurantId = props.details.rest_id;
-  console.log(restaurantId);
-  const reqData = { rest_id: restaurantId };
-  const header = { headers: { Authorization: `JWT ${jwtToken}` } };
-  console.log(reqData);
-  const fetchImg = async () => {
-    const res = await axios.post(
-      "http://localhost:3001/findrestaurantimg",
-      header,
-      reqData
-    );
-    setData(res.data);
-
-    if (!data.success) {
-      setImg(data.img);
-    } else {
-      setImg(require("../../uploads/" + data.img).default);
-    }
-  };
-  useEffect(fetchImg, []);
-*/
   return (
     <div>
       <hr />
-      {/* It is linked to /usermenu for now. But it should be linked to a new page 
-            called order detail, and will be modified when order detial page is finished.*/}
-      <div className="link">
+      <div>
         <div className="order">
-          <img className="logo rounded" src={props.img} />
+          <img className="logo rounded" src={thisImg} />
           <div className="container">
             <p className="title">{props.details.name}</p>
             <p style={{ fontSize: "13px" }} className="desc">

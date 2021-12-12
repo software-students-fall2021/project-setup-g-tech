@@ -16,9 +16,12 @@ function OrderHistoryPage() {
   const [search, setSearch] = useState("");
 
   const fetchData = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_URL}/orderhistorypage`, {
-      headers: { Authorization: `JWT ${jwtToken}` },
-    });
+    const res = await axios.get(
+      `${process.env.REACT_APP_URL}/orderhistorypage`,
+      {
+        headers: { Authorization: `JWT ${jwtToken}` },
+      }
+    );
     setData(res.data);
   };
   useEffect(fetchData, []);
@@ -30,9 +33,9 @@ function OrderHistoryPage() {
   };
 
   return (
-    <div className="orderHistoryContainer" style={{display: 'flow-root'}}>
+    <div className="orderHistoryContainer" style={{ display: "flow-root" }}>
       <HeaderTab pageTitle="Past Orders" returnPath={"/usermenu"} />
-      <div style={{ marginTop: '16%' }}>
+      <div style={{ marginTop: "16%" }}>
         <hr />
         <div className="searchbar">
           <div className="mt-3">
@@ -45,13 +48,20 @@ function OrderHistoryPage() {
                 id="searchtext"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                style={{borderRadius: "20px", marginLeft: "7%", marginRight: "7%"}}
-
+                style={{
+                  borderRadius: "20px",
+                  marginLeft: "7%",
+                  marginRight: "7%",
+                }}
               />
               {/* <InputGroup.Text id="searchicon">
                 <FontAwesomeIcon icon={faSearch} />
               </InputGroup.Text> */}
-                <FontAwesomeIcon icon={faSearch} className="search--icon" style={{color: "#6c757d" }}/>
+              <FontAwesomeIcon
+                icon={faSearch}
+                className="search--icon"
+                style={{ color: "#6c757d" }}
+              />
             </InputGroup>
           </div>
           <div className="pastOrderList">

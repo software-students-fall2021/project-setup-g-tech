@@ -17,9 +17,12 @@ function SavedDistributors() {
   const [search, setSearch] = useState("");
 
   const fetchData = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_URL}/saveddistributors`, {
-      headers: { Authorization: `JWT ${jwtToken}` },
-    });
+    const res = await axios.get(
+      `${process.env.REACT_APP_URL}/saveddistributors`,
+      {
+        headers: { Authorization: `JWT ${jwtToken}` },
+      }
+    );
     setData(res.data);
   };
   useEffect(fetchData, []);
@@ -30,12 +33,12 @@ function SavedDistributors() {
     );
   };
 
-  const favorites = data.map(e => e._id)
+  const favorites = data.map((e) => e._id);
 
   return (
     <div className="savedListContainer">
       <HeaderTab pageTitle="Saved Distributors" returnPath={"/usermenu"} />
-      <div className='below-header'>
+      <div className="below-header">
         <hr />
         <div className="searchbar">
           <div className="mt-3 searchbg">
@@ -48,12 +51,20 @@ function SavedDistributors() {
                 id="searchtext"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                style={{borderRadius: "20px", marginLeft: "7%", marginRight: "7%"}}
+                style={{
+                  borderRadius: "20px",
+                  marginLeft: "7%",
+                  marginRight: "7%",
+                }}
               />
               {/* <InputGroup.Text id="searchicon">
                 <FontAwesomeIcon icon={faSearch} />
               </InputGroup.Text> */}
-                <FontAwesomeIcon icon={faSearch} className="search--icon" style={{color: "#6c757d" }}/>
+              <FontAwesomeIcon
+                icon={faSearch}
+                className="search--icon"
+                style={{ color: "#6c757d" }}
+              />
             </InputGroup>
           </div>
         </div>

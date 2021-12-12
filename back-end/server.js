@@ -134,7 +134,7 @@ server.get(
 //access user name
 server.get(
   "/getuser",
-  passport.authenticate("jwt", { session: false}),
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const restid = req.user.id;
     User.findById(restid, (err, docs) => {
@@ -197,27 +197,22 @@ server.get(
   }
 );
 
-/* to be done by jj: access restaurant image from order history page
+// to be done by jj: access restaurant image from order history page
 server.post(
   "/findrestaurantimg",
   passport.authenticate("jwt", { session: false }),
   (req, res, next) => {
-    console.log(req.body.rest_id); 
+    console.log(req.body.rest_id);
     Restaurant.findById(req.body.rest_id, (err, docs) => {
       if (err || docs.length == 0) {
         console.log("Restaurant not found");
         res.status(404);
       } else {
-        if (docs.image.length == 0){
-          res.json({ success: false, img: "https://picsum.photos/200"}); 
-        }else {
-          res.json( {success: true, img: docs.image }); 
-        }
+        res.json({ img: docs.image });
       }
-    }); 
+    });
   }
 );
-*/
 
 //order history page: retrive data from history schema
 server.get(
@@ -247,7 +242,7 @@ server.post(
   "/updateorderstatus",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log('req.body: ',req.body)
+    console.log("req.body: ", req.body);
     const id = req.user.id;
     if (req.body.action == "cancel") {
       User.findById(id, (err, docs) => {
@@ -276,9 +271,11 @@ server.post(
                 order.date.getDate() === latestDate.getDate() &&
                 order.date.getTime() === latestDate.getTime()
               ) {
-                order.status = "Canceled"; 
-                docs.save()
-                console.log("Order Status is successfully updated to Canceled!")
+                order.status = "Canceled";
+                docs.save();
+                console.log(
+                  "Order Status is successfully updated to Canceled!"
+                );
                 break;
               }
               continue;
@@ -289,18 +286,19 @@ server.post(
     } else {
       console.log("Request Action is not cancel");
     }
-    Restaurant.findById(
-      req.body.rest_id,(err, doc) => {
-      for(let item of doc.items ){
-        if(Object.keys(req.body.itemNum).includes(item.title)){
-          console.log('item: ',item)
+    Restaurant.findById(req.body.rest_id, (err, doc) => {
+      for (let item of doc.items) {
+        if (Object.keys(req.body.itemNum).includes(item.title)) {
+          console.log("item: ", item);
           Restaurant.findByIdAndUpdate(
             req.body.rest_id,
-            { $pull: { items: item} },
+            { $pull: { items: item } },
             { safe: true, upsert: true },
             (err, doc) => {
               if (err) console.log(err);
-              else{console.log('pulled')}
+              else {
+                console.log("pulled");
+              }
             }
           );
           const new_item = new Item({
@@ -312,18 +310,18 @@ server.post(
           });
           Restaurant.findByIdAndUpdate(
             req.body.rest_id,
-            { $push: { items: new_item} },
+            { $push: { items: new_item } },
             { safe: true, upsert: true },
             (err, doc) => {
               if (err) console.log(err);
-              else{console.log('pushed')}
+              else {
+                console.log("pushed");
+              }
             }
           );
-            
         }
       }
-    }
-    )
+    });
   }
 );
 
@@ -332,11 +330,10 @@ server.post(
   "/checkout",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-
     let sum = 0;
     let items = req.body.itemNum;
     delete items["undefined"];
-    console.log(req.body.rest_id); 
+    console.log(req.body.rest_id);
 
     Object.entries(items).map(([key, value]) =>
       Object.entries(req.body.itemPrices).map(([name, price]) => {
@@ -347,8 +344,11 @@ server.post(
       })
     );
 
+    const utcNow = new Date(Date.now());
+    const nyTime = new Date(utcNow.valueOf() - 18000000);
+
     const new_history = new History({
-      date: Date.now(),
+      date: nyTime,
       name: req.body.name,
       rest_id: req.body.rest_id,
       items: items,
@@ -372,18 +372,19 @@ server.post(
         }
       }
     );
-    Restaurant.findById(
-      req.body.rest_id,(err, doc) => {
-      for(let item of doc.items ){
-        if(Object.keys(items).includes(item.title)){
-          console.log('item: ',item)
+    Restaurant.findById(req.body.rest_id, (err, doc) => {
+      for (let item of doc.items) {
+        if (Object.keys(items).includes(item.title)) {
+          console.log("item: ", item);
           Restaurant.findByIdAndUpdate(
             req.body.rest_id,
-            { $pull: { items: item} },
+            { $pull: { items: item } },
             { safe: true, upsert: true },
             (err, doc) => {
               if (err) console.log(err);
-              else{console.log('pulled')}
+              else {
+                console.log("pulled");
+              }
             }
           );
           const new_item = new Item({
@@ -395,18 +396,18 @@ server.post(
           });
           Restaurant.findByIdAndUpdate(
             req.body.rest_id,
-            { $push: { items: new_item} },
+            { $push: { items: new_item } },
             { safe: true, upsert: true },
             (err, doc) => {
               if (err) console.log(err);
-              else{console.log('pushed')}
+              else {
+                console.log("pushed");
+              }
             }
           );
-            
         }
       }
-    }
-    )
+    });
 
     // // Update item quantity
     // for(let key of Object.keys(items)){
@@ -461,7 +462,7 @@ server.post("/register-submit", async (req, res) => {
       if (docs.length || err) {
         console.log("Email taken");
         res.status(400);
-        console.log("YES")
+        console.log("YES");
         return res.redirect(`${front_path}/register`);
         // `${front_path}/register`
       } else {
@@ -555,15 +556,15 @@ server.post("/business-signin-submit", function (req, res) {
               id: restaurant.id,
             }); // send the token to the client to store
           } else {
-              console.log("Incorrect password");
-              console.log(restaurant.password);
-              console.log(req.body.password);
-              return res
-                .status(401)
-                .json({ success: false, message: "incorrect password" });
+            console.log("Incorrect password");
+            console.log(restaurant.password);
+            console.log(req.body.password);
+            return res
+              .status(401)
+              .json({ success: false, message: "incorrect password" });
           }
         });
-      }  
+      }
     });
   }
   // ========================================================
@@ -586,15 +587,17 @@ var Storage = multer.diskStorage({
 });
 // var Upload = multer({ storage: Storage }).single("file");
 var upload = multer({ storage: Storage });
-var uploadMultiple = upload.fields([{name: 'file1', maxCount:10},{name: 'file2', maxCount: 10}]);
+var uploadMultiple = upload.fields([
+  { name: "file1", maxCount: 10 },
+  { name: "file2", maxCount: 10 },
+]);
 
 // End of Handling Image File Uploads
 
-
 // Start of business restaurant registration
 server.post("/business-register-submit", uploadMultiple, async (req, res) => {
-  if(req.files){
-    console.log("files uploaded")
+  if (req.files) {
+    console.log("files uploaded");
   }
   if (
     req.body.name &&
@@ -633,7 +636,6 @@ server.post("/business-register-submit", uploadMultiple, async (req, res) => {
         res.redirect(
           url.format({
             pathname: `${front_path}/business-signin`,
-            
           })
         );
       }
@@ -660,7 +662,7 @@ var Upload2 = multer({ storage: Storage2 }).single("file");
 // End of Handling Image File Uploads
 
 //restaurant item addition
-server.post("/menu-submit", Upload2 ,async (req, res) => {
+server.post("/menu-submit", Upload2, async (req, res) => {
   console.log(req.body.id);
   if (
     req.body.category &&
