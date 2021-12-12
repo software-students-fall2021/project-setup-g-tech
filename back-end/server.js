@@ -204,7 +204,7 @@ server.post(
   (req, res, next) => {
     console.log(req.body.rest_id);
     Restaurant.findById(req.body.rest_id, (err, docs) => {
-      if (err || docs.length == 0) {
+      if (err || !docs) {
         console.log("Restaurant not found");
         res.status(404);
       } else {
