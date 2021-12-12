@@ -5,6 +5,10 @@
     margin-bottom: 20px;
 }
 
+.heading {
+    padding-top: 16%;
+}
+
 h2, h4 {
     font-weight: 600;
 }
@@ -15,6 +19,8 @@ h2, h4 {
 
 .pick-up {
     padding-top: 50px;
+    margin-left: 5%;
+    margin-bottom: 5%;
 }
 /* 
 .checkoutButton {

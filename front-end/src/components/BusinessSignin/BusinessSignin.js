@@ -2,6 +2,7 @@ import HeaderTab from '../header-tab/HeaderTab';
 import Input from '../input-field/Input';
 import React, { useState, useEffect } from "react"
 import axios from "axios"
+
 const BusinessSignin = props => {
   const [response, setResponse] = useState({})
   const [error, setError] = useState(' ');
@@ -40,7 +41,7 @@ const BusinessSignin = props => {
       return (
         <div className="Signin">
           <HeaderTab pageTitle="Sign in" returnPath = "/business"/>
-          <form className="fields" onSubmit={handleSubmit} method="POST">
+          <form className="fields" onSubmit={handleSubmit} method="POST" style={{paddingTop: '16%'}}>
             <Input title="Email" name="email" type='email' placeholder='name@example.com'/>
             <Input title="Password" name="password" type='password' placeholder='*******'/>
             <div class="errorMessage">{error}</div>
