@@ -57,7 +57,7 @@ const Register = (props) => {
         <div className="Register">
              <HeaderTab pageTitle="Let's begin!" returnPath = "/"/>
              <div className="fields">
-             <form onSubmit={handleSubmit} method="POST">
+             <form onSubmit={handleSubmit} method="POST" style={{marginTop: '10%'}}>
                 <Input title="First Name" name="first_name" type='text' placeholder='Jane'/>
                 <Input title="Last Name" name="last_name" type='text' placeholder='Miller'/>
                 <Input title="Email" name="email" type='email' placeholder='name@example.com'/>

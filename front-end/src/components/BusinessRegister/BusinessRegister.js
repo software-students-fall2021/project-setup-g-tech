@@ -58,7 +58,7 @@ const BusinessRegister = (props) => {
              <HeaderTab pageTitle="Business Registration" returnPath = "/business"/>
              <div className="fields">
                 {/* <form onSubmit={handleSubmit} method="POST" enctype="multipart/form-data" role = "form"> */}
-                <form action={`${process.env.REACT_APP_URL}/business-register-submit`} method="POST" encType="multipart/form-data" role = "form">
+                <form action={`${process.env.REACT_APP_URL}/business-register-submit`} method="POST" encType="multipart/form-data" role = "form" style={{marginTop: '10%'}}>
                     <Input title="Name" name="name" type='text' placeholder='Top Thai'/>
                     <Input title="Email" name="email" type='email' placeholder='name@example.com'/>
                     <Input title="Location" name="location" type='text' placeholder='310, 23rd St, 3rd Ave'/>
