@@ -58,14 +58,15 @@ const BusinessRegister = (props) => {
              <HeaderTab pageTitle="Business Registration" returnPath = "/business"/>
              <div className="fields">
                 {/* <form onSubmit={handleSubmit} method="POST" enctype="multipart/form-data" role = "form"> */}
-                <form action={`${process.env.REACT_APP_URL}/business-register-submit`} method="POST" enctype="multipart/form-data" role = "form">
+                <form action={`${process.env.REACT_APP_URL}/business-register-submit`} method="POST" encType="multipart/form-data" role = "form">
                     <Input title="Name" name="name" type='text' placeholder='Top Thai'/>
                     <Input title="Email" name="email" type='email' placeholder='name@example.com'/>
                     <Input title="Location" name="location" type='text' placeholder='310, 23rd St, 3rd Ave'/>
                     <Input title="Password" name="password" type='password' placeholder='*******'/>
                     <Input title="Re-enter Password"  name="repassword" type='password' placeholder='*******'/>
-                    <Input title = "Upload Business Logo" type="file" name="file" />
-                    <div class="errorMessage">{error}</div>
+                    <Input title = "Upload Business Logo" type="file" name="file1" />
+                    <Input title = "Upload Cover Photo" type="file" name="file2" />
+                    <div className="errorMessage">{error}</div>
                     <div className='button'>
                         <Input className="submitButton" type="submit" value="CREATE ACCOUNT"></Input>
                     </div>

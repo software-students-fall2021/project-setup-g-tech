@@ -10,10 +10,9 @@ import ButtonUI from "../ButtonUI/ButtonUI";
 import "./menu-page.css";
 
 const MenuPage = () => {
-  const countToken = sessionStorage.getItem('totalCount')
-  let stateNum = countToken ? JSON.parse(countToken) : 0
-  const [totalCounter, setTotalCounter] = useState(stateNum);
-  
+  var cover_img = ''
+  const [totalCounter, setTotalCounter] = useState(0);
+  let src = ''
   const jwtToken = localStorage.getItem('token')
   if (!jwtToken) {
     window.location.replace("/");
@@ -32,7 +31,7 @@ const MenuPage = () => {
         delete prevItems[item["name"]];
         delete previtemPrice[item["name"]];
       } else {
-        if(prevItems[item["name"]] < item['qty_available']){
+        if(prevItems[item["name"]] < item['qty_available'] && item['qty_available']>0){
           prevItems[item["name"]] += parseInt(item["qty"]);
         }
         else{
@@ -41,8 +40,13 @@ const MenuPage = () => {
         
       }
     } else {
-      prevItems[item["name"]] = 1;
-      previtemPrice[item["name"]] = item["price"];
+      if(item['qty_available']>0){
+        prevItems[item["name"]] = 1;
+        previtemPrice[item["name"]] = item["price"];
+    }
+    else{
+      console.log('Added Max items to cart')
+    }
     }
     sessionStorage.setItem("cart", JSON.stringify(prevItems));
     sessionStorage.setItem("price", JSON.stringify(previtemPrice));
@@ -51,7 +55,6 @@ const MenuPage = () => {
   // add restaurants menu from backend
   // fetch data of all restaurants
   const _id = localStorage.getItem("rest_id");
-
   const [docs, setResData] = useState([]);
   const fetchResData = async () => {
     const res = await axios.get(`${process.env.REACT_APP_URL}/getmenu`, {
@@ -69,14 +72,25 @@ const MenuPage = () => {
     });
   // ======================================================
 
-  const handleClick = () => {
-    sessionStorage.setItem("totalCount", JSON.stringify(totalCounter))
+ 
+
+  let cover_photo = ''
+  try{
+    cover_photo = (require("../../uploads/"+ docs.cover_image).default)
+    console.log(docs.cover_image)
+  }
+  catch(err){
+    cover_photo = (require("../../images/not_found.jpeg").default)
   }
 
   return (
     <>
+
       <HeaderTab pageTitle={docs.name} returnPath={'/usermenu'} />
-      <ImageCont img="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-burger-tour-1-1539986612.jpg" />
+
+      {/* <ImageCont img="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-burger-tour-1-1539986612.jpg" /> */}
+      <ImageCont img={cover_photo} />
+
       <div className="scrollmenu">
         {menu_item_arr &&
           menu_item_arr.map((menuItems) => (
@@ -98,6 +112,12 @@ const MenuPage = () => {
               {items &&
                 items.map((item) => {
                   if (item.type == menuItem) {
+                    try{
+                      src = (require("../../uploads/menuImages/" + item.image).default)
+                      }
+                      catch(err){
+                        src = ((require("../../images/not_found.jpeg").default));
+                      }
                     return (
                       <MenuCard
                         menuCountUpdater={onItemCountChange}
@@ -106,6 +126,9 @@ const MenuPage = () => {
                         price={item.price}
                         description={item.description}
                         qty_available={item.quantity}
+                        image = {src}
+                        // image = {"https://picsum.photos/200"}
+                        // image = {require("../../uploads/menuImages/" + item.image).default}
                       />
                     );
                   }
@@ -114,11 +137,11 @@ const MenuPage = () => {
           </div>
         ))}
 
-      {totalCounter > 0 && (
+        { sessionStorage.getItem("cart") && Object.keys(JSON.parse(sessionStorage.getItem("cart"))).length > 0 &&(
         <div className="floatBtn">
           <div className="floatBtnChild">
             <Link to={"/checkout"}>
-              <ButtonUI width="200px" radius="8px" onClick={handleClick}>
+              <ButtonUI width="200px" radius="8px">
                 Claim
               </ButtonUI>
             </Link>

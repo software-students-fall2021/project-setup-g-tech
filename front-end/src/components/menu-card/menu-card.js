@@ -20,8 +20,9 @@ const MenuCard = (props) => {
       item["qty_available"] = qty_available;
       item["qty"] = val;
       item["price"] = itPrice;
-      props.menuCountUpdater(val, item); //to update count of total selected items
-
+      if(item["qty_available"]>0){
+        props.menuCountUpdater(val, item); //to update count of total selected items
+      }
       props.selectionUpdater(item);
     }
   };
@@ -39,7 +40,7 @@ const MenuCard = (props) => {
           <Container>
             <Row className="card-row">
               <Col onClick={handleClick}>
-                <img className="round-img" src={props.img}></img>
+                <img className="round-img" src={props.image}></img>
               </Col>
               <Col onClick={handleClick}>
                 <h5 className="cardtitle">{props.name}</h5>

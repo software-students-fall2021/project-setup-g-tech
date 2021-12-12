@@ -4,6 +4,13 @@ section {
     display: inline-block;
 }
 
+.HeaderTab {
+    position: fixed;
+    width: 100%;
+    background-color: white;
+    /* z-index: 100; */
+}
+
 .backIcon {
     width: 10%;
 }

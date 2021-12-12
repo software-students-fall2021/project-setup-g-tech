@@ -7,8 +7,18 @@
 hr {
   color: #808080;
 }
+.search--icon {
+  z-index: 100;
+  margin-top: 3%;
+  display: inline;
+  position: relative;
+  right: 55px;
+}
 
-.searchHere {
-  padding-left: 20px;
-  padding-right: 20px;
+/* .searchbg {
+  background-color: red;
+} */
+
+.below-header {
+  margin-top: 16%;
 }

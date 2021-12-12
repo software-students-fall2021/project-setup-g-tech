@@ -68,8 +68,8 @@ const menuSchema = new mongoose.Schema({
   title: String,
   price: Number,
   quantity: Number,
+  image: String,
   description: String,
-  // image: String
 });
 const restaurantSchema = new mongoose.Schema({
   name: String,
@@ -77,6 +77,7 @@ const restaurantSchema = new mongoose.Schema({
   password: String,
   location: String,
   image: String,
+  cover_image: String,
   items: [menuSchema],
 });
 
@@ -576,7 +577,7 @@ server.post("/business-signin-submit", function (req, res) {
 });
 
 server.use(express.static(__dirname + "./public/"));
-// Handling Image Uploads
+// Handling Image Uploads for Business Registeration
 var Storage = multer.diskStorage({
   destination: "../front-end/src/uploads/",
   filename: function (req, file, cb) {
@@ -586,13 +587,18 @@ var Storage = multer.diskStorage({
     );
   },
 });
-var Upload = multer({ storage: Storage }).single("file");
+// var Upload = multer({ storage: Storage }).single("file");
+var upload = multer({ storage: Storage });
+var uploadMultiple = upload.fields([{name: 'file1', maxCount:10},{name: 'file2', maxCount: 10}]);
+
 // End of Handling Image File Uploads
 
 
-
 // Start of business restaurant registration
-server.post("/business-register-submit", Upload, async (req, res) => {
+server.post("/business-register-submit", uploadMultiple, async (req, res) => {
+  if(req.files){
+    console.log("files uploaded")
+  }
   if (
     req.body.name &&
     req.body.email &&
@@ -615,7 +621,8 @@ server.post("/business-register-submit", Upload, async (req, res) => {
           email: req.body.email,
           location: req.body.location,
           password: encryptedPassword,
-          image: req.file.filename,
+          image: req.files.file1[0].filename,
+          cover_image: req.files.file2[0].filename,
           items: [],
         });
         console.log("Restaurant created");
@@ -642,8 +649,21 @@ server.post("/business-register-submit", Upload, async (req, res) => {
 });
 // End of business restaurant registration
 
+// Handling Image Uploads for Business Menu Submission
+var Storage2 = multer.diskStorage({
+  destination: "../front-end/src/uploads/menuImages/",
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+var Upload2 = multer({ storage: Storage2 }).single("file");
+// End of Handling Image File Uploads
+
 //restaurant item addition
-server.post("/menu-submit", function (req, res) {
+server.post("/menu-submit", Upload2 ,async (req, res) => {
   console.log(req.body.id);
   if (
     req.body.category &&
@@ -658,6 +678,7 @@ server.post("/menu-submit", function (req, res) {
       title: req.body.item_name,
       price: req.body.price,
       quantity: req.body.quantity,
+      image: req.file.filename,
       description: req.body.description,
     });
     Restaurant.findByIdAndUpdate(
