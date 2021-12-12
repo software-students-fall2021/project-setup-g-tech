@@ -25,6 +25,7 @@ const Item = (props) => {
   };
 
   const handleClose = async () => {
+    window.location.reload()
     setShow(false);
     const res = await axios.post(
       `${process.env.REACT_APP_URL}/updateitem`,
