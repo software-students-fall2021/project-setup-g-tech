@@ -1,6 +1,11 @@
 # Project: Saverie by G-Tech
 #### You can access the running version of this application at the following link:
-_Deployed_: http://137.184.77.128:3000/
+_Deployed_: 
+_User_: http://137.184.77.128:3000/
+The above mentioned URL is for the 'user' side, particularly the customers for the application.
+_Business_: http://137.184.77.128:3000/business
+The above mentioned URL is for the 'business' side, particularly the businesses on the application.
+
 
 ### **Assigned roles for Sprint 0 (UX-Design)**
 
