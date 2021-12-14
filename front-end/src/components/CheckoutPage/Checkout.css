@@ -1,0 +1,40 @@
+.heading, h4 {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.heading {
+    padding-top: 16%;
+}
+
+h2, h4 {
+    font-weight: 600;
+}
+
+.order-confirm {
+    padding-top: 20px;
+}
+
+.pick-up {
+    padding-top: 50px;
+    margin-left: 5%;
+    margin-bottom: 5%;
+}
+/* 
+.checkoutButton {
+    position: fixed;
+    bottom: 50px;
+    left: 35%;
+  } */
+
+.checkoutbutt{
+    position:fixed;
+    left: 80px;
+    bottom: 30px;
+    width: 100%;
+    align-items: center;
+    /* margin: 0 auto; */
+}
+  

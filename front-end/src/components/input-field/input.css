@@ -1,0 +1,27 @@
+.form-control {
+    background-color: rgb(238, 237, 237);
+}
+textarea:hover, 
+input:hover, 
+textarea:active, 
+input:active, 
+textarea:focus, 
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active,
+select:active,
+select:hover
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}
+.form {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 6px;
+}

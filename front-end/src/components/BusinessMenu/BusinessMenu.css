@@ -1,0 +1,13 @@
+.CategorySelection {
+    background-color: rgb(238, 237, 237);
+}
+
+.popup {
+    display: none;
+    width: 60%;
+}
+
+.toast-body {
+    font-size: large;
+    font-weight: bold;
+}

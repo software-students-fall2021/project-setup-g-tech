@@ -1,0 +1,21 @@
+.counter{
+    text-align: center;
+    /* padding-left: 2px; */
+    /* padding-right: 2px; */
+}
+button.btn{
+    padding: 0px 8px;
+}
+
+.buttons{
+    margin:0px 3px;
+}
+
+.max {
+    font-size: 16px;
+    color: grey;
+    font-style: italic;
+    padding-top: 10px;
+    text-align: center;
+    padding-right: 8px;
+}

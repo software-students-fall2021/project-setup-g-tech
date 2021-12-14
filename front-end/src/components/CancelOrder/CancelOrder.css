@@ -1,0 +1,13 @@
+.CancelOrder {
+    z-index: 1000;
+}
+
+.me-auto {
+    font-size: large;
+}
+
+.spinner {
+    color: #21a376;
+    margin: auto;
+    display: flex;
+}

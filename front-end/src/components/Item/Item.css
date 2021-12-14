@@ -1,0 +1,42 @@
+.link {
+    color: black;
+}
+
+.link:hover {
+    color: black;
+}
+
+.item {
+    display: flex;
+    flex-direction: row;
+    margin-top: -12px;
+}
+
+.info {
+    display: flex;
+    margin: 18px;
+    margin-bottom: -13px;
+    cursor: pointer;
+}
+
+.logo {
+    width: 4em;
+    height: 3.5em;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.desc {
+    margin-top: -15px;
+}
+
+.heart {
+    margin: auto;
+    cursor: pointer;
+    position: absolute;
+    right: 2em;
+    margin-top: 30px;
+}

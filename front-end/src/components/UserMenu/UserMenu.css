@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+.header {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background-color: #333;
+    padding-bottom: 4%;
+    
+}
+
+.content {
+    z-index: -1;
+    margin-top: 27%;
+}
+
+.searchbar {
+    width: 75%;
+    margin: auto;
+    display: inline;
+}
+
+#searchtext {
+    border-right: hidden;
+}
+
+#searchicon {
+    background-color: white;
+    cursor: pointer;
+}
+
+.picks-title {
+    margin-left: 20px;
+}
+
+.news-title {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5%;
+    margin-bottom: -10px;
+}
+
+.toggle {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#sorticon {
+    margin-top: 6px;
+}
+
+div {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+h4 {
+    font-weight: bold;
+}
+
+.search-icon {
+    z-index: 100;
+    margin-top: 3.5%;
+    display: inline;
+}
+
+.fix-position {
+    position: fixed;
+}

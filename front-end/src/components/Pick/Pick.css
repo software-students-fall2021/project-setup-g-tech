@@ -1,0 +1,33 @@
+.link {
+    color: black;
+}
+
+.link:hover {
+    color: black;
+}
+
+.pick-card {
+    margin: 10px;
+    padding: 0%;
+    background-color: #21a376;
+    border-radius: 10%;
+    padding-top: 2%;
+}
+
+.card {
+    border: hidden;
+}
+
+.card-title {
+    border: hidden;
+    width: 8em;
+    display: flex;
+    font-weight: 500;
+    color: white;
+    padding-top: 5%;
+}
+
+.img-size {
+    width: 110px;
+    height: 110px;
+}

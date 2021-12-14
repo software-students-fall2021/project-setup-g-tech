@@ -1,0 +1,12 @@
+.timer {
+  text-align: center;
+  font-size: 60px;
+}
+
+.timer p {
+  margin-bottom: 0px;
+}
+
+.cancel-order-screen {
+  display: none;
+}

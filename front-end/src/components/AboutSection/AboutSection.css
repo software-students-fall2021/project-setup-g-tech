@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+/* .AboutBlock{
+} */
+.AboutMainHeading h3{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: bold;
+    font-size: 27px;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.AboutRows{
+    max-width: 90%;
+}
+
+.AboutHeading h4{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    padding: 10px;
+}
+
+.AboutContent h5{
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 30px;
+    justify-content: center;
+    /* text-align: justify; */
+
+}
+.AboutImage{
+    width: 40px;
+}
+.HeaderRow{
+    padding-left: 20px;
+}

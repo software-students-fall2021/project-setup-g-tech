@@ -1,0 +1,24 @@
+.savedListContainer {
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+}
+
+hr {
+  color: #808080;
+}
+.search--icon {
+  z-index: 100;
+  margin-top: 3%;
+  display: inline;
+  position: relative;
+  right: 55px;
+}
+
+/* .searchbg {
+  background-color: red;
+} */
+
+.below-header {
+  margin-top: 16%;
+}

@@ -1,0 +1,31 @@
+.text-center{
+    text-align: center;
+}
+
+.table-row{
+    margin-right: 20px;
+    font-style: italic;
+}
+
+.justify-content-center{
+    justify-content: center;
+}
+
+.my-col-4 {
+    width: 20%;
+    text-align: right;
+}
+
+.my-col-2 {
+    width: 60%;
+}
+
+.quantity {
+    text-align: right;
+    padding-right: 10%;
+}
+
+.price {
+    text-align: center;
+    border-bottom: 1px dashed;
+}

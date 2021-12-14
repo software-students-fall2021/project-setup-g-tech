@@ -1,0 +1,46 @@
+.user {
+  width: 52px;
+  margin: auto;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.avatar-modal {
+  width: 64%;
+  top: 8%;
+  left: 32%;
+}
+
+h4 {
+  margin-left: 0%;
+  margin-bottom: 0%;
+  margin-right: 50%;
+}
+
+/* .avatar-footer {
+  height: 10em;
+  margin-bottom: 2em;
+} */
+
+.modal-item {
+  width: 10em;
+  /* height: 2.5em; */
+  color: black;
+  margin: 0%;
+}
+
+.logout-button {
+  margin-top: 30%;
+}
+
+.user-name {
+  margin-top: 10%;
+  margin-bottom: 0%;
+  margin-left: 10%;
+  font-size: 110%;
+}
+
+.user-avatar {
+  margin-top: 7%;
+}
